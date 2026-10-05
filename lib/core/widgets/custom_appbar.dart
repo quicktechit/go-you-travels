@@ -92,7 +92,7 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                             : AppColors.textPrimary,
                       ),
                       onPressed:
-                          onBackTap ?? () => Navigator.of(context).maybePop(),
+                          onBackTap ?? () =>   context.pop(),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                     ),

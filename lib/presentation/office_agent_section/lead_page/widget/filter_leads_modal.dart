@@ -1,5 +1,6 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../provider/lead_provider.dart';
 
 class FilterLeadsModal extends HookConsumerWidget {
@@ -21,10 +22,10 @@ class FilterLeadsModal extends HookConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final sheetBg = isDark ? AppColors.darkSurface : const Color(0xFFF1F2F6);
-    final chipSelectedBg = isDark ? const Color(0xFF064E3B) : const Color(0xFFECFDF5);
-    final chipUnselectedBg = isDark ? AppColors.darkSurfaceHigh : const Color(0xFFF8FAFC);
-    final chipSelectedBorder = isDark ? const Color(0xFF059669) : const Color(0xFFA7F3D0);
+    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
+    final chipSelectedBg = isDark ? AppColors.secondaryDark.withValues(alpha: 0.3) : AppColors.secondaryLight;
+    final chipUnselectedBg = isDark ? AppColors.darkSurfaceHigh : AppColors.background;
+    final chipSelectedBorder = isDark ? AppColors.secondaryDark : AppColors.secondary;
     final chipUnselectedBorder = isDark ? AppColors.darkLine : AppColors.line;
 
     final selectedPriority = useState<String>(state.filterPriority);
@@ -84,13 +85,12 @@ class FilterLeadsModal extends HookConsumerWidget {
                 SizedBox(width: 10.w),
                 Text(
                   'Filter Leads',
-                  style: GoogleFonts.figtree(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    color: isDark
-                        ? AppColors.darkTextPrimary
-                        : AppColors.textPrimary,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: isDark
+                            ? AppColors.darkTextPrimary
+                            : AppColors.textPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ],
             ),
@@ -99,13 +99,12 @@ class FilterLeadsModal extends HookConsumerWidget {
             // 1. Filter by Priority
             Text(
               'Filter by Priority:',
-              style: GoogleFonts.figtree(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.bold,
-                color: isDark
-                    ? AppColors.darkTextSecondary
-                    : AppColors.textPrimary,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.textPrimary,
+                  ),
             ),
             SizedBox(height: 12.h),
             SingleChildScrollView(
@@ -135,18 +134,17 @@ class FilterLeadsModal extends HookConsumerWidget {
                         ),
                         child: Text(
                           option,
-                          style: GoogleFonts.figtree(
-                            fontSize: 12.sp,
-                            fontWeight:
-                                isSelected ? FontWeight.w700 : FontWeight.w500,
-                            color: isSelected
-                                ? (isDark
-                                    ? const Color(0xFF6EE7B7)
-                                    : const Color(0xFF047857))
-                                : (isDark
-                                    ? AppColors.darkTextSecondary
-                                    : AppColors.textSecondary),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight:
+                                    isSelected ? FontWeight.w700 : FontWeight.w500,
+                                color: isSelected
+                                    ? (isDark
+                                        ? const Color(0xFF6EE7B7)
+                                        : const Color(0xFF047857))
+                                    : (isDark
+                                        ? AppColors.darkTextSecondary
+                                        : AppColors.textSecondary),
+                              ),
                         ),
                       ),
                     ),
@@ -159,13 +157,12 @@ class FilterLeadsModal extends HookConsumerWidget {
             // 2. Filter by Destination Country
             Text(
               'Filter by Destination Country:',
-              style: GoogleFonts.figtree(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.bold,
-                color: isDark
-                    ? AppColors.darkTextSecondary
-                    : AppColors.textPrimary,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.textPrimary,
+                  ),
             ),
             SizedBox(height: 12.h),
             SingleChildScrollView(
@@ -195,18 +192,17 @@ class FilterLeadsModal extends HookConsumerWidget {
                         ),
                         child: Text(
                           option,
-                          style: GoogleFonts.figtree(
-                            fontSize: 12.sp,
-                            fontWeight:
-                                isSelected ? FontWeight.w700 : FontWeight.w500,
-                            color: isSelected
-                                ? (isDark
-                                    ? const Color(0xFF6EE7B7)
-                                    : const Color(0xFF047857))
-                                : (isDark
-                                    ? AppColors.darkTextSecondary
-                                    : AppColors.textSecondary),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight:
+                                    isSelected ? FontWeight.w700 : FontWeight.w500,
+                                color: isSelected
+                                    ? (isDark
+                                        ? const Color(0xFF6EE7B7)
+                                        : const Color(0xFF047857))
+                                    : (isDark
+                                        ? AppColors.darkTextSecondary
+                                        : AppColors.textSecondary),
+                              ),
                         ),
                       ),
                     ),
@@ -219,13 +215,12 @@ class FilterLeadsModal extends HookConsumerWidget {
             // 3. Filter by Lead Source
             Text(
               'Filter by Lead Source:',
-              style: GoogleFonts.figtree(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.bold,
-                color: isDark
-                    ? AppColors.darkTextSecondary
-                    : AppColors.textPrimary,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.textPrimary,
+                  ),
             ),
             SizedBox(height: 12.h),
             SingleChildScrollView(
@@ -255,18 +250,17 @@ class FilterLeadsModal extends HookConsumerWidget {
                         ),
                         child: Text(
                           option,
-                          style: GoogleFonts.figtree(
-                            fontSize: 12.sp,
-                            fontWeight:
-                                isSelected ? FontWeight.w700 : FontWeight.w500,
-                            color: isSelected
-                                ? (isDark
-                                    ? const Color(0xFF6EE7B7)
-                                    : const Color(0xFF047857))
-                                : (isDark
-                                    ? AppColors.darkTextSecondary
-                                    : AppColors.textSecondary),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight:
+                                    isSelected ? FontWeight.w700 : FontWeight.w500,
+                                color: isSelected
+                                    ? (isDark
+                                        ? const Color(0xFF6EE7B7)
+                                        : const Color(0xFF047857))
+                                    : (isDark
+                                        ? AppColors.darkTextSecondary
+                                        : AppColors.textSecondary),
+                              ),
                         ),
                       ),
                     ),
@@ -280,23 +274,26 @@ class FilterLeadsModal extends HookConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
+                AppButton(
+                  text: 'Reset All',
+                  variant: AppButtonVariant.text,
+                  textColor: isDark
+                      ? AppColors.darkTextSecondary
+                      : AppColors.primaryDark,
+                  fontSize: 15.sp,
                   onPressed: () {
                     notifier.resetFilters();
                     Navigator.pop(context);
                   },
-                  child: Text(
-                    'Reset All',
-                    style: GoogleFonts.figtree(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w700,
-                      color: isDark
-                          ? AppColors.darkTextSecondary
-                          : AppColors.primaryDark,
-                    ),
-                  ),
                 ),
-                ElevatedButton(
+                AppButton(
+                  text: 'Apply Filters',
+                  backgroundColor: AppColors.primaryDark,
+                  textColor: AppColors.surface,
+                  height: 48.h,
+                  fontSize: 15.sp,
+                  borderRadius: 24.r,
+                  horizontalPadding: 28.w,
                   onPressed: () {
                     notifier.applyFilters(
                       priority: selectedPriority.value,
@@ -305,25 +302,6 @@ class FilterLeadsModal extends HookConsumerWidget {
                     );
                     Navigator.pop(context);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1D4ED8),
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 28.w,
-                      vertical: 14.h,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.r),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    'Apply Filters',
-                    style: GoogleFonts.figtree(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                 ),
               ],
             ),

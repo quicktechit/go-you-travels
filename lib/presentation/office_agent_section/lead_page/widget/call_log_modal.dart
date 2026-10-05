@@ -1,5 +1,6 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../model/lead_model.dart';
 import '../provider/lead_provider.dart';
 
@@ -25,8 +26,8 @@ class CallLogModal extends HookConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final sheetBg = isDark ? AppColors.darkSurface : const Color(0xFFF1F2F6);
-    final cardBg = isDark ? AppColors.darkSurfaceHigh : const Color(0xFFF8FAFC);
+    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
+    final cardBg = isDark ? AppColors.darkSurfaceHigh : AppColors.background;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
     final selectedResult = useState<String>('Scheduled Visit');
@@ -79,13 +80,13 @@ class CallLogModal extends HookConsumerWidget {
                     decoration: BoxDecoration(
                       color: isDark
                           ? AppColors.primary.withValues(alpha: 0.2)
-                          : const Color(0xFFEFF6FF),
+                          : AppColors.primaryLight.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       LucideIcons.phoneCall,
                       size: 22.sp,
-                      color: const Color(0xFF1D4ED8),
+                      color: AppColors.primaryDark,
                     ),
                   ),
                   SizedBox(width: 14.w),
@@ -95,26 +96,23 @@ class CallLogModal extends HookConsumerWidget {
                       children: [
                         Text(
                           'Calling ${lead.name}',
-                          style: GoogleFonts.figtree(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color: isDark
-                                ? AppColors.darkTextPrimary
-                                : AppColors.textPrimary,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                color: isDark
+                                    ? AppColors.darkTextPrimary
+                                    : AppColors.textPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 2.h),
                         Text(
                           lead.phone,
-                          style: GoogleFonts.figtree(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: isDark
-                                ? AppColors.darkTextSecondary
-                                : AppColors.textSecondary,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                color: isDark
+                                    ? AppColors.darkTextSecondary
+                                    : AppColors.textSecondary,
+                              ),
                         ),
                       ],
                     ),
@@ -124,47 +122,26 @@ class CallLogModal extends HookConsumerWidget {
               SizedBox(height: 20.h),
 
               // Launch Device Phone Dialer Primary Button
-              SizedBox(
-                width: double.infinity,
+              AppButton(
+                text: 'Launch Device Phone Dialer',
+                icon: LucideIcons.phone,
                 height: 48.h,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Fluttertoast.showToast(msg: "Launching dialer for ${lead.phone}");
-                  },
-                  icon: Icon(
-                    LucideIcons.phone,
-                    size: 18.sp,
-                    color: Colors.white,
-                  ),
-                  label: Text(
-                    'Launch Device Phone Dialer',
-                    style: GoogleFonts.figtree(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF047857),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                  ),
-                ),
+                fontSize: 15.sp,
+                onPressed: () {
+                  Fluttertoast.showToast(msg: "Launching dialer for ${lead.phone}");
+                },
               ),
               SizedBox(height: 20.h),
 
               // Select Call Result Label
               Text(
                 'Select Call Result:',
-                style: GoogleFonts.figtree(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  color: isDark
-                      ? AppColors.darkTextPrimary
-                      : AppColors.textPrimary,
-                ),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: isDark
+                          ? AppColors.darkTextPrimary
+                          : AppColors.textPrimary,
+                    ),
               ),
               SizedBox(height: 12.h),
 
@@ -190,28 +167,27 @@ class CallLogModal extends HookConsumerWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? const Color(0xFF1D4ED8)
+                            ? AppColors.primaryDark
                             : cardBg,
                         borderRadius: BorderRadius.circular(10.r),
                         border: Border.all(
                           color: isSelected
-                              ? const Color(0xFF1D4ED8)
+                              ? AppColors.primaryDark
                               : borderColor,
                           width: 1,
                         ),
                       ),
                       child: Text(
                         result,
-                        style: GoogleFonts.figtree(
-                          fontSize: 13.sp,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.w500,
-                          color: isSelected
-                              ? Colors.white
-                              : (isDark
-                                  ? AppColors.darkTextPrimary
-                                  : AppColors.textPrimary),
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontSize: 13.sp,
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                              color: isSelected
+                                  ? AppColors.surface
+                                  : (isDark
+                                      ? AppColors.darkTextPrimary
+                                      : AppColors.textPrimary),
+                            ),
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -257,24 +233,21 @@ class CallLogModal extends HookConsumerWidget {
                     children: [
                       Text(
                         'Next Follow-up Date & Time',
-                        style: GoogleFonts.figtree(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: isDark
-                              ? AppColors.darkTextSecondary
-                              : AppColors.textSecondary,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: isDark
+                                  ? AppColors.darkTextSecondary
+                                  : AppColors.textSecondary,
+                            ),
                       ),
                       SizedBox(height: 4.h),
                       Text(
                         followUpTime.value,
-                        style: GoogleFonts.figtree(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                          color: isDark
-                              ? AppColors.darkTextPrimary
-                              : AppColors.textPrimary,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: isDark
+                                  ? AppColors.darkTextPrimary
+                                  : AppColors.textPrimary,
+                            ),
                       ),
                     ],
                   ),
@@ -287,8 +260,7 @@ class CallLogModal extends HookConsumerWidget {
                 controller: notesController,
                 hint: 'Call Discussion Notes',
                 maxLines: 2,
-                fillColor: cardBg,
-                borderColor: borderColor,
+
                 borderRadius: 12,
               ),
               SizedBox(height: 24.h),
@@ -297,20 +269,24 @@ class CallLogModal extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
+                  AppButton(
+                    width: 115.w,
+                    text: 'Cancel',
+                    variant: AppButtonVariant.text,
+                    textColor: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.primaryDark,
+                    fontSize: 15.sp,
                     onPressed: () => Navigator.pop(context),
-                    child: Text(
-                      'Cancel',
-                      style: GoogleFonts.figtree(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w700,
-                        color: isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.primaryDark,
-                      ),
-                    ),
                   ),
-                  ElevatedButton(
+                  AppButton(
+                    width: 135.w,
+                    text: 'Save Call Log',
+                    backgroundColor: AppColors.primaryDark,
+                    textColor: AppColors.surface,
+                    height: 48.h,
+                    fontSize: 15.sp,
+                    horizontalPadding: 24.w,
                     onPressed: () {
                       ref.read(quickTechLeadProvider.notifier).saveCallLog(
                             leadId: lead.id,
@@ -320,25 +296,6 @@ class CallLogModal extends HookConsumerWidget {
                           );
                       Navigator.pop(context);
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1D4ED8),
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 28.w,
-                        vertical: 14.h,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.r),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Save Call Log',
-                      style: GoogleFonts.figtree(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ],
               ),

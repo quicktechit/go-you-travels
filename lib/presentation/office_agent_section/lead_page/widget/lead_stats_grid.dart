@@ -11,7 +11,7 @@ class LeadStatsGrid extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : Colors.white;
+    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
     return Column(
@@ -41,7 +41,7 @@ class LeadStatsGrid extends ConsumerWidget {
                 borderColor: borderColor,
                 icon: LucideIcons.userPlus,
                 iconBg: const Color(0xFFEFF6FF),
-                iconColor: const Color(0xFF2563EB),
+                iconColor: AppColors.primary,
                 badgeText: 'Action Needed',
                 valueText: '${state.newInquiriesCount}',
                 labelText: 'New Inquiries',
@@ -108,7 +108,7 @@ class LeadStatsGrid extends ConsumerWidget {
         boxShadow: [
           if (!isDark)
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.03),
+              color: AppColors.cardShadow,
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),

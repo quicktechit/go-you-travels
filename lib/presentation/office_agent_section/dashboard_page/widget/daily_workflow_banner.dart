@@ -1,7 +1,7 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
 import '../../../../core/constant/const.dart';
 import '../../lead_page/widget/create_lead_modal.dart';
-import '../provider/quick_tech_dashboard_provider.dart';
 
 class DailyWorkflowBanner extends ConsumerWidget {
   const DailyWorkflowBanner({super.key});
@@ -12,11 +12,11 @@ class DailyWorkflowBanner extends ConsumerWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 18.h),
       decoration: BoxDecoration(
-        color: const Color(0xFF1D4ED8), // Rich Royal Blue
+        color: AppColors.primaryDark, // Rich Royal Blue
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF1D4ED8).withValues(alpha: 0.25),
+            color: AppColors.primaryDark.withValues(alpha: 0.25),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -32,19 +32,17 @@ class DailyWorkflowBanner extends ConsumerWidget {
               children: [
                 Text(
                   'Daily Workflow Active',
-                  style: GoogleFonts.figtree(
-                    fontSize: 17.sp,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColors.surface,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 6.h),
                 Text(
                   '14/20 calls done · 6 follow-ups remaining',
-                  style: GoogleFonts.figtree(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.surface.withValues(alpha: 0.88),
                     fontSize: 12.5.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white.withValues(alpha: 0.88),
                   ),
                 ),
               ],
@@ -53,37 +51,15 @@ class DailyWorkflowBanner extends ConsumerWidget {
           SizedBox(width: 12.w),
 
           // Right Button "+ New Lead"
-          ElevatedButton(
-            onPressed: () {
-              CreateLeadModal.show(context);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: const Color(0xFF1E40AF),
-              elevation: 0,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  LucideIcons.plus,
-                  size: 16.sp,
-                  color: const Color(0xFF1E40AF),
-                ),
-                SizedBox(width: 4.w),
-                Text(
-                  'New Lead',
-                  style: GoogleFonts.figtree(
-                    fontSize: 13.5.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1E40AF),
-                  ),
-                ),
-              ],
+          Flexible(
+            child: AppButton(
+              text: 'New Lead',
+              icon: LucideIcons.plus,
+              onPressed: () => CreateLeadModal.show(context),
+            
+              height: 38.h,
+              fontSize: 13.5.sp,
+              horizontalPadding: 14.w,
             ),
           ),
         ],

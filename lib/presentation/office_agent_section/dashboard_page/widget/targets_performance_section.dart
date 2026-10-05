@@ -11,7 +11,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
     final state = ref.watch(quickTechDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : Colors.white;
+    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
     final titleColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
     final mainTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
@@ -25,24 +25,23 @@ class TargetsPerformanceSection extends ConsumerWidget {
           children: [
             Text(
               'TARGETS & PERFORMANCE',
-              style: GoogleFonts.figtree(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w800,
-                color: titleColor,
-                letterSpacing: 0.6,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: titleColor,
+                    letterSpacing: 0.6,
+                  ),
             ),
             GestureDetector(
               onTap: () {
-                ref.read(quickTechDashboardProvider.notifier).viewReports();
+                context.push(AppRoutes.report);
               },
               child: Text(
                 'View Reports',
-                style: GoogleFonts.figtree(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1D4ED8),
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primaryDark,
+                    ),
               ),
             ),
           ],
@@ -55,6 +54,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
             return Padding(
               padding: EdgeInsets.only(bottom: 12.h),
               child: _buildTargetCard(
+                context: context,
                 target: target,
                 cardBg: cardBg,
                 borderColor: borderColor,
@@ -70,6 +70,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
   }
 
   Widget _buildTargetCard({
+    required BuildContext context,
     required TargetPerformance target,
     required Color cardBg,
     required Color borderColor,
@@ -100,11 +101,10 @@ class TargetsPerformanceSection extends ConsumerWidget {
             children: [
               Text(
                 target.title,
-                style: GoogleFonts.figtree(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: mainTextColor,
-                ),
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: mainTextColor,
+                    ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
@@ -114,11 +114,11 @@ class TargetsPerformanceSection extends ConsumerWidget {
                 ),
                 child: Text(
                   target.badge,
-                  style: GoogleFonts.figtree(
-                    fontSize: 11.5.sp,
-                    fontWeight: FontWeight.w600,
-                    color: titleColor,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 11.5.sp,
+                        fontWeight: FontWeight.w600,
+                        color: titleColor,
+                      ),
                 ),
               ),
             ],
@@ -131,19 +131,17 @@ class TargetsPerformanceSection extends ConsumerWidget {
             children: [
               Text(
                 '${target.current} / ${target.total} ${target.unit}',
-                style: GoogleFonts.figtree(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1D4ED8),
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primaryDark,
+                    ),
               ),
               Text(
                 '${target.percentage.toInt()}%',
-                style: GoogleFonts.figtree(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF10B981), // Emerald Green
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.secondary,
+                    ),
               ),
             ],
           ),
@@ -155,8 +153,8 @@ class TargetsPerformanceSection extends ConsumerWidget {
             child: LinearProgressIndicator(
               value: target.percentage / 100,
               minHeight: 7.h,
-              backgroundColor: isDark ? AppColors.darkSurfaceHigh : const Color(0xFFE2E8F0),
-              valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF10B981)),
+              backgroundColor: isDark ? AppColors.darkSurfaceHigh : AppColors.line,
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.secondary),
             ),
           ),
 
@@ -174,11 +172,10 @@ class TargetsPerformanceSection extends ConsumerWidget {
                 Expanded(
                   child: Text(
                     target.warningMessage!,
-                    style: GoogleFonts.figtree(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFFD97706),
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFFD97706),
+                        ),
                   ),
                 ),
               ],

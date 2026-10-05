@@ -12,10 +12,14 @@ class OperationalMetricsGrid extends ConsumerWidget {
     final state = ref.watch(quickTechDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : Colors.white;
+    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final titleColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final valueColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+    final titleColor = isDark
+        ? AppColors.darkTextSecondary
+        : AppColors.textSecondary;
+    final valueColor = isDark
+        ? AppColors.darkTextPrimary
+        : AppColors.textPrimary;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,12 +27,11 @@ class OperationalMetricsGrid extends ConsumerWidget {
         // Section Title
         Text(
           'OPERATIONAL TARGETS & METRICS',
-          style: GoogleFonts.figtree(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w800,
-            color: titleColor,
-            letterSpacing: 0.6,
-          ),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w800,
+                color: titleColor,
+                letterSpacing: 0.6,
+              ),
         ),
         SizedBox(height: 12.h),
 
@@ -46,21 +49,33 @@ class OperationalMetricsGrid extends ConsumerWidget {
           itemBuilder: (context, index) {
             final item = state.metrics[index];
             return _buildMetricCard(
+              context: context,
               item: item,
               cardBg: cardBg,
               borderColor: borderColor,
               titleColor: titleColor,
               valueColor: valueColor,
-              isDark: isDark, onTap: () {
-                if(index==0){
+              isDark: isDark,
+              onTap: () {
+                if (index == 0) {
                   ref.read(homeProvider.notifier).setNavIndex(3);
                 }
-                if(index==1){  ref.read(homeProvider.notifier).setNavIndex(1);}
-                if(index==2){  ref.read(homeProvider.notifier).setNavIndex(1);}
-                if(index==3){}
-                if(index==4){  ref.read(homeProvider.notifier).setNavIndex(2);}
-                if(index==5){}
-            },
+                if (index == 1) {
+                  ref.read(homeProvider.notifier).setNavIndex(1);
+                }
+                if (index == 2) {
+                  ref.read(homeProvider.notifier).setNavIndex(1);
+                }
+                if (index == 3) {
+                  context.push(AppRoutes.followUp);
+                }
+                if (index == 4) {
+                  ref.read(homeProvider.notifier).setNavIndex(2);
+                }
+                if (index == 5) {
+                  context.push(AppRoutes.report);
+                }
+              },
             );
           },
         ),
@@ -69,6 +84,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
   }
 
   Widget _buildMetricCard({
+    required BuildContext context,
     required OperationalMetric item,
     required Color cardBg,
     required GestureTapCallback onTap,
@@ -79,6 +95,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
   }) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(16.r),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
         decoration: BoxDecoration(
@@ -105,24 +122,28 @@ class OperationalMetricsGrid extends ConsumerWidget {
                 Container(
                   padding: EdgeInsets.all(7.r),
                   decoration: BoxDecoration(
-                    color: isDark ? item.iconBgColor.withValues(alpha: 0.2) : item.iconBgColor,
+                    color: isDark
+                        ? item.iconBgColor.withValues(alpha: 0.2)
+                        : item.iconBgColor,
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Icon(
                     item.icon,
                     size: 18.sp,
-                    color: isDark ? Colors.white : item.iconColor,
+                    color: isDark ? AppColors.surface : item.iconColor,
                   ),
                 ),
 
                 // Right Top Badge
                 Text(
                   item.badgeText,
-                  style: GoogleFonts.figtree(
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.w600,
-                    color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w600,
+                        color: isDark
+                            ? AppColors.darkTextSecondary
+                            : AppColors.textSecondary,
+                      ),
                 ),
               ],
             ),
@@ -133,23 +154,23 @@ class OperationalMetricsGrid extends ConsumerWidget {
               children: [
                 Text(
                   item.value,
-                  style: GoogleFonts.figtree(
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.bold,
-                    color: valueColor,
-                    height: 1.2,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.bold,
+                        color: valueColor,
+                        height: 1.2,
+                      ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 2.h),
                 Text(
                   item.title,
-                  style: GoogleFonts.figtree(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                    color: titleColor,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: titleColor,
+                      ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

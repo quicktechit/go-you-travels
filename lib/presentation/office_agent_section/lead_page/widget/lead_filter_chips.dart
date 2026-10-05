@@ -8,8 +8,6 @@ class LeadFilterChips extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(quickTechLeadProvider);
     final notifier = ref.read(quickTechLeadProvider.notifier);
-    final themeMode = ref.watch(themeProvider);
-    final isDark = themeMode == ThemeMode.dark;
 
     final tabs = [
       'All Leads (${state.totalLeadsCount})',
@@ -35,40 +33,11 @@ class LeadFilterChips extends ConsumerWidget {
           final isSelected = cleanSelected == cleanTab;
 
           return Padding(
-            padding: EdgeInsets.only(right: 8.w),
-            child: GestureDetector(
+            padding: EdgeInsets.only(right: 10.w),
+            child: AppFilterChip(
+              label: tab,
+              isSelected: isSelected,
               onTap: () => notifier.setSelectedStatusTab(tab),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: EdgeInsets.symmetric(
-                  horizontal: 14.w,
-                  vertical: 8.h,
-                ),
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? (isDark ? const Color(0xFF064E3B) : const Color(0xFFECFDF5))
-                      : (isDark ? AppColors.darkSurface : Colors.white),
-                  borderRadius: BorderRadius.circular(20.r),
-                  border: Border.all(
-                    color: isSelected
-                        ? (isDark ? const Color(0xFF059669) : const Color(0xFFA7F3D0))
-                        : (isDark ? AppColors.darkLine : AppColors.line),
-                    width: 1,
-                  ),
-                ),
-                child: Text(
-                  tab,
-                  style: GoogleFonts.figtree(
-                    fontSize: 13.sp,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    color: isSelected
-                        ? (isDark ? const Color(0xFF6EE7B7) : const Color(0xFF047857))
-                        : (isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.textSecondary),
-                  ),
-                ),
-              ),
             ),
           );
         }).toList(),

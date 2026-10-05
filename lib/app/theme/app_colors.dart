@@ -18,6 +18,10 @@ class AppColors {
   static const textSecondary = Color(0xFF64748B);
   static const textMuted = Color(0xFF475569);
 
+  static const amber = Color(0xFFFFDF59);
+  static const orange = Color(0xFFEA580C);
+  static const red = Color(0xFFEA0C0C);
+
   static const line = Color(0xFFE2E8F0);
   static const cardShadow = Color(0x0D000000); // 5% black
 

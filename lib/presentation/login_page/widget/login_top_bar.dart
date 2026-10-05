@@ -94,7 +94,7 @@ class LoginTopBar extends ConsumerWidget {
               icon: Icon(
                 isDark ? Icons.wb_sunny_rounded : LucideIcons.moon,
                 size: 22.sp,
-                color: isDark ? Colors.amber : AppColors.textPrimary,
+                color: isDark ? AppColors.amber : AppColors.textPrimary,
               ),
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),

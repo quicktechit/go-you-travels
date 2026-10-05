@@ -1,5 +1,8 @@
+import 'package:go_you_travels/presentation/office_agent_section/lead_page/model/lead_model.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
 import '../../../../core/constant/const.dart';
+import '../../lead_page/widget/call_log_modal.dart';
 import '../model/quick_tech_dashboard_state.dart';
 import '../provider/quick_tech_dashboard_provider.dart';
 
@@ -11,10 +14,14 @@ class ScheduledFollowupsSection extends ConsumerWidget {
     final state = ref.watch(quickTechDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : Colors.white;
+    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final titleColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final mainTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+    final titleColor = isDark
+        ? AppColors.darkTextSecondary
+        : AppColors.textSecondary;
+    final mainTextColor = isDark
+        ? AppColors.darkTextPrimary
+        : AppColors.textPrimary;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,26 +32,23 @@ class ScheduledFollowupsSection extends ConsumerWidget {
           children: [
             Text(
               "TODAY'S SCHEDULED FOLLOW-UPS",
-              style: GoogleFonts.figtree(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w800,
-                color: titleColor,
-                letterSpacing: 0.6,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: titleColor,
+                    letterSpacing: 0.6,
+                  ),
             ),
             GestureDetector(
               onTap: () {
-                ref
-                    .read(quickTechDashboardProvider.notifier)
-                    .seeAllFollowUps();
+                context.push(AppRoutes.followUp);
               },
               child: Text(
                 'See All (4)',
-                style: GoogleFonts.figtree(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1D4ED8),
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primaryDark,
+                    ),
               ),
             ),
           ],
@@ -57,6 +61,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
             return Padding(
               padding: EdgeInsets.only(bottom: 12.h),
               child: _buildFollowUpCard(
+                context: context,
                 item: item,
                 cardBg: cardBg,
                 borderColor: borderColor,
@@ -79,6 +84,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
     required Color titleColor,
     required Color mainTextColor,
     required bool isDark,
+    required BuildContext context,
     required WidgetRef ref,
   }) {
     return Container(
@@ -108,11 +114,10 @@ class ScheduledFollowupsSection extends ConsumerWidget {
                   children: [
                     Text(
                       item.name,
-                      style: GoogleFonts.figtree(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                        color: mainTextColor,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: mainTextColor,
+                          ),
                     ),
                     SizedBox(width: 8.w),
                     Container(
@@ -127,11 +132,11 @@ class ScheduledFollowupsSection extends ConsumerWidget {
                       ),
                       child: Text(
                         item.time,
-                        style: GoogleFonts.figtree(
-                          fontSize: 11.5.sp,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFFC2410C),
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              fontSize: 11.5.sp,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xFFC2410C),
+                            ),
                       ),
                     ),
                   ],
@@ -141,22 +146,20 @@ class ScheduledFollowupsSection extends ConsumerWidget {
                 // Subtitle Line (Category & Phone)
                 Text(
                   '${item.category} · ${item.phone}',
-                  style: GoogleFonts.figtree(
-                    fontSize: 12.5.sp,
-                    fontWeight: FontWeight.w500,
-                    color: titleColor,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontSize: 12.5.sp,
+                        fontWeight: FontWeight.w500,
+                        color: titleColor,
+                      ),
                 ),
                 SizedBox(height: 6.h),
 
                 // Note
                 Text(
                   item.note,
-                  style: GoogleFonts.figtree(
-                    fontSize: 12.sp,
-                    color: titleColor.withValues(alpha: 0.85),
-                    fontStyle: FontStyle.normal,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: titleColor.withValues(alpha: 0.85),
+                      ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -168,23 +171,30 @@ class ScheduledFollowupsSection extends ConsumerWidget {
           // Right Phone Call Button
           InkWell(
             onTap: () {
-              ref
-                  .read(quickTechDashboardProvider.notifier)
-                  .callFollowUp(item);
+              CallLogModal.show(
+                context,
+                lead: LeadItem(
+                  id: '1',
+                  name: item.name,
+                  phone: item.phone,
+                  destinationCountry: '',
+                  visaInterest: '',
+                  leadSource: '',
+                  status: LeadStatus.followUp,
+                  priority: LeadPriority.high,
+                  createdAt: DateTime.now(),
+                ),
+              );
             },
             borderRadius: BorderRadius.circular(24.r),
             child: Container(
               width: 44.r,
               height: 44.r,
               decoration: const BoxDecoration(
-                color: Color(0xFF1E40AF), // Dark Royal Blue
+                color: AppColors.primaryDark,
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                LucideIcons.phone,
-                size: 20.sp,
-                color: Colors.white,
-              ),
+              child: Icon(LucideIcons.phone, size: 20.sp, color: AppColors.surface),
             ),
           ),
         ],

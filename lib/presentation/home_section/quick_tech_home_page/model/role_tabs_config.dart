@@ -2,6 +2,9 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../login_page/model/user_role.dart';
 import '../../../office_agent_section/dashboard_page/page/quick_tech_dashboard_page.dart';
 import '../../../office_agent_section/lead_page/page/quick_tech_lead_page.dart';
+import '../../../office_agent_section/profile_page/page/quick_tech_profile_page.dart';
+import '../../../office_agent_section/task_page/page/quick_tech_task_page.dart';
+import '../../../office_agent_section/visa_files/page/quick_tech_visa_files_page.dart';
 import '../widget/role_tab_views.dart';
 import 'nav_tab_item.dart';
 
@@ -29,21 +32,21 @@ class RoleTabsConfig {
             icon: LucideIcons.folderKanban,
             sfSymbol: 'folder',
             selectedSfSymbol: 'folder.fill',
-            page: ComingSoonView(title: 'Visa Files', icon: LucideIcons.folderKanban),
+            page: QuickTechVisaFilesPage(),
           ),
           NavTabItem(
             label: 'Tasks',
             icon: LucideIcons.clipboardList,
             sfSymbol: 'checkmark.square',
             selectedSfSymbol: 'checkmark.square.fill',
-            page: ComingSoonView(title: 'Tasks', icon: LucideIcons.clipboardList),
+            page: QuickTechTaskPage(),
           ),
           NavTabItem(
             label: 'Profile',
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: ProfileView(),
+            page: QuickTechProfilePage(),
           ),
         ];
 
@@ -82,7 +85,7 @@ class RoleTabsConfig {
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: ProfileView(),
+            page: QuickTechProfilePage(),
           ),
         ];
 
@@ -121,7 +124,7 @@ class RoleTabsConfig {
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: ProfileView(),
+            page: QuickTechProfilePage(),
           ),
         ];
 
@@ -160,7 +163,7 @@ class RoleTabsConfig {
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: ProfileView(),
+            page: QuickTechProfilePage(),
           ),
         ];
     }

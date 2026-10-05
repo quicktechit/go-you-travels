@@ -1,4 +1,5 @@
 import '../../../../core/constant/const.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../model/lead_model.dart';
 import '../provider/lead_provider.dart';
 
@@ -19,8 +20,8 @@ class CreateLeadModal extends HookConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final sheetBg = isDark ? AppColors.darkSurface : const Color(0xFFF1F2F6);
-    final inputBg = isDark ? AppColors.darkSurfaceHigh : const Color(0xFFF8FAFC);
+    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
+    final inputBg = isDark ? AppColors.darkSurfaceHigh : AppColors.background;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
     final nameController = useTextEditingController();
@@ -63,11 +64,10 @@ class CreateLeadModal extends HookConsumerWidget {
               // Title
               Text(
                 'Create New Lead Inquiry',
-                style: GoogleFonts.figtree(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold,
-                  color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
-                ),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               SizedBox(height: 20.h),
 
@@ -135,23 +135,25 @@ class CreateLeadModal extends HookConsumerWidget {
 
               // Action Buttons
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
+                  AppButton(
+                    text: 'Cancel',
+                    variant: AppButtonVariant.text,
+                    textColor: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.primaryDark,
+                    fontSize: 15.sp,
                     onPressed: () => Navigator.pop(context),
-                    child: Text(
-                      'Cancel',
-                      style: GoogleFonts.figtree(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w700,
-                        color: isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.primaryDark,
-                      ),
-                    ),
                   ),
                   SizedBox(width: 12.w),
-                  ElevatedButton(
+                  AppButton(width: 115.w,
+                    text: 'Save Lead',
+                    backgroundColor: AppColors.primaryDark,
+                    textColor: AppColors.surface,
+                    height: 44.h,
+                    fontSize: 15.sp,
+                    horizontalPadding: 24.w,
                     onPressed: () {
                       if (nameController.text.trim().isEmpty) {
                         Fluttertoast.showToast(msg: "Please enter customer name");
@@ -178,25 +180,6 @@ class CreateLeadModal extends HookConsumerWidget {
                       ref.read(quickTechLeadProvider.notifier).addNewLead(newLead);
                       Navigator.pop(context);
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1D4ED8),
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 24.w,
-                        vertical: 12.h,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Save Lead',
-                      style: GoogleFonts.figtree(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ],
               ),

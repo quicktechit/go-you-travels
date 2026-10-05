@@ -2,6 +2,8 @@ import '../core/constant/const.dart';
 import '../presentation/home_section/quick_tech_home_page/page/quick_tech_home_page.dart';
 import '../presentation/login_page/page/login_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_dashboard_page.dart';
+import '../presentation/office_agent_section/dashboard_page/page/quick_tech_followup_page.dart';
+import '../presentation/office_agent_section/dashboard_page/page/quick_tech_report_page.dart';
 import '../presentation/splash_page/quick_tech_splash_page.dart';
 
 class AppRoutes {
@@ -10,6 +12,8 @@ class AppRoutes {
   static const String landing = '/landing';
   static const String home = '/home';
   static const String dashboard = '/dashboard';
+  static const String followUp = '/followup';
+  static const String report = '/report';
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
@@ -29,6 +33,14 @@ class AppRoutes {
       GoRoute(
         path: dashboard,
         builder: (context, state) => const QuickTechDashboardPage(),
+      ),
+      GoRoute(
+        path: followUp,
+        builder: (context, state) => const QuickTechFollowupPage(),
+      ),
+      GoRoute(
+        path: report,
+        builder: (context, state) => const QuickTechReportPage(),
       ),
     ],
   );

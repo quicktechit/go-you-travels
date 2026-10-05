@@ -15,7 +15,7 @@ class LeadCardItem extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : Colors.white;
+    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final innerBannerBg = isDark
         ? AppColors.darkSurfaceHigh
         : AppColors.darkTextPrimary;
@@ -35,7 +35,7 @@ class LeadCardItem extends ConsumerWidget {
         boxShadow: [
           if (!isDark)
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.03),
+              color: AppColors.cardShadow,
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -55,7 +55,7 @@ class LeadCardItem extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: isDark
                       ? AppColors.primary.withValues(alpha: 0.2)
-                      : const Color(0xFFEFF6FF),
+                      : AppColors.primaryLight.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,

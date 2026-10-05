@@ -1,5 +1,7 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
 import '../../../../core/constant/const.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../model/lead_model.dart';
 import '../provider/lead_provider.dart';
 import 'call_log_modal.dart';
@@ -7,10 +9,7 @@ import 'call_log_modal.dart';
 class LeadDetailsModal extends HookConsumerWidget {
   final LeadItem lead;
 
-  const LeadDetailsModal({
-    super.key,
-    required this.lead,
-  });
+  const LeadDetailsModal({super.key, required this.lead});
 
   static Future<void> show(BuildContext context, {required LeadItem lead}) {
     return showModalBottomSheet(
@@ -26,9 +25,9 @@ class LeadDetailsModal extends HookConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final sheetBg = isDark ? AppColors.darkSurface : const Color(0xFFF1F2F6);
-    final cardBg = isDark ? AppColors.darkSurfaceHigh : Colors.white;
-    final innerBg = isDark ? AppColors.darkBackground : const Color(0xFFF8FAFC);
+    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
+    final cardBg = isDark ? AppColors.darkSurfaceHigh : AppColors.surface;
+    final innerBg = isDark ? AppColors.darkBackground : AppColors.background;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
     final state = ref.watch(quickTechLeadProvider);
@@ -47,12 +46,14 @@ class LeadDetailsModal extends HookConsumerWidget {
       text: currentLead.nextFollowUpDate,
     );
     final followUpNotesController = useTextEditingController(
-      text: currentLead.notes ??
+      text:
+          currentLead.notes ??
           'Looking for healthcare sponsorship. Document checklist shared.',
     );
 
-    final initialChar =
-        currentLead.name.isNotEmpty ? currentLead.name[0].toUpperCase() : 'L';
+    final initialChar = currentLead.name.isNotEmpty
+        ? currentLead.name[0].toUpperCase()
+        : 'L';
 
     // Filter out 'Converted' from status list as requested
     final availableStatuses = LeadStatus.values
@@ -94,19 +95,18 @@ class LeadDetailsModal extends HookConsumerWidget {
                   decoration: BoxDecoration(
                     color: isDark
                         ? AppColors.primary.withValues(alpha: 0.2)
-                        : const Color(0xFFEFF6FF),
+                        : AppColors.primaryLight.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     initialChar,
-                    style: GoogleFonts.figtree(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: isDark
-                          ? AppColors.primaryLight
-                          : AppColors.primaryDark,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          color: isDark
+                              ? AppColors.primaryLight
+                              : AppColors.primaryDark,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -116,26 +116,24 @@ class LeadDetailsModal extends HookConsumerWidget {
                     children: [
                       Text(
                         currentLead.name,
-                        style: GoogleFonts.figtree(
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.bold,
-                          color: isDark
-                              ? AppColors.darkTextPrimary
-                              : AppColors.textPrimary,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: isDark
+                                  ? AppColors.darkTextPrimary
+                                  : AppColors.textPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: 2.h),
                       Text(
                         'Lead ID: LD-${currentLead.id.padLeft(4, '0')} · ${currentLead.destinationCountry}',
-                        style: GoogleFonts.figtree(
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w500,
-                          color: isDark
-                              ? AppColors.darkTextSecondary
-                              : AppColors.textSecondary,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: isDark
+                                  ? AppColors.darkTextSecondary
+                                  : AppColors.textSecondary,
+                              fontWeight: FontWeight.w500,
+                            ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -176,7 +174,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                           border: Border(
                             bottom: BorderSide(
                               color: selectedTab.value == 0
-                                  ? const Color(0xFF1D4ED8)
+                                  ? AppColors.primaryDark
                                   : Colors.transparent,
                               width: 2.w,
                             ),
@@ -189,25 +187,24 @@ class LeadDetailsModal extends HookConsumerWidget {
                               LucideIcons.info,
                               size: 16.sp,
                               color: selectedTab.value == 0
-                                  ? const Color(0xFF1D4ED8)
+                                  ? AppColors.primaryDark
                                   : (isDark
-                                      ? AppColors.darkTextSecondary
-                                      : AppColors.textSecondary),
+                                        ? AppColors.darkTextSecondary
+                                        : AppColors.textSecondary),
                             ),
                             SizedBox(width: 6.w),
                             Text(
                               'Lead Details',
-                              style: GoogleFonts.figtree(
-                                fontSize: 13.5.sp,
-                                fontWeight: selectedTab.value == 0
-                                    ? FontWeight.bold
-                                    : FontWeight.w500,
-                                color: selectedTab.value == 0
-                                    ? const Color(0xFF1D4ED8)
-                                    : (isDark
-                                        ? AppColors.darkTextSecondary
-                                        : AppColors.textSecondary),
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontWeight: selectedTab.value == 0
+                                        ? FontWeight.bold
+                                        : FontWeight.w500,
+                                    color: selectedTab.value == 0
+                                        ? AppColors.primaryDark
+                                        : (isDark
+                                              ? AppColors.darkTextSecondary
+                                              : AppColors.textSecondary),
+                                  ),
                             ),
                           ],
                         ),
@@ -223,7 +220,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                           border: Border(
                             bottom: BorderSide(
                               color: selectedTab.value == 1
-                                  ? const Color(0xFF1D4ED8)
+                                  ? AppColors.primaryDark
                                   : Colors.transparent,
                               width: 2.w,
                             ),
@@ -236,25 +233,24 @@ class LeadDetailsModal extends HookConsumerWidget {
                               LucideIcons.history,
                               size: 16.sp,
                               color: selectedTab.value == 1
-                                  ? const Color(0xFF1D4ED8)
+                                  ? AppColors.primaryDark
                                   : (isDark
-                                      ? AppColors.darkTextSecondary
-                                      : AppColors.textSecondary),
+                                        ? AppColors.darkTextSecondary
+                                        : AppColors.textSecondary),
                             ),
                             SizedBox(width: 6.w),
                             Text(
                               'Follow-up History (${currentLead.history.length})',
-                              style: GoogleFonts.figtree(
-                                fontSize: 13.5.sp,
-                                fontWeight: selectedTab.value == 1
-                                    ? FontWeight.bold
-                                    : FontWeight.w500,
-                                color: selectedTab.value == 1
-                                    ? const Color(0xFF1D4ED8)
-                                    : (isDark
-                                        ? AppColors.darkTextSecondary
-                                        : AppColors.textSecondary),
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontWeight: selectedTab.value == 1
+                                        ? FontWeight.bold
+                                        : FontWeight.w500,
+                                    color: selectedTab.value == 1
+                                        ? AppColors.primaryDark
+                                        : (isDark
+                                              ? AppColors.darkTextSecondary
+                                              : AppColors.textSecondary),
+                                  ),
                             ),
                           ],
                         ),
@@ -297,27 +293,14 @@ class LeadDetailsModal extends HookConsumerWidget {
             SizedBox(height: 12.h),
             Align(
               alignment: Alignment.centerRight,
-              child: ElevatedButton(
+              child: AppButton(
+                text: 'Close',
+                backgroundColor: AppColors.primaryDark,
+                textColor: AppColors.surface,
+                height: 44.h,
+                fontSize: 15.sp,
+                horizontalPadding: 32.w,
                 onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1D4ED8),
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 32.w,
-                    vertical: 12.h,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  elevation: 0,
-                ),
-                child: Text(
-                  'Close',
-                  style: GoogleFonts.figtree(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
             ),
           ],
@@ -342,7 +325,6 @@ class LeadDetailsModal extends HookConsumerWidget {
     required ValueNotifier<bool> isEditingSchedule,
   }) {
     return ListView(
-
       children: [
         // 1. Contact Info Card
         Container(
@@ -364,19 +346,18 @@ class LeadDetailsModal extends HookConsumerWidget {
                         Icon(
                           LucideIcons.phone,
                           size: 15.sp,
-                          color: const Color(0xFF1D4ED8),
+                          color: AppColors.primaryDark,
                         ),
                         SizedBox(width: 8.w),
                         Expanded(
                           child: Text(
                             lead.phone,
-                            style: GoogleFonts.figtree(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                              color: isDark
-                                  ? AppColors.darkTextPrimary
-                                  : AppColors.textPrimary,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: isDark
+                                      ? AppColors.darkTextPrimary
+                                      : AppColors.textPrimary,
+                                ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -397,13 +378,12 @@ class LeadDetailsModal extends HookConsumerWidget {
                         Expanded(
                           child: Text(
                             lead.email,
-                            style: GoogleFonts.figtree(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
-                              color: isDark
-                                  ? AppColors.darkTextSecondary
-                                  : AppColors.textSecondary,
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: isDark
+                                      ? AppColors.darkTextSecondary
+                                      : AppColors.textSecondary,
+                                ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -414,34 +394,16 @@ class LeadDetailsModal extends HookConsumerWidget {
                 ),
               ),
               SizedBox(width: 12.w),
-              ElevatedButton.icon(
-                onPressed: () {
-                  CallLogModal.show(context, lead: lead);
-                },
-                icon: Icon(
-                  LucideIcons.phone,
-                  size: 14.sp,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Dial',
-                  style: GoogleFonts.figtree(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF047857),
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 10.h,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  elevation: 0,
-                ),
+              AppButton(
+                width: 110.w,
+                text: 'Dial',
+                icon: LucideIcons.phone,
+                backgroundColor: AppColors.secondaryDark,
+                textColor: AppColors.surface,
+                height: 36.h,
+                fontSize: 13.sp,
+                horizontalPadding: 14.w,
+                onPressed: () => CallLogModal.show(context, lead: lead),
               ),
             ],
           ),
@@ -454,13 +416,12 @@ class LeadDetailsModal extends HookConsumerWidget {
           children: [
             Text(
               'LEAD STATUS',
-              style: GoogleFonts.figtree(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
-                color: isDark
-                    ? AppColors.darkTextSecondary
-                    : AppColors.textSecondary,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.textSecondary,
+                  ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
@@ -472,11 +433,10 @@ class LeadDetailsModal extends HookConsumerWidget {
               ),
               child: Text(
                 lead.status.label,
-                style: GoogleFonts.figtree(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
-                  color: lead.status.primaryColor,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: lead.status.primaryColor,
+                    ),
               ),
             ),
           ],
@@ -501,25 +461,23 @@ class LeadDetailsModal extends HookConsumerWidget {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF1D4ED8) : cardBg,
+                  color: isSelected ? AppColors.primaryDark : cardBg,
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(
-                    color: isSelected ? const Color(0xFF1D4ED8) : borderColor,
+                    color: isSelected ? AppColors.primaryDark : borderColor,
                     width: 1,
                   ),
                 ),
                 child: Text(
                   status.label,
-                  style: GoogleFonts.figtree(
-                    fontSize: 12.sp,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.w500,
-                    color: isSelected
-                        ? Colors.white
-                        : (isDark
-                            ? AppColors.darkTextPrimary
-                            : AppColors.textPrimary),
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                        color: isSelected
+                            ? AppColors.surface
+                            : (isDark
+                                  ? AppColors.darkTextPrimary
+                                  : AppColors.textPrimary),
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -534,13 +492,12 @@ class LeadDetailsModal extends HookConsumerWidget {
           children: [
             Text(
               'PRIORITY LEVEL',
-              style: GoogleFonts.figtree(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w700,
-                color: isDark
-                    ? AppColors.darkTextSecondary
-                    : AppColors.textSecondary,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.textSecondary,
+                  ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
@@ -552,11 +509,10 @@ class LeadDetailsModal extends HookConsumerWidget {
               ),
               child: Text(
                 lead.priority.label,
-                style: GoogleFonts.figtree(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.bold,
-                  color: lead.priority.color,
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: lead.priority.color,
+                    ),
               ),
             ),
           ],
@@ -576,9 +532,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: isSelected
-                          ? const Color(0xFFC2410C)
-                          : cardBg,
+                      color: isSelected ? const Color(0xFFC2410C) : cardBg,
                       borderRadius: BorderRadius.circular(10.r),
                       border: Border.all(
                         color: isSelected
@@ -589,16 +543,16 @@ class LeadDetailsModal extends HookConsumerWidget {
                     ),
                     child: Text(
                       priority.label,
-                      style: GoogleFonts.figtree(
-                        fontSize: 12.sp,
-                        fontWeight:
-                            isSelected ? FontWeight.bold : FontWeight.w500,
-                        color: isSelected
-                            ? Colors.white
-                            : (isDark
-                                ? AppColors.darkTextPrimary
-                                : AppColors.textPrimary),
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.w500,
+                            color: isSelected
+                                ? Colors.white
+                                : (isDark
+                                      ? AppColors.darkTextPrimary
+                                      : AppColors.textPrimary),
+                          ),
                     ),
                   ),
                 ),
@@ -618,28 +572,36 @@ class LeadDetailsModal extends HookConsumerWidget {
           ),
           child: Column(
             children: [
-              _buildInfoRow('Service Interest:', lead.visaInterest, isDark),
-              SizedBox(height: 10.h),
-              _buildInfoRow('Destination Country:', lead.destinationCountry, isDark),
+              _buildInfoRow(context, 'Service Interest:', lead.visaInterest, isDark),
               SizedBox(height: 10.h),
               _buildInfoRow(
-                'Lead Acquisition Source:',
-                lead.leadSource,
+                context,
+                'Destination Country:',
+                lead.destinationCountry,
                 isDark,
-                valueColor: const Color(0xFF1D4ED8),
               ),
               SizedBox(height: 10.h),
               _buildInfoRow(
+                context,
+                'Lead Acquisition Source:',
+                lead.leadSource,
+                isDark,
+                valueColor: AppColors.primaryDark,
+              ),
+              SizedBox(height: 10.h),
+              _buildInfoRow(
+                context,
                 'Assigned Consultant:',
                 lead.assignedConsultant,
                 isDark,
               ),
               SizedBox(height: 10.h),
               _buildInfoRow(
+                context,
                 'Total Calling Attempts:',
                 '${lead.totalCallingAttempts} calls logged',
                 isDark,
-                valueColor: const Color(0xFF047857),
+                valueColor: AppColors.secondaryDark,
               ),
             ],
           ),
@@ -665,18 +627,17 @@ class LeadDetailsModal extends HookConsumerWidget {
                       Icon(
                         LucideIcons.calendar,
                         size: 16.sp,
-                        color: const Color(0xFFEA580C),
+                        color: AppColors.orange,
                       ),
                       SizedBox(width: 8.w),
                       Text(
                         'Next Follow-up Schedule',
-                        style: GoogleFonts.figtree(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                          color: isDark
-                              ? AppColors.darkTextPrimary
-                              : AppColors.textPrimary,
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: isDark
+                                  ? AppColors.darkTextPrimary
+                                  : AppColors.textPrimary,
+                            ),
                       ),
                     ],
                   ),
@@ -686,11 +647,10 @@ class LeadDetailsModal extends HookConsumerWidget {
                     },
                     child: Text(
                       isEditingSchedule.value ? 'Cancel' : 'Reschedule',
-                      style: GoogleFonts.figtree(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF1D4ED8),
-                      ),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryDark,
+                          ),
                     ),
                   ),
                 ],
@@ -720,56 +680,40 @@ class LeadDetailsModal extends HookConsumerWidget {
                 SizedBox(height: 14.h),
 
                 // Save Schedule Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      notifier.updateLeadSchedule(
-                        leadId: lead.id,
-                        followUpTime: followUpDateController.text.trim(),
-                        notes: followUpNotesController.text.trim(),
-                      );
-                      isEditingSchedule.value = false;
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1D4ED8),
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: Text(
-                      'Save Schedule Update',
-                      style: GoogleFonts.figtree(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                AppButton(
+                  text: 'Save Schedule Update',
+                  backgroundColor: AppColors.primaryDark,
+                  textColor: AppColors.surface,
+                  height: 42.h,
+                  fontSize: 14.sp,
+                  onPressed: () {
+                    notifier.updateLeadSchedule(
+                      leadId: lead.id,
+                      followUpTime: followUpDateController.text.trim(),
+                      notes: followUpNotesController.text.trim(),
+                    );
+                    isEditingSchedule.value = false;
+                  },
                 ),
               ] else ...[
-                // Summary View Mode (Matching User's Screenshot)
+                // Summary View Mode
                 Text(
                   lead.nextFollowUpDate,
-                  style: GoogleFonts.figtree(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1D4ED8),
-                  ),
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryDark,
+                      ),
                 ),
                 SizedBox(height: 6.h),
                 Text(
                   'Notes: ${lead.notes != null && lead.notes!.isNotEmpty ? lead.notes : "Looking for healthcare sponsorship. Document checklist shared."}',
-                  style: GoogleFonts.figtree(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
-                    color: isDark
-                        ? AppColors.darkTextSecondary
-                        : AppColors.textSecondary,
-                    height: 1.3,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: isDark
+                            ? AppColors.darkTextSecondary
+                            : AppColors.textSecondary,
+                        height: 1.3,
+                      ),
                 ),
               ],
             ],
@@ -792,10 +736,11 @@ class LeadDetailsModal extends HookConsumerWidget {
       return Center(
         child: Text(
           'No follow-up history logged yet.',
-          style: GoogleFonts.figtree(
-            fontSize: 14.sp,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.textSecondary,
+              ),
         ),
       );
     }
@@ -824,17 +769,15 @@ class LeadDetailsModal extends HookConsumerWidget {
                     width: 34.r,
                     height: 34.r,
                     decoration: BoxDecoration(
-                      color: index == 0
-                          ? const Color(0xFFECFDF5)
-                          : const Color(0xFFFFF7ED),
+                      color: AppColors.surface,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       LucideIcons.phoneCall,
                       size: 16.sp,
                       color: index == 0
-                          ? const Color(0xFF059669)
-                          : const Color(0xFFEA580C),
+                          ? AppColors.secondaryDark
+                          : AppColors.orange,
                     ),
                   ),
                   SizedBox(width: 10.w),
@@ -844,36 +787,33 @@ class LeadDetailsModal extends HookConsumerWidget {
                       children: [
                         Text(
                           item.title,
-                          style: GoogleFonts.figtree(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: isDark
-                                ? AppColors.darkTextPrimary
-                                : AppColors.textPrimary,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: isDark
+                                    ? AppColors.darkTextPrimary
+                                    : AppColors.textPrimary,
+                              ),
                         ),
                         SizedBox(height: 2.h),
                         Text(
                           'Logged by: ${item.loggedBy}',
-                          style: GoogleFonts.figtree(
-                            fontSize: 12.sp,
-                            color: isDark
-                                ? AppColors.darkTextSecondary
-                                : AppColors.textSecondary,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: isDark
+                                    ? AppColors.darkTextSecondary
+                                    : AppColors.textSecondary,
+                              ),
                         ),
                       ],
                     ),
                   ),
                   Text(
                     item.timeAgo,
-                    style: GoogleFonts.figtree(
-                      fontSize: 11.5.sp,
-                      fontWeight: FontWeight.w500,
-                      color: isDark
-                          ? AppColors.darkTextMuted
-                          : AppColors.textMuted,
-                    ),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11.5.sp,
+                          color: isDark
+                              ? AppColors.darkTextMuted
+                              : AppColors.textMuted,
+                        ),
                   ),
                 ],
               ),
@@ -892,13 +832,12 @@ class LeadDetailsModal extends HookConsumerWidget {
                   children: [
                     Text(
                       item.note,
-                      style: GoogleFonts.figtree(
-                        fontSize: 13.sp,
-                        color: isDark
-                            ? AppColors.darkTextPrimary
-                            : AppColors.textPrimary,
-                        height: 1.3,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: isDark
+                                ? AppColors.darkTextPrimary
+                                : AppColors.textPrimary,
+                            height: 1.3,
+                          ),
                     ),
                     SizedBox(height: 8.h),
                     Row(
@@ -906,16 +845,15 @@ class LeadDetailsModal extends HookConsumerWidget {
                         Icon(
                           LucideIcons.clock,
                           size: 13.sp,
-                          color: const Color(0xFFEA580C),
+                          color: AppColors.orange,
                         ),
                         SizedBox(width: 6.w),
                         Text(
                           'Next Follow-up: ${item.nextFollowUp}',
-                          style: GoogleFonts.figtree(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFFEA580C),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.orange,
+                              ),
                         ),
                       ],
                     ),
@@ -930,6 +868,7 @@ class LeadDetailsModal extends HookConsumerWidget {
   }
 
   Widget _buildInfoRow(
+    BuildContext context,
     String label,
     String value,
     bool isDark, {
@@ -940,22 +879,22 @@ class LeadDetailsModal extends HookConsumerWidget {
       children: [
         Text(
           label,
-          style: GoogleFonts.figtree(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w500,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.textSecondary,
+              ),
         ),
         SizedBox(width: 8.w),
         Flexible(
           child: Text(
             value,
-            style: GoogleFonts.figtree(
-              fontSize: 13.sp,
-              fontWeight: FontWeight.bold,
-              color: valueColor ??
-                  (isDark ? AppColors.darkTextPrimary : AppColors.textPrimary),
-            ),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color:
+                      valueColor ??
+                      (isDark ? AppColors.darkTextPrimary : AppColors.textPrimary),
+                ),
             textAlign: TextAlign.end,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
