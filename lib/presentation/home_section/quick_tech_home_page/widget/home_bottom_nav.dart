@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import '../../../../core/constant/const.dart';
 import '../model/nav_tab_item.dart';
 
@@ -24,9 +25,20 @@ class CleanBottomNavBar extends StatelessWidget {
         // High-quality frosted glass blur effect
         filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
         child: Container(
-          color:isDark? AppColors.darkSurfaceHigh.withAlpha(120): AppColors.surface.withAlpha(100),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: .topCenter,
+              end: .bottomCenter,
+              colors: [
+                Theme.of(context).cardColor.withAlpha(120),
+                Theme.of(context).cardColor.withAlpha(190),
+                Theme.of(context).cardColor,
+              ],
+            ),
+          ),
           child: SafeArea(
-            top: false, // Keep bottom padding for device navigation bars/home indicators
+            top: false,
+            // Keep bottom padding for device navigation bars/home indicators
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h),
               child: Row(
@@ -64,32 +76,30 @@ class _CleanNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final unselectedColor =
-        isDark ? Colors.grey.shade400 : Colors.grey.shade600;
-    final selectedColor =
-        isDark ? AppColors.primaryLight :  AppColors.primary;
+    final unselectedColor = isDark
+        ? Colors.grey.shade400
+        : Colors.grey.shade600;
+    final selectedColor = isDark ? AppColors.primaryLight : AppColors.primary;
 
     return GestureDetector(
       onTap: onTap,
       behavior: HitTestBehavior.translucent,
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 200),
-        style: TextStyle(
-          color:  isSelected? selectedColor : unselectedColor,
-        ),
+        style: TextStyle(color: isSelected ? selectedColor : unselectedColor),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               item.icon,
-              size: isSelected? 24.sp:22.sp,
+              size: isSelected ? 24.sp : 22.sp,
               color: isSelected ? selectedColor : unselectedColor,
             ),
             SizedBox(height: 6.h),
             Text(
               item.label,
               style: GoogleFonts.figtree(
-                fontSize:isSelected? 14.sp:11.sp,
+                fontSize: isSelected ? 14.sp : 11.sp,
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                 color: isSelected ? selectedColor : unselectedColor,
               ),
