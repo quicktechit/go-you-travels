@@ -1,5 +1,6 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
+import '../../../home_section/quick_tech_home_page/widget/app_security_dialog.dart';
 import '../model/quick_tech_dashboard_state.dart';
 import '../provider/quick_tech_dashboard_provider.dart';
 
@@ -33,7 +34,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
             ),
             GestureDetector(
               onTap: () {
-                context.push(AppRoutes.report);
+                context.push(AppRoutes.officeAgentReport);
               },
               child: Text(
                 'View Reports',
@@ -53,14 +54,25 @@ class TargetsPerformanceSection extends ConsumerWidget {
           children: state.targets.map((target) {
             return Padding(
               padding: EdgeInsets.only(bottom: 12.h),
-              child: _buildTargetCard(
-                context: context,
-                target: target,
-                cardBg: cardBg,
-                borderColor: borderColor,
-                titleColor: titleColor,
-                mainTextColor: mainTextColor,
-                isDark: isDark,
+              child: InkWell(
+                onTap: (){
+                  AppSecurityDialog.show(
+                    context,
+                    correctSecretKey: '123456',
+                    onUnlocked: () {
+                      context.pop();
+                    },
+                  );
+                },
+                child: _buildTargetCard(
+                  context: context,
+                  target: target,
+                  cardBg: cardBg,
+                  borderColor: borderColor,
+                  titleColor: titleColor,
+                  mainTextColor: mainTextColor,
+                  isDark: isDark,
+                ),
               ),
             );
           }).toList(),

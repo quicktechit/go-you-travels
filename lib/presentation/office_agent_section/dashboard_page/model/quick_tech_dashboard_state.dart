@@ -64,7 +64,6 @@ class QuickTechDashboardState {
   final int selectedNavIndex;
   final String selectedLanguage;
   final int unreadNotificationCount;
-  final String roleTag;
   final List<OperationalMetric> metrics;
   final List<TargetPerformance> targets;
   final List<ScheduledFollowUp> followUps;
@@ -73,7 +72,6 @@ class QuickTechDashboardState {
     this.selectedNavIndex = 0,
     this.selectedLanguage = 'EN',
     this.unreadNotificationCount = 3,
-    this.roleTag = 'Office',
     this.metrics = const [],
     this.targets = const [],
     this.followUps = const [],
@@ -83,7 +81,6 @@ class QuickTechDashboardState {
     int? selectedNavIndex,
     String? selectedLanguage,
     int? unreadNotificationCount,
-    String? roleTag,
     List<OperationalMetric>? metrics,
     List<TargetPerformance>? targets,
     List<ScheduledFollowUp>? followUps,
@@ -93,7 +90,6 @@ class QuickTechDashboardState {
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
       unreadNotificationCount:
           unreadNotificationCount ?? this.unreadNotificationCount,
-      roleTag: roleTag ?? this.roleTag,
       metrics: metrics ?? this.metrics,
       targets: targets ?? this.targets,
       followUps: followUps ?? this.followUps,

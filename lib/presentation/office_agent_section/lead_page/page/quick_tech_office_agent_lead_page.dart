@@ -9,8 +9,8 @@ import '../widget/lead_filter_chips.dart';
 import '../widget/lead_stats_grid.dart';
 
 
-class QuickTechLeadPage extends HookConsumerWidget {
-  const QuickTechLeadPage({super.key});
+class QuickTechOfficeAgentLeadPage extends HookConsumerWidget {
+  const QuickTechOfficeAgentLeadPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,6 +32,7 @@ class QuickTechLeadPage extends HookConsumerWidget {
       Padding(
         padding: const .only(bottom: 50.0),
         child: FloatingActionButton(
+          heroTag: null,
           onPressed: () => CreateLeadModal.show(context),
           backgroundColor: const Color(0xFF1D4ED8),
           shape: RoundedRectangleBorder(

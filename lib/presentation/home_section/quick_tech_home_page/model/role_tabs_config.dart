@@ -1,10 +1,14 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import '../../../local_agent_section/commission_page/page/quick_tech_local_agent_commission_page.dart';
+import '../../../local_agent_section/dashboard_page/page/quick_tech_local_agent_dashboard_page.dart';
+import '../../../local_agent_section/my_client_page/page/quick_tech_local_agent_my_client_page.dart';
+import '../../../local_agent_section/profile_page/page/quick_tech_local_agent_profile_page.dart';
 import '../../../login_page/model/user_role.dart';
-import '../../../office_agent_section/dashboard_page/page/quick_tech_dashboard_page.dart';
-import '../../../office_agent_section/lead_page/page/quick_tech_lead_page.dart';
-import '../../../office_agent_section/profile_page/page/quick_tech_profile_page.dart';
-import '../../../office_agent_section/task_page/page/quick_tech_task_page.dart';
-import '../../../office_agent_section/visa_files/page/quick_tech_visa_files_page.dart';
+import '../../../office_agent_section/dashboard_page/page/quick_tech_office_agent_dashboard_page.dart';
+import '../../../office_agent_section/lead_page/page/quick_tech_office_agent_lead_page.dart';
+import '../../../office_agent_section/profile_page/page/quick_tech_office_agent_profile_page.dart';
+import '../../../office_agent_section/task_page/page/quick_tech_office_agent_task_page.dart';
+import '../../../office_agent_section/visa_files/page/quick_tech_office_agent_visa_files_page.dart';
 import '../widget/role_tab_views.dart';
 import 'nav_tab_item.dart';
 
@@ -18,35 +22,35 @@ class RoleTabsConfig {
             icon: LucideIcons.layoutGrid,
             sfSymbol: 'square.grid.2x2',
             selectedSfSymbol: 'square.grid.2x2.fill',
-            page: QuickTechDashboardPage(),
+            page: QuickTechOfficeAgentDashboardPage(),
           ),
           NavTabItem(
             label: 'Leads',
             icon: LucideIcons.users,
             sfSymbol: 'person.2',
             selectedSfSymbol: 'person.2.fill',
-            page: QuickTechLeadPage(),
+            page: QuickTechOfficeAgentLeadPage(),
           ),
           NavTabItem(
             label: 'Visa Files',
             icon: LucideIcons.folderKanban,
             sfSymbol: 'folder',
             selectedSfSymbol: 'folder.fill',
-            page: QuickTechVisaFilesPage(),
+            page: QuickTechOfficeAgentVisaFilesPage(),
           ),
           NavTabItem(
             label: 'Tasks',
             icon: LucideIcons.clipboardList,
             sfSymbol: 'checkmark.square',
             selectedSfSymbol: 'checkmark.square.fill',
-            page: QuickTechTaskPage(),
+            page: QuickTechOfficeAgentTaskPage(),
           ),
           NavTabItem(
             label: 'Profile',
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: QuickTechProfilePage(),
+            page: QuickTechOfficeAgentProfilePage(),
           ),
         ];
 
@@ -57,35 +61,28 @@ class RoleTabsConfig {
             icon: LucideIcons.layoutGrid,
             sfSymbol: 'square.grid.2x2',
             selectedSfSymbol: 'square.grid.2x2.fill',
-            page:  ComingSoonView(title: 'Dashboard', icon: LucideIcons.layoutGrid),
-          ),
-          NavTabItem(
-            label: 'Submit Client',
-            icon: LucideIcons.userPlus,
-            sfSymbol: 'person.badge.plus',
-            selectedSfSymbol: 'person.badge.plus.fill',
-            page: ComingSoonView(title: 'Submit Client', icon: LucideIcons.userPlus),
+            page:  QuickTechLocalAgentDashboardPage(),
           ),
           NavTabItem(
             label: 'My Clients',
             icon: LucideIcons.users,
             sfSymbol: 'person.2',
             selectedSfSymbol: 'person.2.fill',
-            page: QuickTechLeadPage(),
+            page: QuickTechLocalAgentMyClientPage(),
           ),
           NavTabItem(
             label: 'Commission',
-            icon: LucideIcons.dollarSign,
+            icon: LucideIcons.banknoteCheck,
             sfSymbol: 'dollarsign.circle',
             selectedSfSymbol: 'dollarsign.circle.fill',
-            page: ComingSoonView(title: 'Commission', icon: LucideIcons.dollarSign),
+            page: QuickTechLocalAgentCommissionPage(),
           ),
           NavTabItem(
             label: 'Profile',
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: QuickTechProfilePage(),
+            page: QuickTechLocalAgentProfilePage(),
           ),
         ];
 
@@ -103,7 +100,7 @@ class RoleTabsConfig {
             icon: LucideIcons.users,
             sfSymbol: 'person.2',
             selectedSfSymbol: 'person.2.fill',
-            page: QuickTechLeadPage(),
+            page: ComingSoonView(title: 'Leads', icon: LucideIcons.users),
           ),
           NavTabItem(
             label: 'Follow Ups',
@@ -124,7 +121,7 @@ class RoleTabsConfig {
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: QuickTechProfilePage(),
+            page: ComingSoonView(title: 'Profile', icon: LucideIcons.user),
           ),
         ];
 
@@ -135,7 +132,7 @@ class RoleTabsConfig {
             icon: LucideIcons.layoutGrid,
             sfSymbol: 'square.grid.2x2',
             selectedSfSymbol: 'square.grid.2x2.fill',
-            page: QuickTechDashboardPage(),
+            page:ComingSoonView(title: 'Dashboard', icon: LucideIcons.layoutGrid)
           ),
           NavTabItem(
             label: 'Ledger',
@@ -163,7 +160,7 @@ class RoleTabsConfig {
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: QuickTechProfilePage(),
+            page: ComingSoonView(title: 'Profile', icon: LucideIcons.user),
           ),
         ];
     }

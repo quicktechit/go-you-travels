@@ -1,32 +1,29 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
-import '../../../home_section/quick_tech_home_page/model/role_tabs_config.dart';
-import '../../../home_section/quick_tech_home_page/provider/home_provider.dart';
-import '../../../home_section/quick_tech_home_page/widget/home_bottom_nav.dart';
-import '../../../login_page/model/user_role.dart';
-import '../provider/quick_tech_followup_provider.dart';
-import '../widget/followup_card_item.dart';
-import '../widget/followup_filter_chips.dart';
+import '../provider/visa_file_provider.dart';
+import '../widgets/visa_file_card_item.dart';
+import '../widgets/visa_file_filter_chips.dart';
 
-class QuickTechFollowupPage extends ConsumerWidget {
-  const QuickTechFollowupPage({super.key});
+class QuickTechOfficeAgentVisaFilesPage extends HookConsumerWidget {
+  const QuickTechOfficeAgentVisaFilesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(quickTechFollowupProvider);
-    final homeState = ref.watch(homeProvider);
+    final state = ref.watch(quickTechVisaFilesProvider);
+    final notifier = ref.read(quickTechVisaFilesProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final searchController = useTextEditingController(text: state.searchQuery);
+
+
 
 
     return Scaffold(
-      appBar: CustomAppbar(
-        title: 'Follow-ups',
+      appBar: const CustomAppbar(
+        title: 'Visa Files',
         subtitle: 'Go You Travels',
-        showBackButton: true,
-
       ),
-
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 24.h),
@@ -34,12 +31,23 @@ class QuickTechFollowupPage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. Horizontal Category Filter Chips
-              const FollowupFilterChips(),
+              // 1. Search Bar
+              AppTextField(
+                controller: searchController,
+                hint: 'Search by File ID, client name, or country...',
+                prefixIcon: LucideIcons.search,
+                suffixIcon: searchController.text.isNotEmpty ? LucideIcons.x : null,
+                onChanged: (val) => notifier.setSearchQuery(val),
+                borderRadius: 14,
+              ),
               SizedBox(height: 16.h),
 
-              // 2. Follow-ups List
-              if (state.filteredItems.isEmpty)
+              // 2. Horizontal Category Filter Chips
+              const VisaFileFilterChips(),
+              SizedBox(height: 16.h),
+
+              // 3. Visa File Cards List
+              if (state.filteredFiles.isEmpty)
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(vertical: 48.h),
@@ -48,13 +56,13 @@ class QuickTechFollowupPage extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        LucideIcons.calendarX,
+                        LucideIcons.folderSearch,
                         size: 42.sp,
                         color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        'No follow-ups found in this category',
+                        'No visa files found matching criteria',
                         style: GoogleFonts.figtree(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
@@ -70,12 +78,14 @@ class QuickTechFollowupPage extends ConsumerWidget {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.filteredItems.length,
+                  itemCount: state.filteredFiles.length,
                   itemBuilder: (context, index) {
-                    final item = state.filteredItems[index];
-                    return FollowupCardItem(item: item);
+                    final item = state.filteredFiles[index];
+                    return VisaFileCardItem(visaFile: item);
                   },
                 ),
+
+              60.verticalSpace,
             ],
           ),
         ),

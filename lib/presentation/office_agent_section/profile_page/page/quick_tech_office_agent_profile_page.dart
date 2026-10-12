@@ -1,13 +1,12 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
-import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../widget/operational_performance_section.dart';
 import '../widget/preference_settings_card.dart';
 import '../widget/profile_header_card.dart';
 
-class QuickTechProfilePage extends ConsumerWidget {
-  const QuickTechProfilePage({super.key});
+class QuickTechOfficeAgentProfilePage extends ConsumerWidget {
+  const QuickTechOfficeAgentProfilePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

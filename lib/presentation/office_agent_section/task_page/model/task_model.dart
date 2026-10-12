@@ -31,6 +31,8 @@ class TaskItem {
   final TaskStatus status;
   final String dueDate;
   final String dueTime;
+  final String requestedBy; // Whom it came from / requested by
+  final bool facebookDone;  // Facebook action status (only for active tasks)
 
   const TaskItem({
     required this.id,
@@ -41,6 +43,8 @@ class TaskItem {
     required this.status,
     required this.dueDate,
     required this.dueTime,
+    required this.requestedBy,
+    this.facebookDone = false,
   });
 
   TaskItem copyWith({
@@ -52,6 +56,8 @@ class TaskItem {
     TaskStatus? status,
     String? dueDate,
     String? dueTime,
+    String? requestedBy,
+    bool? facebookDone,
   }) {
     return TaskItem(
       id: id ?? this.id,
@@ -62,6 +68,8 @@ class TaskItem {
       status: status ?? this.status,
       dueDate: dueDate ?? this.dueDate,
       dueTime: dueTime ?? this.dueTime,
+      requestedBy: requestedBy ?? this.requestedBy,
+      facebookDone: facebookDone ?? this.facebookDone,
     );
   }
 }

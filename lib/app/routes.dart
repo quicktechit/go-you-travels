@@ -1,19 +1,21 @@
 import '../core/constant/const.dart';
 import '../presentation/home_section/quick_tech_home_page/page/quick_tech_home_page.dart';
-import '../presentation/login_page/page/login_page.dart';
-import '../presentation/office_agent_section/dashboard_page/page/quick_tech_dashboard_page.dart';
-import '../presentation/office_agent_section/dashboard_page/page/quick_tech_followup_page.dart';
-import '../presentation/office_agent_section/dashboard_page/page/quick_tech_report_page.dart';
+import '../presentation/login_page/page/quick_tech_login_page.dart';
+import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_dashboard_page.dart';
+import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_followup_page.dart';
+import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_report_page.dart';
 import '../presentation/splash_page/quick_tech_splash_page.dart';
 
+
 class AppRoutes {
+  AppRoutes._();
+
   static const String splash = '/';
   static const String login = '/login';
-  static const String landing = '/landing';
   static const String home = '/home';
-  static const String dashboard = '/dashboard';
-  static const String followUp = '/followup';
-  static const String report = '/report';
+  static const String officeAgentDashboard = '/office-agent-dashboard';
+  static const String officeAgentFollowUp = '/office-agent-follow-up';
+  static const String officeAgentReport = '/office-agent-report';
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
@@ -24,23 +26,26 @@ class AppRoutes {
       ),
       GoRoute(
         path: login,
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) => const QuickTechLoginPage(),
       ),
       GoRoute(
         path: home,
         builder: (context, state) => const QuickTechHomePage(),
       ),
       GoRoute(
-        path: dashboard,
-        builder: (context, state) => const QuickTechDashboardPage(),
+        path: officeAgentDashboard,
+        builder: (context, state) =>
+        const QuickTechOfficeAgentDashboardPage(),
       ),
       GoRoute(
-        path: followUp,
-        builder: (context, state) => const QuickTechFollowupPage(),
+        path: officeAgentFollowUp,
+        builder: (context, state) =>
+        const QuickTechOfficeAgentFollowupPage(),
       ),
       GoRoute(
-        path: report,
-        builder: (context, state) => const QuickTechReportPage(),
+        path: officeAgentReport,
+        builder: (context, state) =>
+        const QuickTechOfficeAgentReportPage(),
       ),
     ],
   );

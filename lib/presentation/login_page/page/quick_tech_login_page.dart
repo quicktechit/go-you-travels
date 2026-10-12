@@ -3,8 +3,8 @@ import '../widget/login_card.dart';
 import '../widget/login_header.dart';
 import '../widget/login_top_bar.dart';
 
-class LoginPage extends ConsumerWidget {
-  const LoginPage({super.key});
+class QuickTechLoginPage extends ConsumerWidget {
+  const QuickTechLoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

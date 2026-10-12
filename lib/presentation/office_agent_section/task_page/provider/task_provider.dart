@@ -5,11 +5,13 @@ class TaskState {
   final String selectedTab;
   final String searchQuery;
   final List<TaskItem> tasks;
+  final List<TaskItem> requestedTasks;
 
   const TaskState({
     this.selectedTab = 'All',
     this.searchQuery = '',
     this.tasks = const [],
+    this.requestedTasks = const [],
   });
 
   int countForTab(String tab) {
@@ -35,7 +37,8 @@ class TaskState {
         final query = searchQuery.toLowerCase();
         return item.title.toLowerCase().contains(query) ||
             item.description.toLowerCase().contains(query) ||
-            item.category.toLowerCase().contains(query);
+            item.category.toLowerCase().contains(query) ||
+            item.requestedBy.toLowerCase().contains(query);
       }
       return true;
     }).toList();
@@ -45,11 +48,13 @@ class TaskState {
     String? selectedTab,
     String? searchQuery,
     List<TaskItem>? tasks,
+    List<TaskItem>? requestedTasks,
   }) {
     return TaskState(
       selectedTab: selectedTab ?? this.selectedTab,
       searchQuery: searchQuery ?? this.searchQuery,
       tasks: tasks ?? this.tasks,
+      requestedTasks: requestedTasks ?? this.requestedTasks,
     );
   }
 }
@@ -61,10 +66,10 @@ final quickTechTaskProvider =
 
 class QuickTechTaskNotifier extends StateNotifier<TaskState> {
   QuickTechTaskNotifier()
-      : super(const TaskState(
+      : super(TaskState(
           selectedTab: 'All',
           tasks: [
-            TaskItem(
+            const TaskItem(
               id: '1',
               title: 'Submit Biometrics Booking for Dr. Sabrina',
               description: 'Book Canada VFS appointment slot for passport dispatch and sticker.',
@@ -73,9 +78,10 @@ class QuickTechTaskNotifier extends StateNotifier<TaskState> {
               status: TaskStatus.completed,
               dueDate: 'Today',
               dueTime: '05:00 PM',
+              requestedBy: 'Sunny',
+              facebookDone: true,
             ),
-
-            TaskItem(
+            const TaskItem(
               id: '2',
               title: 'Follow-up with Paid Leads from Eid Campaign',
               description: 'Call 15 leads from Meta campaign ad set 2.',
@@ -84,8 +90,10 @@ class QuickTechTaskNotifier extends StateNotifier<TaskState> {
               status: TaskStatus.inProgress,
               dueDate: 'Today',
               dueTime: '06:30 PM',
+              requestedBy: 'Nasir khan',
+              facebookDone: false,
             ),
-            TaskItem(
+            const TaskItem(
               id: '3',
               title: 'Verify Bank Solvency Statement for Mahmudul Hasan',
               description: 'Check 6-month transaction history and bank seal.',
@@ -94,8 +102,10 @@ class QuickTechTaskNotifier extends StateNotifier<TaskState> {
               status: TaskStatus.completed,
               dueDate: 'Today',
               dueTime: '04:30 PM',
+              requestedBy: 'Mahmudul Hasan',
+              facebookDone: false,
             ),
-            TaskItem(
+            const TaskItem(
               id: '4',
               title: 'Review Schengen Appointment Confirmation',
               description: 'Confirm appointment slot and email checklist to client.',
@@ -104,6 +114,43 @@ class QuickTechTaskNotifier extends StateNotifier<TaskState> {
               status: TaskStatus.completed,
               dueDate: 'Today',
               dueTime: '03:00 PM',
+              requestedBy: 'Rezaul Korim',
+              facebookDone: false,
+            ),
+          ],
+          requestedTasks: [
+            const TaskItem(
+              id: 'r1',
+              title: 'Prepare US B1/B2 Visa Mock Interview',
+              description: 'Conduct 30-minute visa mock interview session for Mr. Rahim.',
+              category: 'Visa Processing',
+              priority: TaskPriority.urgent,
+              status: TaskStatus.pending,
+              dueDate: 'Tomorrow',
+              dueTime: '11:00 AM',
+              requestedBy: 'Mahim Pramanik',
+            ),
+            const TaskItem(
+              id: 'r2',
+              title: 'Collect Attested Educational Certificates',
+              description: 'Receive attested degree and transcripts from Education Board.',
+              category: 'Documentation',
+              priority: TaskPriority.high,
+              status: TaskStatus.pending,
+              dueDate: 'Tomorrow',
+              dueTime: '03:00 PM',
+              requestedBy: 'MD Rezwan',
+            ),
+            const TaskItem(
+              id: 'r3',
+              title: 'Dispatch Courier Package for UK Student Visa',
+              description: 'Send original passport and CAS letter via DHL Express.',
+              category: 'Courier & Dispatch',
+              priority: TaskPriority.medium,
+              status: TaskStatus.pending,
+              dueDate: 'In 2 Days',
+              dueTime: '02:00 PM',
+              requestedBy: 'Mahim Ul Islam',
             ),
           ],
         ));
@@ -116,27 +163,30 @@ class QuickTechTaskNotifier extends StateNotifier<TaskState> {
     state = state.copyWith(searchQuery: query);
   }
 
-  void addTask({
-    required String title,
-    required String description,
-    required String category,
-    required TaskPriority priority,
-    required String dueDate,
-    required String dueTime,
-  }) {
-    final newTask = TaskItem(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      title: title,
-      description: description,
-      category: category.isEmpty ? 'General' : category,
-      priority: priority,
-      status: TaskStatus.pending,
-      dueDate: dueDate,
-      dueTime: dueTime,
-    );
+  void acceptRequestedTask(TaskItem task) {
+    final updatedRequested = state.requestedTasks.where((t) => t.id != task.id).toList();
+    final updatedTasks = [task.copyWith(status: TaskStatus.pending, facebookDone: false), ...state.tasks];
 
-    state = state.copyWith(tasks: [newTask, ...state.tasks]);
-    Fluttertoast.showToast(msg: "Task created successfully!");
+    state = state.copyWith(
+      requestedTasks: updatedRequested,
+      tasks: updatedTasks,
+    );
+    Fluttertoast.showToast(msg: "Task '${task.title}' accepted successfully!");
+  }
+
+  void toggleFacebookDone(String id) {
+    final updatedList = state.tasks.map((task) {
+      if (task.id == id) {
+        final newValue = !task.facebookDone;
+        Fluttertoast.showToast(
+          msg: newValue ? "Facebook action marked as done!" : "Facebook action unmarked",
+        );
+        return task.copyWith(facebookDone: newValue);
+      }
+      return task;
+    }).toList();
+
+    state = state.copyWith(tasks: updatedList);
   }
 
   void startTask(String id) {

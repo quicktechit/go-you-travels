@@ -1,10 +1,10 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/upload_doc_modal.dart';
 import '../model/visa_file_model.dart';
 import '../provider/visa_file_provider.dart';
 import 'change_status_modal.dart';
-import 'upload_doc_modal.dart';
 
 class VisaFileDetailsModal extends ConsumerWidget {
   final VisaFileItem visaFile;
@@ -187,7 +187,7 @@ class VisaFileDetailsModal extends ConsumerWidget {
                       ),
                 ),
                 GestureDetector(
-                  onTap: () => UploadDocModal.show(context, currentFile),
+                  onTap: () => UploadDocModal.show(context, visaFile: currentFile),
                   child: Row(
                     children: [
                       Icon(

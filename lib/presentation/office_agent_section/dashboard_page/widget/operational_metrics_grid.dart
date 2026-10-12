@@ -67,13 +67,13 @@ class OperationalMetricsGrid extends ConsumerWidget {
                   ref.read(homeProvider.notifier).setNavIndex(1);
                 }
                 if (index == 3) {
-                  context.push(AppRoutes.followUp);
+                  context.push(AppRoutes.officeAgentFollowUp);
                 }
                 if (index == 4) {
                   ref.read(homeProvider.notifier).setNavIndex(2);
                 }
                 if (index == 5) {
-                  context.push(AppRoutes.report);
+                  context.push(AppRoutes.officeAgentReport);
                 }
               },
             );

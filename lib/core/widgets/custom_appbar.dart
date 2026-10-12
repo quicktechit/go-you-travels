@@ -1,7 +1,7 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../constant/const.dart';
-import '../../presentation/office_agent_section/dashboard_page/provider/quick_tech_dashboard_provider.dart';
+import '../../presentation/login_page/provider/login_provider.dart';
 
 /// A customizable top app bar that implements [PreferredSizeWidget],
 /// allowing it to be used either as a [Scaffold.appBar] or as a standalone widget anywhere in the app.
@@ -54,9 +54,10 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(quickTechDashboardProvider);
+    final loginState = ref.watch(loginProvider);
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
+    const staticNotificationCount = 3;
 
     final pillBg = isDark ? AppColors.darkSurfaceHigh : AppColors.line;
     final pillTextColor = isDark
@@ -162,8 +163,8 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                   SizedBox(width: 8.w),
                 ],
 
-                // Office Role Pill
-                if (showRoleTag && state.roleTag.isNotEmpty) ...[
+                // Role Pill (shows role selected when login)
+                if (showRoleTag) ...[
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 10.w,
@@ -179,14 +180,14 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                         Container(
                           width: 7.r,
                           height: 7.r,
-                          decoration: const BoxDecoration(
-                            color: AppColors.primary,
+                          decoration: BoxDecoration(
+                            color: loginState.selectedRole.iconColor,
                             shape: BoxShape.circle,
                           ),
                         ),
                         SizedBox(width: 6.w),
                         Text(
-                          state.roleTag,
+                          loginState.selectedRole.shortName,
                           style: GoogleFonts.figtree(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
@@ -214,7 +215,7 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                               ? AppColors.darkTextPrimary
                               : AppColors.textPrimary,
                         ),
-                        if (state.unreadNotificationCount > 0)
+                        if (staticNotificationCount > 0)
                           Positioned(
                             top: -4.h,
                             right: -6.w,
@@ -229,7 +230,7 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                                 minHeight: 16.r,
                               ),
                               child: Text(
-                                '${state.unreadNotificationCount}',
+                                '$staticNotificationCount',
                                 style: GoogleFonts.figtree(
                                   color: Colors.white,
                                   fontSize: 10.sp,

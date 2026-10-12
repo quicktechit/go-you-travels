@@ -5,8 +5,8 @@ import '../provider/quick_tech_report_provider.dart';
 import '../widget/report_cards.dart';
 import '../widget/report_filter_chips.dart';
 
-class QuickTechReportPage extends ConsumerWidget {
-  const QuickTechReportPage({super.key});
+class QuickTechOfficeAgentReportPage extends ConsumerWidget {
+  const QuickTechOfficeAgentReportPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

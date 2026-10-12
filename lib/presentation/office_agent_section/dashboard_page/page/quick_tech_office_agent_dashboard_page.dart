@@ -5,8 +5,8 @@ import '../widget/operational_metrics_grid.dart';
 import '../widget/scheduled_followups_section.dart';
 import '../widget/targets_performance_section.dart';
 
-class QuickTechDashboardPage extends ConsumerWidget {
-  const QuickTechDashboardPage({super.key});
+class QuickTechOfficeAgentDashboardPage extends ConsumerWidget {
+  const QuickTechOfficeAgentDashboardPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

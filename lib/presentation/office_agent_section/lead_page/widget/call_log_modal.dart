@@ -121,15 +121,71 @@ class CallLogModal extends HookConsumerWidget {
               ),
               SizedBox(height: 20.h),
 
-              // Launch Device Phone Dialer Primary Button
-              AppButton(
-                text: 'Launch Device Phone Dialer',
-                icon: LucideIcons.phone,
-                height: 48.h,
-                fontSize: 15.sp,
-                onPressed: () {
-                  Fluttertoast.showToast(msg: "Launching dialer for ${lead.phone}");
-                },
+              // Communication Options: Phone, WhatsApp, Imo
+              Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      text: 'Phone',
+                      icon: LucideIcons.phone,
+                      height: 46.h,
+                      fontSize: 12.sp,
+                      horizontalPadding: 4.w,
+                      onPressed: () {
+                        Fluttertoast.showToast(msg: "Launching dialer for ${lead.phone}");
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: AppButton(
+                      text: 'WhatsApp',
+                      icon: FontAwesomeIcons.whatsapp,
+                      backgroundColor: const Color(0xFF25D366),
+                      textColor: Colors.white,
+                      height: 46.h,
+                      fontSize: 12.sp,
+                      horizontalPadding: 4.w,
+                      onPressed: () async {
+                        final message =
+                            'Hello ${lead.name}, contacting regarding your travel inquiry. '
+                            'Phone: ${lead.phone}';
+
+                        final uri = Uri.parse(
+                          'https://wa.me/${lead.phone}?text=${Uri.encodeComponent(message)}',
+                        );
+
+                          await launchUrl(
+                            uri,
+                            mode: LaunchMode.externalApplication,
+                          );
+
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: AppButton(
+                      text: 'Imo',
+                      icon: FontAwesomeIcons.commentDots ,
+                      backgroundColor: const Color(0xFF0088CC),
+                      textColor: Colors.white,
+                      height: 46.h,
+                      fontSize: 12.sp,
+                      horizontalPadding: 4.w,
+                      onPressed: () async {
+                        final uri = Uri.parse('imo://');
+
+
+                          await launchUrl(
+                            uri,
+                            mode: LaunchMode.externalApplication,
+                          );
+
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 20.h),
 

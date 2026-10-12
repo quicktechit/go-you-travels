@@ -40,7 +40,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
             ),
             GestureDetector(
               onTap: () {
-                context.push(AppRoutes.followUp);
+                context.push(AppRoutes.officeAgentFollowUp);
               },
               child: Text(
                 'See All (4)',
