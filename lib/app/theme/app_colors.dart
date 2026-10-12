@@ -22,6 +22,13 @@ class AppColors {
   static const orange = Color(0xFFEA580C);
   static const red = Color(0xFFEA0C0C);
 
+  static const teal = Color(0xFF0D9488);
+  static const tealDark = Color(0xFF0F766E);
+  static const tealLight = Color(0xFF14B8A6);
+  static const emerald = Color(0xFF059669);
+  static const indigoAccent = Color(0xFF4F46E5);
+  static const amberWarning = Color(0xFFD97706);
+
   static const line = Color(0xFFE2E8F0);
   static const cardShadow = Color(0x0D000000); // 5% black
 

@@ -1,5 +1,6 @@
 import '../constant/const.dart';
 
+
 class AppDropdown<T> extends StatelessWidget {
   final String? label;
   final Widget? labelWidget;
@@ -8,7 +9,10 @@ class AppDropdown<T> extends StatelessWidget {
   final List<DropdownMenuItem<T>> items;
   final ValueChanged<T?>? onChanged;
   final String? Function(T?)? validator;
-  final IconData? prefixIcon;
+
+  // Supports both IconData and FaIconData.
+  final Object? prefixIcon;
+
   final Color? prefixIconColor;
   final Color? borderColor;
   final double borderRadius;
@@ -53,11 +57,12 @@ class AppDropdown<T> extends StatelessWidget {
           Text(
             label!,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+              fontWeight: FontWeight.w600,
+            ),
           ),
           SizedBox(height: 8.h),
         ],
+
         DropdownButtonFormField<T>(
           initialValue: value,
           onChanged: onChanged,
@@ -70,12 +75,14 @@ class AppDropdown<T> extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge,
           decoration: InputDecoration(
             hintText: hint,
-            contentPadding: contentPadding ?? inputTheme.contentPadding,
+            contentPadding:
+            contentPadding ?? inputTheme.contentPadding,
             prefixIcon: prefixIcon != null
-                ? Icon(
+                ? buildIcon(
                     prefixIcon,
                     size: 20.sp,
                     color: prefixIconColor ?? AppColors.primaryDark,
+                    padding: prefixIcon is FaIconData ? EdgeInsets.all(14.w) : null,
                   )
                 : null,
             border: _widgetBorder(context, radius),
@@ -99,19 +106,30 @@ class AppDropdown<T> extends StatelessWidget {
     );
   }
 
-  InputBorder _widgetBorder(BuildContext context, BorderRadius radius) {
+  InputBorder _widgetBorder(
+      BuildContext context,
+      BorderRadius radius,
+      ) {
     if (borderColor != null) {
       return OutlineInputBorder(
         borderRadius: radius,
-        borderSide: BorderSide(color: borderColor!, width: 1.5.w),
+        borderSide: BorderSide(
+          color: borderColor!,
+          width: 1.5.w,
+        ),
       );
     }
+
     final inputTheme = Theme.of(context).inputDecorationTheme;
+
     if (inputTheme.border is OutlineInputBorder) {
-      return (inputTheme.border as OutlineInputBorder).copyWith(borderRadius: radius);
+      return (inputTheme.border as OutlineInputBorder)
+          .copyWith(borderRadius: radius);
     }
+
     return OutlineInputBorder(borderRadius: radius);
   }
 }
+
 
 

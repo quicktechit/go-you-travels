@@ -1,5 +1,6 @@
 import '../constant/const.dart';
 
+
 class AppTextField extends StatefulWidget {
   final String? label;
   final String? labelText;
@@ -7,8 +8,11 @@ class AppTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool isPassword;
   final TextInputType keyboardType;
-  final IconData? prefixIcon;
-  final IconData? suffixIcon;
+
+  // Supports both IconData and FaIconData.
+  final Object? prefixIcon;
+  final Object? suffixIcon;
+
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
   final bool readOnly;
@@ -50,7 +54,8 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     final inputTheme = Theme.of(context).inputDecorationTheme;
-    final borderRadius = BorderRadius.circular(widget.borderRadius.r);
+    final borderRadius =
+    BorderRadius.circular(widget.borderRadius.r);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,11 +64,12 @@ class _AppTextFieldState extends State<AppTextField> {
           Text(
             widget.label!,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+              fontWeight: FontWeight.w600,
+            ),
           ),
           SizedBox(height: 8.h),
         ],
+
         TextFormField(
           controller: widget.controller,
           obscureText: widget.isPassword ? _obscureText : false,
@@ -76,41 +82,70 @@ class _AppTextFieldState extends State<AppTextField> {
           style: Theme.of(context).textTheme.bodyLarge,
           decoration: InputDecoration(
             labelText: widget.labelText,
-
             hintText: widget.hint,
             fillColor: widget.fillColor ?? inputTheme.fillColor,
-            contentPadding: widget.contentPadding ?? inputTheme.contentPadding,
+            contentPadding:
+            widget.contentPadding ?? inputTheme.contentPadding,
+
+            // Prefix icon: Flutter or Font Awesome.
             prefixIcon: widget.prefixIcon != null
-                ? Icon(widget.prefixIcon, size: 20.sp, color: AppColors.primaryDark)
+                ? buildIcon(
+                    widget.prefixIcon,
+                    size: 20.sp,
+                    color: AppColors.primaryDark,
+                  )
                 : null,
+
+            // Password visibility takes priority over suffixIcon.
             suffixIcon: widget.isPassword
                 ? IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                      size: 20.sp,
-                      color: AppColors.textSecondary,
-                    ),
-                    onPressed: () => setState(() => _obscureText = !_obscureText),
-                  )
+              icon: Icon(
+                _obscureText
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                size: 20.sp,
+                color: AppColors.textSecondary,
+              ),
+              onPressed: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+            )
                 : widget.suffixIcon != null
-                    ? Icon(widget.suffixIcon, size: 20.sp, color: AppColors.textSecondary)
-                    : null,
+                ? buildIcon(
+                    widget.suffixIcon,
+                    size: 20.sp,
+                    color: AppColors.textSecondary,
+                  )
+                : null,
+
             border: widget.borderColor != null
                 ? OutlineInputBorder(
-                    borderRadius: borderRadius,
-                    borderSide: BorderSide(color: widget.borderColor!, width: 1.w),
-                  )
+              borderRadius: borderRadius,
+              borderSide: BorderSide(
+                color: widget.borderColor!,
+                width: 1.w,
+              ),
+            )
                 : (inputTheme.border is OutlineInputBorder
-                    ? (inputTheme.border as OutlineInputBorder).copyWith(borderRadius: borderRadius)
-                    : inputTheme.border),
+                ? (inputTheme.border as OutlineInputBorder)
+                .copyWith(borderRadius: borderRadius)
+                : inputTheme.border),
+
             enabledBorder: widget.borderColor != null
                 ? OutlineInputBorder(
-                    borderRadius: borderRadius,
-                    borderSide: BorderSide(color: widget.borderColor!, width: 1.w),
-                  )
+              borderRadius: borderRadius,
+              borderSide: BorderSide(
+                color: widget.borderColor!,
+                width: 1.w,
+              ),
+            )
                 : (inputTheme.enabledBorder is OutlineInputBorder
-                    ? (inputTheme.enabledBorder as OutlineInputBorder).copyWith(borderRadius: borderRadius)
-                    : inputTheme.enabledBorder),
+                ? (inputTheme.enabledBorder as OutlineInputBorder)
+                .copyWith(borderRadius: borderRadius)
+                : inputTheme.enabledBorder),
+
             focusedBorder: OutlineInputBorder(
               borderRadius: borderRadius,
               borderSide: BorderSide(
@@ -124,5 +159,6 @@ class _AppTextFieldState extends State<AppTextField> {
     );
   }
 }
+
 
 

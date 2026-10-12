@@ -1,13 +1,19 @@
 import '../constant/const.dart';
 
+
+// Keep your existing AppColors import.
+
 enum AppButtonVariant { primary, outlined, text }
 
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final bool isLoading;
-  final IconData? icon;
-  final IconData? trailingIcon;
+
+  // Supports both IconData and FaIconData.
+  final Object? icon;
+  final Object? trailingIcon;
+
   final AppButtonVariant variant;
   final double? width;
   final double? height;
@@ -17,9 +23,9 @@ class AppButton extends StatelessWidget {
   final List<BoxShadow>? boxShadow;
   final Color? textColor;
   final double? borderRadius;
-  final double? fontSize; // Added dynamic font size
-  final double? horizontalPadding; // Added dynamic horizontal padding
-  final double? verticalPadding; // Added dynamic vertical padding
+  final double? fontSize;
+  final double? horizontalPadding;
+  final double? verticalPadding;
 
   const AppButton({
     super.key,
@@ -47,16 +53,20 @@ class AppButton extends StatelessWidget {
     final effectiveHeight = height ?? 52.h;
     final radius = borderRadius ?? 12.r;
     final effectiveFontSize = fontSize ?? 16.sp;
-    final effectiveHorizontalPadding = horizontalPadding ?? 12.w; // Reduced from 16 to 12
-    final effectiveVerticalPadding = verticalPadding ?? 8.h; // Reduced from 12 to 8
+    final effectiveHorizontalPadding = horizontalPadding ?? 12.w;
+    final effectiveVerticalPadding = verticalPadding ?? 8.h;
 
     switch (variant) {
       case AppButtonVariant.primary:
-        Widget button = ElevatedButton(
+        final button = ElevatedButton(
           onPressed: isLoading ? null : onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor ?? (gradient != null ? Colors.transparent : (color ?? AppColors.primary)),
-            shadowColor: gradient != null ? Colors.transparent : null,
+            backgroundColor: backgroundColor ??
+                (gradient != null
+                    ? Colors.transparent
+                    : (color ?? AppColors.primary)),
+            shadowColor:
+            gradient != null ? Colors.transparent : null,
             foregroundColor: textColor ?? Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(radius),
@@ -96,7 +106,7 @@ class AppButton extends StatelessWidget {
 
       case AppButtonVariant.outlined:
         final borderColor = color ?? AppColors.primary;
-        final textColorValue = textColor ?? borderColor;
+        final effectiveTextColor = textColor ?? borderColor;
 
         return SizedBox(
           width: width ?? double.infinity,
@@ -108,8 +118,9 @@ class AppButton extends StatelessWidget {
                 color: borderColor,
                 width: 1.5.w,
               ),
-              backgroundColor: backgroundColor ?? color?.withValues(alpha: 0.1),
-              foregroundColor: textColorValue,
+              backgroundColor:
+              backgroundColor ?? color?.withValues(alpha: 0.1),
+              foregroundColor: effectiveTextColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radius),
               ),
@@ -118,17 +129,22 @@ class AppButton extends StatelessWidget {
                 vertical: effectiveVerticalPadding,
               ),
             ),
-            child: _buildChild(context, textColorValue, effectiveFontSize),
+            child: _buildChild(
+              context,
+              effectiveTextColor,
+              effectiveFontSize,
+            ),
           ),
         );
 
       case AppButtonVariant.text:
-        final textColorValue = textColor ?? (color ?? AppColors.primary);
+        final effectiveTextColor =
+            textColor ?? (color ?? AppColors.primary);
 
         return TextButton(
           onPressed: isLoading ? null : onPressed,
           style: TextButton.styleFrom(
-            foregroundColor: textColorValue,
+            foregroundColor: effectiveTextColor,
             padding: EdgeInsets.symmetric(
               horizontal: effectiveHorizontalPadding,
               vertical: effectiveVerticalPadding,
@@ -136,12 +152,20 @@ class AppButton extends StatelessWidget {
             minimumSize: const Size(0, 0),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          child: _buildChild(context, textColorValue, effectiveFontSize),
+          child: _buildChild(
+            context,
+            effectiveTextColor,
+            effectiveFontSize,
+          ),
         );
     }
   }
 
-  Widget _buildChild(BuildContext context, Color contentColor, double fontSize) {
+  Widget _buildChild(
+      BuildContext context,
+      Color contentColor,
+      double fontSize,
+      ) {
     if (isLoading) {
       return SizedBox(
         height: 20.h,
@@ -158,28 +182,32 @@ class AppButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (icon != null) ...[
-          Icon(
+          buildIcon(
             icon,
-            size: fontSize * 1.2, // Icon size relative to font size
+            size: fontSize * 1.2,
             color: contentColor,
           ),
-          SizedBox(width: 6.w), // Reduced from 8 to 6
+          SizedBox(width: 6.w),
         ],
-        Text(
-          text,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: contentColor,
-            fontWeight: FontWeight.w600,
-            fontSize: fontSize, // Dynamic font size
-            letterSpacing: 0.3, // Slightly reduced from 0.5
+
+        Flexible(
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+              color: contentColor,
+              fontWeight: FontWeight.w600,
+              fontSize: fontSize,
+              letterSpacing: 0.3,
+            ),
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
         ),
+
         if (trailingIcon != null) ...[
           SizedBox(width: 6.w),
-          Icon(
+          buildIcon(
             trailingIcon,
             size: fontSize * 1.2,
             color: contentColor,
