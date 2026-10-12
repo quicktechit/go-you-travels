@@ -4,6 +4,9 @@ import '../presentation/login_page/page/quick_tech_login_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_dashboard_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_followup_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_report_page.dart';
+import '../presentation/paid_agent_section/dashboard_page/page/quick_tech_paid_agent_dashboard_page.dart';
+import '../presentation/paid_agent_section/follow_up_page/page/quick_tech_paid_agent_followup_page.dart';
+import '../presentation/paid_agent_section/report_page/page/quick_tech_paid_agent_report_page.dart';
 import '../presentation/splash_page/quick_tech_splash_page.dart';
 
 
@@ -16,6 +19,9 @@ class AppRoutes {
   static const String officeAgentDashboard = '/office-agent-dashboard';
   static const String officeAgentFollowUp = '/office-agent-follow-up';
   static const String officeAgentReport = '/office-agent-report';
+  static const String paidAgentDashboard = '/paid-agent-dashboard';
+  static const String paidAgentFollowUp = '/paid-agent-follow-up';
+  static const String paidAgentReport = '/paid-agent-report';
 
   static final GoRouter router = GoRouter(
     initialLocation: splash,
@@ -46,6 +52,21 @@ class AppRoutes {
         path: officeAgentReport,
         builder: (context, state) =>
         const QuickTechOfficeAgentReportPage(),
+      ),
+      GoRoute(
+        path: paidAgentDashboard,
+        builder: (context, state) =>
+        const QuickTechPaidAgentDashboardPage(),
+      ),
+      GoRoute(
+        path: paidAgentFollowUp,
+        builder: (context, state) =>
+        const QuickTechPaidAgentFollowupPage(),
+      ),
+      GoRoute(
+        path: paidAgentReport,
+        builder: (context, state) =>
+        const QuickTechPaidAgentReportPage(),
       ),
     ],
   );
