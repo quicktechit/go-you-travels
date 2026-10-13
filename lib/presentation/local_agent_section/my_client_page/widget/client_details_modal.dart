@@ -22,6 +22,7 @@ class ClientDetailsModal extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
 
     final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
@@ -68,19 +69,14 @@ class ClientDetailsModal extends HookWidget {
                     children: [
                       Text(
                         client.name,
-                        style: GoogleFonts.figtree(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
-                          color: primaryText,
-                        ),
+                        style: textTheme.headlineMedium,
                       ),
                       SizedBox(height: 4.h),
                       Text(
                         'CUST-1376 · ${client.country}',
-                        style: GoogleFonts.figtree(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w500,
-                          color: secondaryText,
                         ),
                       ),
                     ],
@@ -131,12 +127,11 @@ class ClientDetailsModal extends HookWidget {
                       ),
                       child: Text(
                         tabs[index],
-                        style: GoogleFonts.figtree(
-                          fontSize: 14.sp,
+                        style: textTheme.titleSmall?.copyWith(
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                           color: isSelected
                               ? AppColors.primary
-                              : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary),
+                              : null,
                         ),
                       ),
                     ),
@@ -184,22 +179,24 @@ class ClientDetailsModal extends HookWidget {
     Color secondaryText,
     Color borderColor,
   ) {
+    final textTheme = Theme.of(context).textTheme;
+
     switch (tabIndex) {
       case 0: // Overview
         return Column(
           children: [
-            _buildInfoRow('Full Name', client.name, primaryText, secondaryText, borderColor),
-            _buildInfoRow('Phone Number', '+1 (212) 555-0143', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Email Address', 'nusrat.jahan@gmail.com', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Passport Number', 'P94365056', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Passport Expiry', '2032-12-31', primaryText, secondaryText, borderColor),
-            _buildInfoRow('National ID (NID)', 'NID-9534061310', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Residential Address', 'Primary Residential Address', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Target Country', client.country, primaryText, secondaryText, borderColor),
-            _buildInfoRow('Travel Purpose', 'Immigration & Tourism', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Service Package', client.visaType, primaryText, secondaryText, borderColor),
-            _buildInfoRow('Assigned Consultant', 'Tariqul Islam', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Referral Agent', 'Website', primaryText, secondaryText, borderColor, isLast: true),
+            _buildInfoRow(context, 'Full Name', client.name, borderColor),
+            _buildInfoRow(context, 'Phone Number', '+1 (212) 555-0143', borderColor),
+            _buildInfoRow(context, 'Email Address', 'nusrat.jahan@gmail.com', borderColor),
+            _buildInfoRow(context, 'Passport Number', 'P94365056', borderColor),
+            _buildInfoRow(context, 'Passport Expiry', '2032-12-31', borderColor),
+            _buildInfoRow(context, 'National ID (NID)', 'NID-9534061310', borderColor),
+            _buildInfoRow(context, 'Residential Address', 'Primary Residential Address', borderColor),
+            _buildInfoRow(context, 'Target Country', client.country, borderColor),
+            _buildInfoRow(context, 'Travel Purpose', 'Immigration & Tourism', borderColor),
+            _buildInfoRow(context, 'Service Package', client.visaType, borderColor),
+            _buildInfoRow(context, 'Assigned Consultant', 'Tariqul Islam', borderColor),
+            _buildInfoRow(context, 'Referral Agent', 'Website', borderColor, isLast: true),
           ],
         );
       case 1: // Documents
@@ -211,10 +208,8 @@ class ClientDetailsModal extends HookWidget {
               children: [
                 Text(
                   'Uploaded Documents (1)',
-                  style: GoogleFonts.figtree(
-                    fontSize: 14.sp,
+                  style: textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: primaryText,
                   ),
                 ),
                 TextButton.icon(
@@ -227,7 +222,7 @@ class ClientDetailsModal extends HookWidget {
                   icon: Icon(Icons.cloud_upload_rounded, size: 16.sp, color: AppColors.primary),
                   label: Text(
                     'Upload Doc',
-                    style: GoogleFonts.figtree(
+                    style: textTheme.titleSmall?.copyWith(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primary,
@@ -261,19 +256,14 @@ class ClientDetailsModal extends HookWidget {
                       children: [
                         Text(
                           'National ID / Passport',
-                          style: GoogleFonts.figtree(
-                            fontSize: 14.sp,
+                          style: textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: primaryText,
                           ),
                         ),
                         SizedBox(height: 2.h),
                         Text(
                           'National_ID_/_Passport.pdf · 1.8 MB',
-                          style: GoogleFonts.figtree(
-                            fontSize: 12.sp,
-                            color: secondaryText,
-                          ),
+                          style: textTheme.bodySmall,
                         ),
                       ],
                     ),
@@ -286,8 +276,7 @@ class ClientDetailsModal extends HookWidget {
                     ),
                     child: Text(
                       'Verified',
-                      style: GoogleFonts.figtree(
-                        fontSize: 12.sp,
+                      style: textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: AppColors.emerald,
                       ),
@@ -314,10 +303,8 @@ class ClientDetailsModal extends HookWidget {
                 children: [
                   Text(
                     'VF-2024-785',
-                    style: GoogleFonts.figtree(
-                      fontSize: 15.sp,
+                    style: textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: primaryText,
                     ),
                   ),
                   Container(
@@ -328,7 +315,7 @@ class ClientDetailsModal extends HookWidget {
                     ),
                     child: Text(
                       'New',
-                      style: GoogleFonts.figtree(
+                      style: textTheme.bodySmall?.copyWith(
                         fontSize: 11.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primary,
@@ -340,17 +327,15 @@ class ClientDetailsModal extends HookWidget {
               SizedBox(height: 6.h),
               Text(
                 '${client.visaType} · Travel: 2026-12-15',
-                style: GoogleFonts.figtree(
+                style: textTheme.bodyMedium?.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
-                  color: secondaryText,
                 ),
               ),
               SizedBox(height: 8.h),
               Text(
                 'Documents: 2/6 collected',
-                style: GoogleFonts.figtree(
-                  fontSize: 12.sp,
+                style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.emerald,
                 ),
@@ -361,19 +346,19 @@ class ClientDetailsModal extends HookWidget {
       case 3: // Payments
         return Column(
           children: [
-            _buildInfoRow('Total Package Fee', '\$4,500.00', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Paid Amount', '\$1,500.00', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Due Balance', '\$3,000.00', primaryText, secondaryText, borderColor),
-            _buildInfoRow('Payment Status', 'Partially Paid', primaryText, secondaryText, borderColor, isLast: true),
+            _buildInfoRow(context, 'Total Package Fee', '\$4,500.00', borderColor),
+            _buildInfoRow(context, 'Paid Amount', '\$1,500.00', borderColor),
+            _buildInfoRow(context, 'Due Balance', '\$3,000.00', borderColor),
+            _buildInfoRow(context, 'Payment Status', 'Partially Paid', borderColor, isLast: true),
           ],
         );
       case 4: // Activity
         return Column(
           children: [
-            _buildActivityItem('Initial Lead Conversion', 'Converted from Facebook ad inquiry to VIP file.', 'Sep 20, 2026', primaryText, secondaryText),
-            _buildActivityItem('Document Pack Collected', 'Passport and 6-month bank statement received.', 'Sep 22, 2026', primaryText, secondaryText),
-            _buildActivityItem('Embassy Solvency Check', 'Financial solvency verified by senior officer.', 'Sep 24, 2026', primaryText, secondaryText),
-            _buildActivityItem('Appointment Booked', 'Biometrics slot scheduled at VFS Global.', 'Sep 25, 2026', primaryText, secondaryText, isLast: true),
+            _buildActivityItem(context, 'Initial Lead Conversion', 'Converted from Facebook ad inquiry to VIP file.', 'Sep 20, 2026'),
+            _buildActivityItem(context, 'Document Pack Collected', 'Passport and 6-month bank statement received.', 'Sep 22, 2026'),
+            _buildActivityItem(context, 'Embassy Solvency Check', 'Financial solvency verified by senior officer.', 'Sep 24, 2026'),
+            _buildActivityItem(context, 'Appointment Booked', 'Biometrics slot scheduled at VFS Global.', 'Sep 25, 2026', isLast: true),
           ],
         );
       default:
@@ -381,7 +366,9 @@ class ClientDetailsModal extends HookWidget {
     }
   }
 
-  Widget _buildInfoRow(String label, String value, Color primaryText, Color secondaryText, Color borderColor, {bool isLast = false}) {
+  Widget _buildInfoRow(BuildContext context, String label, String value, Color borderColor, {bool isLast = false}) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
@@ -392,18 +379,16 @@ class ClientDetailsModal extends HookWidget {
         children: [
           Text(
             label,
-            style: GoogleFonts.figtree(
+            style: textTheme.bodyMedium?.copyWith(
               fontSize: 13.sp,
               fontWeight: FontWeight.w500,
-              color: secondaryText,
             ),
           ),
           Text(
             value,
-            style: GoogleFonts.figtree(
+            style: textTheme.bodyMedium?.copyWith(
               fontSize: 13.sp,
               fontWeight: FontWeight.bold,
-              color: primaryText,
             ),
           ),
         ],
@@ -411,7 +396,9 @@ class ClientDetailsModal extends HookWidget {
     );
   }
 
-  Widget _buildActivityItem(String title, String desc, String date, Color primaryText, Color secondaryText, {bool isLast = false}) {
+  Widget _buildActivityItem(BuildContext context, String title, String desc, String date, {bool isLast = false}) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: EdgeInsets.only(bottom: isLast ? 0 : 16.h),
       child: Row(
@@ -445,17 +432,14 @@ class ClientDetailsModal extends HookWidget {
                   children: [
                     Text(
                       title,
-                      style: GoogleFonts.figtree(
-                        fontSize: 14.sp,
+                      style: textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: primaryText,
                       ),
                     ),
                     Text(
                       date,
-                      style: GoogleFonts.figtree(
+                      style: textTheme.bodySmall?.copyWith(
                         fontSize: 11.sp,
-                        color: secondaryText,
                       ),
                     ),
                   ],
@@ -463,10 +447,7 @@ class ClientDetailsModal extends HookWidget {
                 SizedBox(height: 2.h),
                 Text(
                   desc,
-                  style: GoogleFonts.figtree(
-                    fontSize: 12.sp,
-                    color: secondaryText,
-                  ),
+                  style: textTheme.bodySmall,
                 ),
               ],
             ),

@@ -13,6 +13,7 @@ class ClientCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
     final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
@@ -65,10 +66,8 @@ class ClientCardItem extends StatelessWidget {
                           Expanded(
                             child: Text(
                               client.name,
-                              style: GoogleFonts.figtree(
-                                fontSize: 16.sp,
+                              style: textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
                               ),
                             ),
                           ),
@@ -80,7 +79,7 @@ class ClientCardItem extends StatelessWidget {
                             ),
                             child: Text(
                               client.status.label,
-                              style: GoogleFonts.figtree(
+                              style: textTheme.bodySmall?.copyWith(
                                 fontSize: 11.sp,
                                 fontWeight: FontWeight.bold,
                                 color: client.status.textColor,
@@ -92,10 +91,9 @@ class ClientCardItem extends StatelessWidget {
                       SizedBox(height: 4.h),
                       Text(
                         'Passport: P94365056 · ${client.country}',
-                        style: GoogleFonts.figtree(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w500,
-                          color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                         ),
                       ),
                     ],
@@ -142,23 +140,21 @@ class ClientCardItem extends StatelessWidget {
     required String value,
     required Color color,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: GoogleFonts.figtree(
-            fontSize: 12.sp,
+          style: textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w500,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
           ),
         ),
         SizedBox(height: 4.h),
         Text(
           value,
-          style: GoogleFonts.figtree(
-            fontSize: 16.sp,
+          style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: color,
           ),

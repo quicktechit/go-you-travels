@@ -12,6 +12,7 @@ class CommissionTransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
     final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
@@ -41,29 +42,22 @@ class CommissionTransactionCard extends StatelessWidget {
               children: [
                 Text(
                   transaction.clientName,
-                  style: GoogleFonts.figtree(
-                    fontSize: 16.sp,
+                  style: textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
                   ),
                 ),
                 SizedBox(height: 4.h),
                 Text(
                   'File: ${transaction.fileNo} · Agent: ${transaction.agentName}',
-                  style: GoogleFonts.figtree(
+                  style: textTheme.bodyMedium?.copyWith(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w500,
-                    color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                   ),
                 ),
                 SizedBox(height: 6.h),
                 Text(
                   '${transaction.date} · via ${transaction.paymentMethod}',
-                  style: GoogleFonts.figtree(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
-                  ),
+                  style: textTheme.bodySmall,
                 ),
               ],
             ),
@@ -74,8 +68,7 @@ class CommissionTransactionCard extends StatelessWidget {
             children: [
               Text(
                 '+\$${transaction.amount.toStringAsFixed(2)}',
-                style: GoogleFonts.figtree(
-                  fontSize: 16.sp,
+                style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w800,
                   color: AppColors.emerald,
                 ),
@@ -89,7 +82,7 @@ class CommissionTransactionCard extends StatelessWidget {
                 ),
                 child: Text(
                   transaction.status.label,
-                  style: GoogleFonts.figtree(
+                  style: textTheme.bodySmall?.copyWith(
                     fontSize: 11.sp,
                     fontWeight: FontWeight.bold,
                     color: transaction.status.textColor,

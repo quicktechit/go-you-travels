@@ -11,6 +11,7 @@ class QuickTechLocalAgentCommissionPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localAgentCommissionProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.background,
@@ -32,10 +33,8 @@ class QuickTechLocalAgentCommissionPage extends ConsumerWidget {
               // 2. Commission Transaction Log Section Header
               Text(
                 'COMMISSION TRANSACTION LOG',
-                style: GoogleFonts.figtree(
-                  fontSize: 12.sp,
+                style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.textMuted,
                   letterSpacing: 0.5,
                 ),
               ),
@@ -48,10 +47,7 @@ class QuickTechLocalAgentCommissionPage extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 40.h),
                     child: Text(
                       'No commission transactions found.',
-                      style: GoogleFonts.figtree(
-                        fontSize: 14.sp,
-                        color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-                      ),
+                      style: textTheme.titleSmall,
                     ),
                   ),
                 )

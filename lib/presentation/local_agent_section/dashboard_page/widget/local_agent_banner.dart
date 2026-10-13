@@ -7,6 +7,7 @@ class LocalAgentBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       width: double.infinity,
@@ -43,16 +44,14 @@ class LocalAgentBanner extends StatelessWidget {
                   children: [
                     Text(
                       'Local Partner Portal',
-                      style: GoogleFonts.figtree(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
+                      style: textTheme.headlineMedium?.copyWith(
                         color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 6.h),
                     Text(
                       'Submit client referrals & track status and earnings',
-                      style: GoogleFonts.figtree(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w400,
                         color: Colors.white.withValues(alpha: 0.9),

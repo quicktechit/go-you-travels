@@ -8,6 +8,7 @@ class CommissionSummaryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localAgentCommissionProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
     final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
@@ -32,17 +33,15 @@ class CommissionSummaryCard extends ConsumerWidget {
         children: [
           Text(
             'COMMISSION EARNINGS SUMMARY',
-            style: GoogleFonts.figtree(
-              fontSize: 12.sp,
+            style: textTheme.bodySmall?.copyWith(
               fontWeight: FontWeight.w700,
-              color: isDark ? AppColors.darkTextSecondary : AppColors.textMuted,
               letterSpacing: 0.5,
             ),
           ),
           SizedBox(height: 12.h),
           Text(
             '\$${state.totalEarnings.toStringAsFixed(2)}',
-            style: GoogleFonts.figtree(
+            style: textTheme.headlineLarge?.copyWith(
               fontSize: 32.sp,
               fontWeight: FontWeight.w800,
               color: AppColors.primary,
@@ -61,17 +60,14 @@ class CommissionSummaryCard extends ConsumerWidget {
                 children: [
                   Text(
                     'Paid Payouts',
-                    style: GoogleFonts.figtree(
-                      fontSize: 12.sp,
+                    style: textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
                     '\$${state.paidPayouts.toStringAsFixed(2)}',
-                    style: GoogleFonts.figtree(
-                      fontSize: 18.sp,
+                    style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.emerald,
                     ),
@@ -83,17 +79,14 @@ class CommissionSummaryCard extends ConsumerWidget {
                 children: [
                   Text(
                     'Pending Clearance',
-                    style: GoogleFonts.figtree(
-                      fontSize: 12.sp,
+                    style: textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                     ),
                   ),
                   SizedBox(height: 4.h),
                   Text(
                     '\$${state.pendingClearance.toStringAsFixed(2)}',
-                    style: GoogleFonts.figtree(
-                      fontSize: 18.sp,
+                    style: textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: AppColors.orange,
                     ),

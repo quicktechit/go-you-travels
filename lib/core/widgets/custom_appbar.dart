@@ -1,5 +1,3 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
-
 import '../constant/const.dart';
 import '../../presentation/login_page/provider/login_provider.dart';
 
@@ -203,7 +201,8 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                 // Notification Bell Icon with Badge
                 if (showNotificationBell) ...[
                   InkWell(
-                    onTap: onNotificationTap,
+                    onTap: onNotificationTap ??
+                        () => context.push(AppRoutes.notification),
                     borderRadius: BorderRadius.circular(12.r),
                     child: Stack(
                       clipBehavior: Clip.none,

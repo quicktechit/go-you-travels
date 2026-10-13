@@ -1,4 +1,3 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../provider/local_agent_dashboard_provider.dart';
 
@@ -9,6 +8,7 @@ class LocalAgentMetricsGrid extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localAgentDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
 
     final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
@@ -18,10 +18,8 @@ class LocalAgentMetricsGrid extends ConsumerWidget {
       children: [
         Text(
           'REFERRAL & CLIENT METRICS',
-          style: GoogleFonts.figtree(
-            fontSize: 12.sp,
+          style: textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w700,
-            color: isDark ? AppColors.darkTextSecondary : AppColors.textMuted,
             letterSpacing: 0.5,
           ),
         ),
@@ -124,6 +122,8 @@ class LocalAgentMetricsGrid extends ConsumerWidget {
     required String valueText,
     required String labelText,
   }) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
@@ -157,10 +157,9 @@ class LocalAgentMetricsGrid extends ConsumerWidget {
               ),
               Text(
                 badgeText,
-                style: GoogleFonts.figtree(
+                style: textTheme.bodySmall?.copyWith(
                   fontSize: 11.sp,
                   fontWeight: FontWeight.w600,
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.textMuted,
                 ),
               ),
             ],
@@ -170,10 +169,8 @@ class LocalAgentMetricsGrid extends ConsumerWidget {
             children: [
               Text(
                 valueText,
-                style: GoogleFonts.figtree(
-                  fontSize: 18.sp,
+                style: textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
                   height: 1.1,
                 ),
                 maxLines: 1,
@@ -182,10 +179,8 @@ class LocalAgentMetricsGrid extends ConsumerWidget {
               SizedBox(height: 2.h),
               Text(
                 labelText,
-                style: GoogleFonts.figtree(
-                  fontSize: 12.sp,
+                style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

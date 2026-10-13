@@ -12,6 +12,7 @@ class LocalAgentClientCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
     final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
     final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
@@ -44,19 +45,16 @@ class LocalAgentClientCardItem extends StatelessWidget {
                   children: [
                     Text(
                       client.name,
-                      style: GoogleFonts.figtree(
-                        fontSize: 16.sp,
+                      style: textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
                       ),
                     ),
                     SizedBox(height: 4.h),
                     Text(
                       '${client.visaType} · ${client.country}',
-                      style: GoogleFonts.figtree(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w500,
-                        color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                       ),
                     ),
                   ],
@@ -70,7 +68,7 @@ class LocalAgentClientCardItem extends StatelessWidget {
                 ),
                 child: Text(
                   client.status.label,
-                  style: GoogleFonts.figtree(
+                  style: textTheme.bodySmall?.copyWith(
                     fontSize: 11.sp,
                     fontWeight: FontWeight.bold,
                     color: client.status.textColor,
@@ -88,15 +86,14 @@ class LocalAgentClientCardItem extends StatelessWidget {
             children: [
               Text(
                 'Package: \$${client.packageAmount.toStringAsFixed(0)}',
-                style: GoogleFonts.figtree(
+                style: textTheme.bodyMedium?.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w600,
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
                 ),
               ),
               Text(
                 'Commission: \$${client.commissionAmount.toStringAsFixed(2)}',
-                style: GoogleFonts.figtree(
+                style: textTheme.bodyMedium?.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xFF059669),

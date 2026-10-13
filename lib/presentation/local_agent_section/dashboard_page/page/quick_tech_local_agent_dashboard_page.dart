@@ -12,6 +12,7 @@ class QuickTechLocalAgentDashboardPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(localAgentDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.background,
@@ -37,10 +38,8 @@ class QuickTechLocalAgentDashboardPage extends ConsumerWidget {
               // 3. My Submitted Clients & Visa Status Section Header
               Text(
                 'MY SUBMITTED CLIENTS & VISA STATUS',
-                style: GoogleFonts.figtree(
-                  fontSize: 12.sp,
+                style: textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.textMuted,
                   letterSpacing: 0.5,
                 ),
               ),
@@ -53,10 +52,7 @@ class QuickTechLocalAgentDashboardPage extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 40.h),
                     child: Text(
                       'No submitted clients yet.',
-                      style: GoogleFonts.figtree(
-                        fontSize: 14.sp,
-                        color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-                      ),
+                      style: textTheme.titleSmall,
                     ),
                   ),
                 )

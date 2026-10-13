@@ -52,10 +52,7 @@ class QuickTechLocalAgentMyClientPage extends HookConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 40.h),
                     child: Text(
                       'No clients found matching your search.',
-                      style: GoogleFonts.figtree(
-                        fontSize: 14.sp,
-                        color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-                      ),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
                 )
