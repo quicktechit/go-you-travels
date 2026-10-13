@@ -226,7 +226,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.darkSurfaceHigh,
+        fillColor: AppColors.darkSurface,
         floatingLabelStyle:
         GoogleFonts.figtree(
           color: AppColors.darkTextSecondary,

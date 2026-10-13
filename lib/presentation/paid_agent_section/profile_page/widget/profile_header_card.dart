@@ -10,17 +10,14 @@ class ProfileHeaderCard extends ConsumerWidget {
     final notifier = ref.read(quickTechProfileProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final primaryText = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final secondaryText = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
+
 
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color:  AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -51,7 +48,7 @@ class ProfileHeaderCard extends ConsumerWidget {
             '${profile.name} (${profile.designation})',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: primaryText,
+
                 ),
             textAlign: TextAlign.center,
           ),
@@ -73,7 +70,7 @@ class ProfileHeaderCard extends ConsumerWidget {
             '${profile.empId} · ${profile.officeLocation}',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: secondaryText,
+
                 ),
             textAlign: TextAlign.center,
           ),
@@ -97,31 +94,7 @@ class ProfileHeaderCard extends ConsumerWidget {
                       ),
                 ),
               ),
-              SizedBox(width: 8.w),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                decoration: BoxDecoration(
-                  color: isDark ? AppColors.darkSurfaceHigh : AppColors.amber.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '⭐',
-                      style: TextStyle(fontSize: 12.sp),
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      '${profile.rating} Rating',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? AppColors.amber : AppColors.orange,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
+
             ],
           ),
           SizedBox(height: 16.h),
@@ -154,7 +127,7 @@ class ProfileHeaderCard extends ConsumerWidget {
                     profile.isOnDuty ? 'On Duty' : 'Off Duty',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: primaryText,
+
                         ),
                   ),
                 ],

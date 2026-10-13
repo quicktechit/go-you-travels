@@ -8,10 +8,7 @@ class SalesReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     final items = const [
       SalesBreakdownItem(
@@ -43,9 +40,9 @@ class SalesReportCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -63,7 +60,7 @@ class SalesReportCard extends StatelessWidget {
             'MONTHLY REVENUE BREAKDOWN',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: headerTextColor,
+
                   letterSpacing: 0.6,
                 ),
           ),
@@ -108,7 +105,7 @@ class SalesReportCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   fontSize: 13.5.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: primaryTextColor,
+
                                 ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -149,10 +146,7 @@ class FunnelReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     final items = const [
       FunnelStageItem(
@@ -190,9 +184,9 @@ class FunnelReportCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -210,7 +204,6 @@ class FunnelReportCard extends StatelessWidget {
             'LEAD CONVERSION FUNNEL',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: headerTextColor,
                   letterSpacing: 0.6,
                 ),
           ),
@@ -249,7 +242,7 @@ class FunnelReportCard extends StatelessWidget {
                         stage.title,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: primaryTextColor,
+
                             ),
                       ),
                     ),
@@ -259,7 +252,7 @@ class FunnelReportCard extends StatelessWidget {
                       '${stage.count}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: primaryTextColor,
+
                           ),
                     ),
                   ],
@@ -280,10 +273,7 @@ class CallingReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     final items = const [
       MetricProgressItem(
@@ -309,9 +299,9 @@ class CallingReportCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -328,7 +318,7 @@ class CallingReportCard extends StatelessWidget {
             'CALLING AGENT PRODUCTIVITY',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: headerTextColor,
+
                   letterSpacing: 0.6,
                 ),
           ),
@@ -349,7 +339,7 @@ class CallingReportCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   fontSize: 13.5.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: primaryTextColor,
+
                                 ),
                           ),
                         ),
@@ -388,10 +378,7 @@ class AccountsReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     final items = const [
       MetricProgressItem(
@@ -417,9 +404,9 @@ class AccountsReportCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -436,7 +423,7 @@ class AccountsReportCard extends StatelessWidget {
             'TREASURY & RL CASH FLOW',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: headerTextColor,
+
                   letterSpacing: 0.6,
                 ),
           ),
@@ -457,7 +444,7 @@ class AccountsReportCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   fontSize: 13.5.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: primaryTextColor,
+
                                 ),
                           ),
                         ),
@@ -496,10 +483,7 @@ class TargetsReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     final items = const [
       MetricProgressItem(
@@ -525,9 +509,9 @@ class TargetsReportCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -544,7 +528,7 @@ class TargetsReportCard extends StatelessWidget {
             'OPERATIONAL TARGETS PERFORMANCE',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: headerTextColor,
+
                   letterSpacing: 0.6,
                 ),
           ),
@@ -565,7 +549,7 @@ class TargetsReportCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   fontSize: 13.5.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: primaryTextColor,
+
                                 ),
                           ),
                         ),
@@ -604,10 +588,7 @@ class CommissionsReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     final items = const [
       MetricProgressItem(
@@ -633,9 +614,9 @@ class CommissionsReportCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -652,7 +633,6 @@ class CommissionsReportCard extends StatelessWidget {
             'AGENT COMMISSION BREAKDOWN',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w800,
-                  color: headerTextColor,
                   letterSpacing: 0.6,
                 ),
           ),
@@ -673,7 +653,7 @@ class CommissionsReportCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                   fontSize: 13.5.sp,
                                   fontWeight: FontWeight.w600,
-                                  color: primaryTextColor,
+
                                 ),
                           ),
                         ),

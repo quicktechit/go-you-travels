@@ -12,14 +12,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
     final state = ref.watch(quickTechDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final titleColor = isDark
-        ? AppColors.darkTextSecondary
-        : AppColors.textSecondary;
-    final valueColor = isDark
-        ? AppColors.darkTextPrimary
-        : AppColors.textPrimary;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +22,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
           'OPERATIONAL TARGETS & METRICS',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w800,
-                color: titleColor,
+
                 letterSpacing: 0.6,
               ),
         ),
@@ -51,10 +44,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
             return _buildMetricCard(
               context: context,
               item: item,
-              cardBg: cardBg,
-              borderColor: borderColor,
-              titleColor: titleColor,
-              valueColor: valueColor,
+
               isDark: isDark,
               onTap: () {
                 if (index == 0) {
@@ -83,11 +73,10 @@ class OperationalMetricsGrid extends ConsumerWidget {
   Widget _buildMetricCard({
     required BuildContext context,
     required OperationalMetric item,
-    required Color cardBg,
+
     required GestureTapCallback onTap,
-    required Color borderColor,
-    required Color titleColor,
-    required Color valueColor,
+
+
     required bool isDark,
   }) {
     return InkWell(
@@ -96,9 +85,9 @@ class OperationalMetricsGrid extends ConsumerWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: cardBg,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: borderColor, width: 1.w),
+          border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.03),
@@ -137,9 +126,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 11.sp,
                         fontWeight: FontWeight.w600,
-                        color: isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.textSecondary,
+
                       ),
                 ),
               ],
@@ -154,7 +141,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontSize: 17.sp,
                         fontWeight: FontWeight.bold,
-                        color: valueColor,
+
                         height: 1.2,
                       ),
                   maxLines: 1,
@@ -166,7 +153,7 @@ class OperationalMetricsGrid extends ConsumerWidget {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
-                        color: titleColor,
+
                       ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

@@ -2,7 +2,6 @@ import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../widget/rl_agency_helplines_card.dart';
 import '../widget/rl_preference_settings_card.dart';
-import '../widget/rl_profile_action_buttons.dart';
 import '../widget/rl_profile_header_card.dart';
 
 class QuickTechRlAccountProfilePage extends ConsumerWidget {
@@ -39,7 +38,14 @@ class QuickTechRlAccountProfilePage extends ConsumerWidget {
               SizedBox(height: 16.h),
 
               // 4. Logout Session Action Button
-              const RlProfileActionButtons(),
+              AppButton(text: 'Session Logged Out',
+                backgroundColor: AppColors.red,
+                textColor: AppColors.background,
+                icon:    LucideIcons.logOut,
+                onPressed: (){
+                context.go(AppRoutes.login);
+                Fluttertoast.showToast(msg: "Session Logged Out");
+              },)
             ],
           ),
         ),

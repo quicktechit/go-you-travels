@@ -11,17 +11,14 @@ class RlProfileHeaderCard extends ConsumerWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final textTheme = Theme.of(context).textTheme;
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final primaryText = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final secondaryText = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
+
 
     return Container(
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           if (!isDark)
             BoxShadow(
@@ -52,7 +49,7 @@ class RlProfileHeaderCard extends ConsumerWidget {
             '${profile.name} ${profile.accountTitle}',
             style: textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
-              color: primaryText,
+
             ),
             textAlign: TextAlign.center,
           ),
@@ -64,7 +61,7 @@ class RlProfileHeaderCard extends ConsumerWidget {
             profile.subTitle,
             style: textTheme.bodySmall?.copyWith(
               fontWeight: FontWeight.w500,
-              color: secondaryText,
+
             ),
             textAlign: TextAlign.center,
           ),
@@ -122,7 +119,7 @@ class RlProfileHeaderCard extends ConsumerWidget {
                     profile.isOnDuty ? 'On Duty' : 'Off Duty',
                     style: textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: primaryText,
+
                     ),
                   ),
                 ],

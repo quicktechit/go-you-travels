@@ -13,10 +13,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
     final state = ref.watch(quickTechDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final titleColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final mainTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +26,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
               'TARGETS & PERFORMANCE',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: titleColor,
+
                     letterSpacing: 0.6,
                   ),
             ),
@@ -68,10 +65,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
                 child: _buildTargetCard(
                   context: context,
                   target: target,
-                  cardBg: cardBg,
-                  borderColor: borderColor,
-                  titleColor: titleColor,
-                  mainTextColor: mainTextColor,
+
                   isDark: isDark,
                 ),
               ),
@@ -85,18 +79,15 @@ class TargetsPerformanceSection extends ConsumerWidget {
   Widget _buildTargetCard({
     required BuildContext context,
     required TargetPerformance target,
-    required Color cardBg,
-    required Color borderColor,
-    required Color titleColor,
-    required Color mainTextColor,
+
     required bool isDark,
   }) {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.03),
@@ -116,13 +107,13 @@ class TargetsPerformanceSection extends ConsumerWidget {
                 target.title,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: mainTextColor,
+
                     ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: isDark ? AppColors.darkSurfaceHigh : const Color(0xFFF1F5F9),
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Text(
@@ -130,7 +121,7 @@ class TargetsPerformanceSection extends ConsumerWidget {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontSize: 11.5.sp,
                         fontWeight: FontWeight.w600,
-                        color: titleColor,
+
                       ),
                 ),
               ),

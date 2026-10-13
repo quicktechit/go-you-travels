@@ -27,14 +27,13 @@ class ChangeStatusModal extends ConsumerWidget {
 
     final statuses = VisaFileStatus.values;
 
-    final modalBg = isDark ? AppColors.darkSurface : AppColors.background;
-    final primaryText = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
+
 
     return Container(
       height: 0.85.sh,
       padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 20.h),
       decoration: BoxDecoration(
-        color: modalBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       child: Column(
@@ -45,7 +44,6 @@ class ChangeStatusModal extends ConsumerWidget {
           Text(
             'Select New File Status',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: primaryText,
                   fontWeight: FontWeight.bold,
                 ),
           ),
@@ -110,7 +108,7 @@ class ChangeStatusModal extends ConsumerWidget {
             child: AppButton(
               text: 'Cancel',
               variant: AppButtonVariant.text,
-              textColor: AppColors.primaryDark,
+
               fontSize: 14.sp,
               onPressed: () => Navigator.of(context).pop(),
             ),

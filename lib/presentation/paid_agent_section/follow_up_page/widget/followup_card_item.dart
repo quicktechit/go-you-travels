@@ -18,18 +18,14 @@ class FollowupCardItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(quickTechFollowupProvider.notifier);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final borderColor = AppColors.darkTextSecondary.withAlpha(70);
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final primaryTextColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final secondaryTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final notesTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textMuted;
 
     return Container(
       margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: borderColor, width: 1.w),
         boxShadow: [
@@ -53,7 +49,7 @@ class FollowupCardItem extends ConsumerWidget {
                 child: Text(
                   item.name,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: primaryTextColor,
+
                         fontWeight: FontWeight.bold,
                       ),
                   maxLines: 1,
@@ -89,7 +85,7 @@ class FollowupCardItem extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w500,
-                  color: secondaryTextColor,
+
                 ),
           ),
           SizedBox(height: 8.h),
@@ -100,7 +96,7 @@ class FollowupCardItem extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontSize: 12.5.sp,
                   fontWeight: FontWeight.w400,
-                  color: notesTextColor,
+
                   height: 1.35,
                 ),
           ),
@@ -121,7 +117,7 @@ class FollowupCardItem extends ConsumerWidget {
                   'Assigned: ${item.assignedAgent}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: secondaryTextColor,
+
                       ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

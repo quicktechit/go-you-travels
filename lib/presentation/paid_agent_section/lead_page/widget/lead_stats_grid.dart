@@ -8,11 +8,8 @@ class LeadStatsGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(quickTechLeadProvider);
-    final themeMode = ref.watch(themeProvider);
-    final isDark = themeMode == ThemeMode.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
+
 
     return Column(
       children: [
@@ -21,9 +18,6 @@ class LeadStatsGrid extends ConsumerWidget {
             Expanded(
               child: _buildMetricCard(
                 context: context,
-                isDark: isDark,
-                cardBg: cardBg,
-                borderColor: borderColor,
                 icon: LucideIcons.users,
                 iconBg: AppColors.indigoLight,
                 iconColor: AppColors.indigoAccent,
@@ -36,9 +30,6 @@ class LeadStatsGrid extends ConsumerWidget {
             Expanded(
               child: _buildMetricCard(
                 context: context,
-                isDark: isDark,
-                cardBg: cardBg,
-                borderColor: borderColor,
                 icon: LucideIcons.userPlus,
                 iconBg: AppColors.blueLight,
                 iconColor: AppColors.yellow,
@@ -55,9 +46,6 @@ class LeadStatsGrid extends ConsumerWidget {
             Expanded(
               child: _buildMetricCard(
                 context: context,
-                isDark: isDark,
-                cardBg: cardBg,
-                borderColor: borderColor,
                 icon: LucideIcons.clock,
                 iconBg: AppColors.softOrange,
                 iconColor: AppColors.orange,
@@ -70,9 +58,6 @@ class LeadStatsGrid extends ConsumerWidget {
             Expanded(
               child: _buildMetricCard(
                 context: context,
-                isDark: isDark,
-                cardBg: cardBg,
-                borderColor: borderColor,
                 icon: LucideIcons.flame,
                 iconBg: AppColors.redLight,
                 iconColor: AppColors.red,
@@ -89,9 +74,7 @@ class LeadStatsGrid extends ConsumerWidget {
 
   Widget _buildMetricCard({
     required BuildContext context,
-    required bool isDark,
-    required Color cardBg,
-    required Color borderColor,
+
     required IconData icon,
     required Color iconBg,
     required Color iconColor,
@@ -102,11 +85,11 @@ class LeadStatsGrid extends ConsumerWidget {
     return Container(
       padding: EdgeInsets.all(14.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1),
+        border: Border.all(color:  AppColors.darkTextSecondary.withAlpha(70), width: 1),
         boxShadow: [
-          if (!isDark)
+
             BoxShadow(
               color: AppColors.cardShadow,
               blurRadius: 8,
@@ -124,7 +107,7 @@ class LeadStatsGrid extends ConsumerWidget {
                 width: 38.r,
                 height: 38.r,
                 decoration: BoxDecoration(
-                  color: isDark ? iconBg.withValues(alpha: 0.2) : iconBg,
+                  color:  iconBg.withAlpha(200),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Icon(
@@ -136,12 +119,9 @@ class LeadStatsGrid extends ConsumerWidget {
               Flexible(
                 child: Text(
                   badgeText,
-                  style: GoogleFonts.figtree(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontSize: 11.sp,
                     fontWeight: FontWeight.w600,
-                    color: isDark
-                        ? AppColors.darkTextSecondary
-                        : AppColors.textMuted,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -152,22 +132,19 @@ class LeadStatsGrid extends ConsumerWidget {
           SizedBox(height: 14.h),
           Text(
             valueText,
-            style: GoogleFonts.figtree(
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontSize: 22.sp,
               fontWeight: FontWeight.w800,
-              color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
               height: 1.1,
             ),
           ),
           SizedBox(height: 4.h),
           Text(
             labelText,
-            style: GoogleFonts.figtree(
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 13.sp,
               fontWeight: FontWeight.w500,
-              color: isDark
-                  ? AppColors.darkTextSecondary
-                  : AppColors.textSecondary,
+
             ),
           ),
         ],

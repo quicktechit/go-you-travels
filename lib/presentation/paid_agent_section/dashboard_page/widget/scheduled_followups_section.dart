@@ -15,14 +15,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
     final state = ref.watch(quickTechDashboardProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final titleColor = isDark
-        ? AppColors.darkTextSecondary
-        : AppColors.textSecondary;
-    final mainTextColor = isDark
-        ? AppColors.darkTextPrimary
-        : AppColors.textPrimary;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +28,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
               "TODAY'S SCHEDULED FOLLOW-UPS",
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: titleColor,
+
                     letterSpacing: 0.6,
                   ),
             ),
@@ -64,10 +57,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
               child: _buildFollowUpCard(
                 context: context,
                 item: item,
-                cardBg: cardBg,
-                borderColor: borderColor,
-                titleColor: titleColor,
-                mainTextColor: mainTextColor,
+
                 isDark: isDark,
                 ref: ref,
               ),
@@ -80,10 +70,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
 
   Widget _buildFollowUpCard({
     required ScheduledFollowUp item,
-    required Color cardBg,
-    required Color borderColor,
-    required Color titleColor,
-    required Color mainTextColor,
+
     required bool isDark,
     required BuildContext context,
     required WidgetRef ref,
@@ -91,9 +78,9 @@ class ScheduledFollowupsSection extends ConsumerWidget {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: borderColor, width: 1.w),
+        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.03),
@@ -117,7 +104,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
                       item.name,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: mainTextColor,
+
                           ),
                     ),
                     SizedBox(width: 8.w),
@@ -149,10 +136,10 @@ class ScheduledFollowupsSection extends ConsumerWidget {
                 // Subtitle Line (Category & Phone)
                 Text(
                   '${item.category} · ${item.phone}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 12.5.sp,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 13.5.sp,
                         fontWeight: FontWeight.w500,
-                        color: titleColor,
+
                       ),
                 ),
                 SizedBox(height: 6.h),
@@ -161,7 +148,7 @@ class ScheduledFollowupsSection extends ConsumerWidget {
                 Text(
                   item.note,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: titleColor.withValues(alpha: 0.85),
+
                       ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

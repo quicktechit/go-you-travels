@@ -15,12 +15,9 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
     final isDark = themeMode == ThemeMode.dark;
 
     final textTheme = Theme.of(context).textTheme;
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final primaryText =
-        isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final secondaryText =
-        isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
+
+    final borderColor = AppColors.darkTextSecondary.withAlpha(70);
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +27,7 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
           'LANGUAGE & DISPLAY PREFERENCE',
           style: textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w800,
-            color: secondaryText,
+
             letterSpacing: 0.6,
           ),
         ),
@@ -40,11 +37,11 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
         Container(
           padding: EdgeInsets.all(16.r),
           decoration: BoxDecoration(
-            color: cardBg,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16.r),
             border: Border.all(color: borderColor, width: 1.w),
             boxShadow: [
-              if (!isDark)
+
                 BoxShadow(
                   color: AppColors.cardShadow,
                   blurRadius: 10,
@@ -71,7 +68,7 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
                           'Language / ভাষা',
                           style: textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: primaryText,
+
                           ),
                         ),
                         SizedBox(height: 2.h),
@@ -80,7 +77,7 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
                               ? 'English'
                               : 'বাংলা',
                           style: textTheme.bodySmall?.copyWith(
-                            color: secondaryText,
+
                           ),
                         ),
                       ],
@@ -136,7 +133,7 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
                           isDark ? 'Dark Mode' : 'White Mode (Default)',
                           style: textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: primaryText,
+
                           ),
                         ),
                         SizedBox(height: 2.h),
@@ -145,7 +142,7 @@ class RlPreferenceSettingsCard extends ConsumerWidget {
                               ? 'Dark theme enabled'
                               : 'Clean white background',
                           style: textTheme.bodySmall?.copyWith(
-                            color: secondaryText,
+
                           ),
                         ),
                       ],

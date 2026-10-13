@@ -15,11 +15,7 @@ class LeadCardItem extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final innerBannerBg = isDark
-        ? AppColors.darkSurfaceHigh
-        : AppColors.darkTextPrimary;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
+
 
     final initialChar = lead.name.isNotEmpty ? lead.name[0].toUpperCase() : 'L';
 
@@ -29,11 +25,11 @@ class LeadCardItem extends ConsumerWidget {
         margin: EdgeInsets.only(bottom: 12.h),
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
-          color: cardBg,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: borderColor, width: 1),
+          border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1),
           boxShadow: [
-            if (!isDark)
+      
               BoxShadow(
                 color: AppColors.cardShadow,
                 blurRadius: 8,
@@ -53,20 +49,14 @@ class LeadCardItem extends ConsumerWidget {
                   width: 42.r,
                   height: 42.r,
                   decoration: BoxDecoration(
-                    color: isDark
-                        ? AppColors.yellow.withValues(alpha: 0.2)
-                        : AppColors.softOrange,
+                    
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     initialChar,
-                    style: GoogleFonts.figtree(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: isDark
-                          ? AppColors.lightOrangeText
-                          : AppColors.warningOrange,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    
                     ),
                   ),
                 ),
@@ -79,12 +69,8 @@ class LeadCardItem extends ConsumerWidget {
                     children: [
                       Text(
                         lead.name,
-                        style: GoogleFonts.figtree(
-                          fontSize: 16.sp,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: isDark
-                              ? AppColors.darkTextPrimary
-                              : AppColors.textPrimary,
                           height: 1.2,
                         ),
                         maxLines: 1,
@@ -93,12 +79,10 @@ class LeadCardItem extends ConsumerWidget {
                       SizedBox(height: 3.h),
                       Text(
                         '${lead.phone} · ${lead.destinationCountry}',
-                        style: GoogleFonts.figtree(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w500,
-                          color: isDark
-                              ? AppColors.darkTextSecondary
-                              : AppColors.textSecondary,
+                      
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -119,8 +103,7 @@ class LeadCardItem extends ConsumerWidget {
                   ),
                   child: Text(
                     lead.status.label,
-                    style: GoogleFonts.figtree(
-                      fontSize: 12.sp,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: lead.status.primaryColor,
                     ),
@@ -135,17 +118,13 @@ class LeadCardItem extends ConsumerWidget {
                     width: 32.r,
                     height: 32.r,
                     decoration: BoxDecoration(
-                      color: isDark
-                          ? AppColors.successDark
-                          : AppColors.successLight,
+                     
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       LucideIcons.phoneCall,
                       size: 16.sp,
-                      color: isDark
-                          ? AppColors.successAccent
-                          : AppColors.successEmerald,
+                      
                     ),
                   ),
                 ),
@@ -158,7 +137,7 @@ class LeadCardItem extends ConsumerWidget {
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
               decoration: BoxDecoration(
-                color: innerBannerBg,
+                color: AppColors.textSecondary.withAlpha(60),
                 borderRadius: BorderRadius.circular(10.r),
               ),
               child: Row(
@@ -167,12 +146,10 @@ class LeadCardItem extends ConsumerWidget {
                   Expanded(
                     child: Text(
                       lead.visaInterest,
-                      style: GoogleFonts.figtree(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w700,
-                        color: isDark
-                            ? AppColors.darkTextPrimary
-                            : AppColors.textPrimary,
+
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -190,16 +167,13 @@ class LeadCardItem extends ConsumerWidget {
                       color: lead.priority.bgColor,
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border.all(
-                        color: isDark
-                            ? lead.priority.color.withValues(alpha: 0.4)
-                            : AppColors.line,
+
                         width: 1,
                       ),
                     ),
                     child: Text(
                       lead.priority.label,
-                      style: GoogleFonts.figtree(
-                        fontSize: 12.sp,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: lead.priority.color,
                       ),

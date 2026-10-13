@@ -1,6 +1,5 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
-import '../../../../core/widgets/app_button.dart';
 import '../provider/lead_provider.dart';
 
 class FilterLeadsModal extends HookConsumerWidget {
@@ -52,7 +51,7 @@ class FilterLeadsModal extends HookConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: sheetBg,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
       padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 28.h),
@@ -86,9 +85,7 @@ class FilterLeadsModal extends HookConsumerWidget {
                 Text(
                   'Filter Leads',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: isDark
-                            ? AppColors.darkTextPrimary
-                            : AppColors.textPrimary,
+
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -101,9 +98,7 @@ class FilterLeadsModal extends HookConsumerWidget {
               'Filter by Priority:',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: isDark
-                        ? AppColors.darkTextSecondary
-                        : AppColors.textPrimary,
+
                   ),
             ),
             SizedBox(height: 12.h),
@@ -123,12 +118,12 @@ class FilterLeadsModal extends HookConsumerWidget {
                           vertical: 10.h,
                         ),
                         decoration: BoxDecoration(
-                          color: isSelected ? chipSelectedBg : chipUnselectedBg,
+                          color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
                             color: isSelected
-                                ? chipSelectedBorder
-                                : chipUnselectedBorder,
+                                ?AppColors.successGreen
+                                : AppColors.darkTextSecondary.withAlpha(70),
                             width: 1,
                           ),
                         ),
@@ -292,8 +287,9 @@ class FilterLeadsModal extends HookConsumerWidget {
                   textColor: AppColors.surface,
                   height: 48.h,
                   fontSize: 15.sp,
+                  width: 130.w,
                   borderRadius: 24.r,
-                  horizontalPadding: 28.w,
+
                   onPressed: () {
                     notifier.applyFilters(
                       priority: selectedPriority.value,

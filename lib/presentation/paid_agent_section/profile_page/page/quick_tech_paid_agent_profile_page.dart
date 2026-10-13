@@ -74,14 +74,14 @@ class QuickTechPaidAgentProfilePage extends ConsumerWidget {
                               'Agency Helplines & Embassy Contacts',
                               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: isDark ? AppColors.surface : AppColors.brownText,
+
                                   ),
                             ),
                             SizedBox(height: 2.h),
                             Text(
                               'Direct access to Canada VFS, Saudi MoFA & UKVI',
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+                                    color:  AppColors.darkTextSecondary ,
                                   ),
                             ),
                           ],
@@ -105,6 +105,7 @@ class QuickTechPaidAgentProfilePage extends ConsumerWidget {
                   Fluttertoast.showToast(msg: "Session Logged Out");
                 },
                 text: 'Logout Session',
+                icon: LucideIcons.logOut,
                 backgroundColor: AppColors.red,
               ),
             ],

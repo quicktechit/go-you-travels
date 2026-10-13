@@ -24,13 +24,8 @@ class LeadDetailsModal extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
-
-    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
-    final cardBg = isDark ? AppColors.darkSurfaceHigh : AppColors.surface;
-    final innerBg = isDark ? AppColors.darkBackground : AppColors.background;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-
-    final state = ref.watch(quickTechLeadProvider);
+    final theme=Theme.of(context);
+      final state = ref.watch(quickTechLeadProvider);
     final notifier = ref.read(quickTechLeadProvider.notifier);
 
     final currentLead = state.leads.firstWhere(
@@ -67,7 +62,7 @@ class LeadDetailsModal extends HookConsumerWidget {
       child: Container(
         height: MediaQuery.of(context).size.height * 0.88,
         decoration: BoxDecoration(
-          color: sheetBg,
+          color:theme.cardColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 16.h),
@@ -158,10 +153,11 @@ class LeadDetailsModal extends HookConsumerWidget {
 
             // Tab Bar Header (Lead Details vs Follow-up History)
             Container(
+              clipBehavior: .antiAlias,
               decoration: BoxDecoration(
-                color: cardBg,
+                color: theme.cardColor,
                 borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(color: borderColor, width: 1),
+                border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1),
               ),
               child: Row(
                 children: [
@@ -270,9 +266,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                       ref: ref,
                       lead: currentLead,
                       isDark: isDark,
-                      cardBg: cardBg,
-                      innerBg: innerBg,
-                      borderColor: borderColor,
+
                       notifier: notifier,
                       availableStatuses: availableStatuses,
                       followUpDateController: followUpDateController,
@@ -283,9 +277,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                       context: context,
                       lead: currentLead,
                       isDark: isDark,
-                      cardBg: cardBg,
-                      innerBg: innerBg,
-                      borderColor: borderColor,
+
                     ),
             ),
 
@@ -315,24 +307,23 @@ class LeadDetailsModal extends HookConsumerWidget {
     required WidgetRef ref,
     required LeadItem lead,
     required bool isDark,
-    required Color cardBg,
-    required Color innerBg,
-    required Color borderColor,
     required QuickTechLeadNotifier notifier,
     required List<LeadStatus> availableStatuses,
     required TextEditingController followUpDateController,
     required TextEditingController followUpNotesController,
     required ValueNotifier<bool> isEditingSchedule,
   }) {
+    final theme=Theme.of(context);
+    final borderColor=AppColors.darkTextSecondary.withAlpha(70);
     return ListView(
       children: [
         // 1. Contact Info Card
         Container(
           padding: EdgeInsets.all(14.r),
           decoration: BoxDecoration(
-            color: cardBg,
+            color:theme.cardColor ,
             borderRadius: BorderRadius.circular(14.r),
-            border: Border.all(color: borderColor, width: 1),
+            border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -461,10 +452,10 @@ class LeadDetailsModal extends HookConsumerWidget {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.yellow : cardBg,
+                  color: isSelected ? AppColors.yellow : theme.cardColor,
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(
-                    color: isSelected ? AppColors.yellow : borderColor,
+                    color: isSelected ? AppColors.yellow : AppColors.darkTextSecondary.withAlpha(70),
                     width: 1,
                   ),
                 ),
@@ -532,7 +523,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                     padding: EdgeInsets.symmetric(vertical: 10.h),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: isSelected ? AppColors.warningOrange : cardBg,
+                      color: isSelected ? AppColors.warningOrange : theme.cardColor,
                       borderRadius: BorderRadius.circular(10.r),
                       border: Border.all(
                         color: isSelected
@@ -566,7 +557,7 @@ class LeadDetailsModal extends HookConsumerWidget {
         Container(
           padding: EdgeInsets.all(14.r),
           decoration: BoxDecoration(
-            color: cardBg,
+            color: theme.cardColor,
             borderRadius: BorderRadius.circular(14.r),
             border: Border.all(color: borderColor, width: 1),
           ),
@@ -612,7 +603,7 @@ class LeadDetailsModal extends HookConsumerWidget {
         Container(
           padding: EdgeInsets.all(14.r),
           decoration: BoxDecoration(
-            color: cardBg,
+            color: theme.cardColor,
             borderRadius: BorderRadius.circular(14.r),
             border: Border.all(color: borderColor, width: 1),
           ),
@@ -662,7 +653,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                 AppTextField(
                   controller: followUpDateController,
                   label: 'Follow-up Date & Time',
-                  fillColor: innerBg,
+
                   borderColor: borderColor,
                   borderRadius: 10,
                 ),
@@ -673,7 +664,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                   controller: followUpNotesController,
                   label: 'Follow-up / Counselor Notes',
                   maxLines: 2,
-                  fillColor: innerBg,
+
                   borderColor: borderColor,
                   borderRadius: 10,
                 ),
@@ -728,9 +719,7 @@ class LeadDetailsModal extends HookConsumerWidget {
     required BuildContext context,
     required LeadItem lead,
     required bool isDark,
-    required Color cardBg,
-    required Color innerBg,
-    required Color borderColor,
+
   }) {
     if (lead.history.isEmpty) {
       return Center(
@@ -744,7 +733,8 @@ class LeadDetailsModal extends HookConsumerWidget {
         ),
       );
     }
-
+    final theme=Theme.of(context);
+    final borderColor=AppColors.darkTextSecondary.withAlpha(70);
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: lead.history.length,
@@ -754,7 +744,7 @@ class LeadDetailsModal extends HookConsumerWidget {
           margin: EdgeInsets.only(bottom: 12.h),
           padding: EdgeInsets.all(14.r),
           decoration: BoxDecoration(
-            color: cardBg,
+            color: theme.cardColor,
             borderRadius: BorderRadius.circular(14.r),
             border: Border.all(color: borderColor, width: 1),
           ),
@@ -824,7 +814,7 @@ class LeadDetailsModal extends HookConsumerWidget {
                 width: double.infinity,
                 padding: EdgeInsets.all(10.r),
                 decoration: BoxDecoration(
-                  color: innerBg,
+                  color: AppColors.darkBackground.withAlpha(80),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Column(

@@ -20,9 +20,6 @@ class CreateLeadModal extends HookConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
-    final inputBg = isDark ? AppColors.darkSurfaceHigh : AppColors.background;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
 
     final nameController = useTextEditingController();
     final phoneController = useTextEditingController();
@@ -39,7 +36,7 @@ class CreateLeadModal extends HookConsumerWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: sheetBg,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 24.h),
@@ -75,8 +72,7 @@ class CreateLeadModal extends HookConsumerWidget {
               AppTextField(
                 controller: nameController,
                 hint: 'Customer Full Name *',
-                fillColor: inputBg,
-                borderColor: borderColor,
+
                 borderRadius: 10,
               ),
               SizedBox(height: 12.h),
@@ -86,8 +82,7 @@ class CreateLeadModal extends HookConsumerWidget {
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
                 hint: 'Phone Number *',
-                fillColor: inputBg,
-                borderColor: borderColor,
+
                 borderRadius: 10,
               ),
               SizedBox(height: 12.h),
@@ -96,8 +91,7 @@ class CreateLeadModal extends HookConsumerWidget {
               AppTextField(
                 controller: countryController,
                 label: 'Destination Country',
-                fillColor: inputBg,
-                borderColor: borderColor,
+
                 borderRadius: 10,
               ),
               SizedBox(height: 12.h),
@@ -106,8 +100,7 @@ class CreateLeadModal extends HookConsumerWidget {
               AppTextField(
                 controller: visaController,
                 label: 'Visa / Service Interest',
-                fillColor: inputBg,
-                borderColor: borderColor,
+
                 borderRadius: 10,
               ),
               SizedBox(height: 12.h),
@@ -116,8 +109,7 @@ class CreateLeadModal extends HookConsumerWidget {
               AppTextField(
                 controller: sourceController,
                 label: 'Lead Source',
-                fillColor: inputBg,
-                borderColor: borderColor,
+
                 borderRadius: 10,
               ),
               SizedBox(height: 12.h),
@@ -127,8 +119,7 @@ class CreateLeadModal extends HookConsumerWidget {
                 controller: notesController,
                 hint: 'Initial Client Notes',
                 maxLines: 2,
-                fillColor: inputBg,
-                borderColor: borderColor,
+
                 borderRadius: 10,
               ),
               SizedBox(height: 24.h),

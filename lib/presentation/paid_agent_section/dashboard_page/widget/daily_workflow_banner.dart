@@ -1,4 +1,3 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../../core/constant/const.dart';
 import '../../lead_page/widget/create_lead_modal.dart';

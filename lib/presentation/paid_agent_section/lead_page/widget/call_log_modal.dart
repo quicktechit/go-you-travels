@@ -1,6 +1,5 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
-import '../../../../core/widgets/app_button.dart';
 import '../model/lead_model.dart';
 import '../provider/lead_provider.dart';
 
@@ -26,9 +25,8 @@ class CallLogModal extends HookConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final sheetBg = isDark ? AppColors.darkSurface : AppColors.background;
-    final cardBg = isDark ? AppColors.darkSurfaceHigh : AppColors.background;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
+
+    final borderColor = AppColors.darkTextSecondary.withAlpha(70);
 
     final selectedResult = useState<String>('Scheduled Visit');
     final followUpTime = useState<String>('Tomorrow, 10:00 AM');
@@ -49,7 +47,7 @@ class CallLogModal extends HookConsumerWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: sheetBg,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
         ),
         padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 24.h),
@@ -97,9 +95,7 @@ class CallLogModal extends HookConsumerWidget {
                         Text(
                           'Calling ${lead.name}',
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: isDark
-                                    ? AppColors.darkTextPrimary
-                                    : AppColors.textPrimary,
+
                                 fontWeight: FontWeight.bold,
                               ),
                           maxLines: 1,
@@ -109,9 +105,7 @@ class CallLogModal extends HookConsumerWidget {
                         Text(
                           lead.phone,
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                color: isDark
-                                    ? AppColors.darkTextSecondary
-                                    : AppColors.textSecondary,
+
                               ),
                         ),
                       ],
@@ -190,9 +184,7 @@ class CallLogModal extends HookConsumerWidget {
                 'Select Call Result:',
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: isDark
-                          ? AppColors.darkTextPrimary
-                          : AppColors.textPrimary,
+
                     ),
               ),
               SizedBox(height: 12.h),
@@ -220,7 +212,7 @@ class CallLogModal extends HookConsumerWidget {
                       decoration: BoxDecoration(
                         color: isSelected
                             ? AppColors.yellow
-                            : cardBg,
+                            : Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(10.r),
                         border: Border.all(
                           color: isSelected
@@ -235,10 +227,8 @@ class CallLogModal extends HookConsumerWidget {
                               fontSize: 13.sp,
                               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                               color: isSelected
-                                  ? AppColors.surface
-                                  : (isDark
-                                      ? AppColors.darkTextPrimary
-                                      : AppColors.textPrimary),
+                                  ? AppColors.surface:
+                                  null,
                             ),
                         textAlign: TextAlign.center,
                         maxLines: 1,
@@ -276,7 +266,7 @@ class CallLogModal extends HookConsumerWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   decoration: BoxDecoration(
-                    color: cardBg,
+                    color: Theme.of(context).cardColor,
                     borderRadius: BorderRadius.circular(12.r),
                     border: Border.all(color: borderColor, width: 1),
                   ),
@@ -286,9 +276,7 @@ class CallLogModal extends HookConsumerWidget {
                       Text(
                         'Next Follow-up Date & Time',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: isDark
-                                  ? AppColors.darkTextSecondary
-                                  : AppColors.textSecondary,
+
                             ),
                       ),
                       SizedBox(height: 4.h),
@@ -296,9 +284,7 @@ class CallLogModal extends HookConsumerWidget {
                         followUpTime.value,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                               fontWeight: FontWeight.bold,
-                              color: isDark
-                                  ? AppColors.darkTextPrimary
-                                  : AppColors.textPrimary,
+
                             ),
                       ),
                     ],

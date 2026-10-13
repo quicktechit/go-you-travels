@@ -47,12 +47,9 @@ class QuickTechPaidAgentFollowupPage extends ConsumerWidget {
                       SizedBox(height: 12.h),
                       Text(
                         'No follow-ups found in this category',
-                        style: GoogleFonts.figtree(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
-                          color: isDark
-                              ? AppColors.darkTextSecondary
-                              : AppColors.textSecondary,
                         ),
                       ),
                     ],

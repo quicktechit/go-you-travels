@@ -7,10 +7,8 @@ class OperationalPerformanceSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(quickTechProfileProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final headerTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final labelTextColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +18,7 @@ class OperationalPerformanceSection extends ConsumerWidget {
           "THIS MONTH'S OPERATIONAL PERFORMANCE",
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w800,
-                color: headerTextColor,
+
                 letterSpacing: 0.6,
               ),
         ),
@@ -35,7 +33,7 @@ class OperationalPerformanceSection extends ConsumerWidget {
                 label: 'Conversions',
                 value: '${profile.monthlyConversions} Clients',
                 valueColor: AppColors.yellow,
-                labelColor: labelTextColor,
+
               ),
             ),
             Expanded(
@@ -44,7 +42,7 @@ class OperationalPerformanceSection extends ConsumerWidget {
                 label: 'Visa Files',
                 value: '${profile.activeVisaFiles} Active',
                 valueColor: AppColors.secondaryDark,
-                labelColor: labelTextColor,
+
               ),
             ),
             Expanded(
@@ -53,7 +51,7 @@ class OperationalPerformanceSection extends ConsumerWidget {
                 label: 'Commission',
                 value: profile.monthlyCommission,
                 valueColor: AppColors.orange,
-                labelColor: labelTextColor,
+
               ),
             ),
           ],
@@ -67,7 +65,7 @@ class OperationalPerformanceSection extends ConsumerWidget {
     required String label,
     required String value,
     required Color valueColor,
-    required Color labelColor,
+
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,7 +75,7 @@ class OperationalPerformanceSection extends ConsumerWidget {
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontSize: 12.5.sp,
                 fontWeight: FontWeight.w500,
-                color: labelColor,
+
               ),
         ),
         SizedBox(height: 4.h),

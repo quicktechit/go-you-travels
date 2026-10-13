@@ -12,10 +12,7 @@ class PreferenceSettingsCard extends ConsumerWidget {
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final primaryText = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final secondaryText = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +22,7 @@ class PreferenceSettingsCard extends ConsumerWidget {
           'LANGUAGE & DISPLAY PREFERENCE',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w800,
-                color: secondaryText,
+
                 letterSpacing: 0.6,
               ),
         ),
@@ -35,16 +32,16 @@ class PreferenceSettingsCard extends ConsumerWidget {
         Container(
           padding: EdgeInsets.all(16.r),
           decoration: BoxDecoration(
-            color: cardBg,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: borderColor, width: 1.w),
+            border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1.w),
             boxShadow: [
-              if (!isDark)
-                BoxShadow(
-                  color: AppColors.cardShadow,
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
+
+              BoxShadow(
+                color: AppColors.cardShadow,
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
             ],
           ),
           child: Column(
@@ -66,14 +63,14 @@ class PreferenceSettingsCard extends ConsumerWidget {
                           'Language / ভাষা',
                           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: primaryText,
+
                               ),
                         ),
                         SizedBox(height: 2.h),
                         Text(
                           profile.selectedLanguage == 'EN' ? 'English' : 'বাংলা',
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: secondaryText,
+
                               ),
                         ),
                       ],
@@ -129,14 +126,14 @@ class PreferenceSettingsCard extends ConsumerWidget {
                           isDark ? 'Dark Mode' : 'White Mode (Default)',
                           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
-                                color: primaryText,
+
                               ),
                         ),
                         SizedBox(height: 2.h),
                         Text(
                           isDark ? 'Dark surface background' : 'Clean white background',
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: secondaryText,
+
                               ),
                         ),
                       ],

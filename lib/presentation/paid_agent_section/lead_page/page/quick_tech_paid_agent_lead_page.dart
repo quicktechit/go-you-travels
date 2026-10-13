@@ -20,8 +20,7 @@ class QuickTechPaidAgentLeadPage extends HookConsumerWidget {
 
     final searchController = useTextEditingController(text: state.searchQuery);
 
-    final cardBg = isDark ? AppColors.darkSurface : Colors.white;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
+
 
     return Scaffold(
       appBar: const CustomAppbar(
@@ -62,8 +61,8 @@ class QuickTechPaidAgentLeadPage extends HookConsumerWidget {
                           ? LucideIcons.x
                           : null,
                       onChanged: (val) => notifier.setSearchQuery(val),
-                      fillColor: cardBg,
-                      borderColor: borderColor,
+
+
                       borderRadius: 14,
                     ),
                   ),
@@ -76,17 +75,10 @@ class QuickTechPaidAgentLeadPage extends HookConsumerWidget {
                       width: 48.h,
                       height: 48.h,
                       decoration: BoxDecoration(
-                        color: cardBg,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(14.r),
-                        border: Border.all(color: borderColor, width: 1),
-                        boxShadow: [
-                          if (!isDark)
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.02),
-                              blurRadius: 6,
-                              offset: const Offset(0, 2),
-                            ),
-                        ],
+                        border: Border.all(color: AppColors.darkTextSecondary.withAlpha(70), width: 1),
+
                       ),
                       alignment: Alignment.center,
                       child: Icon(
@@ -129,8 +121,7 @@ class QuickTechPaidAgentLeadPage extends HookConsumerWidget {
                       SizedBox(height: 12.h),
                       Text(
                         'No leads found matching criteria',
-                        style: GoogleFonts.figtree(
-                          fontSize: 14.sp,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: isDark
                               ? AppColors.darkTextSecondary
