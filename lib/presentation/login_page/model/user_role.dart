@@ -28,7 +28,7 @@ enum UserRole {
   rlAccountUser(
     id: 'rl_account_user',
     title: 'RL Account User Dashboard',
-    shortName: 'RL Account User',
+    shortName: 'RL',
     subtitle: 'RL-1492 Account Balance, Treasury & Ledger',
     icon: Icons.account_balance_rounded,
     iconColor: Color(0xFF7C3AED), // Purple

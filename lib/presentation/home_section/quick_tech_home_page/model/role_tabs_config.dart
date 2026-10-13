@@ -14,6 +14,9 @@ import '../../../paid_agent_section/follow_up_page/page/quick_tech_paid_agent_fo
 import '../../../paid_agent_section/lead_page/page/quick_tech_paid_agent_lead_page.dart';
 import '../../../paid_agent_section/profile_page/page/quick_tech_paid_agent_profile_page.dart';
 import '../../../paid_agent_section/report_page/page/quick_tech_paid_agent_report_page.dart';
+import '../../../rl_account_section/dashboard_page/page/quick_tech_rl_account_dashboard_page.dart';
+import '../../../rl_account_section/ledger_page/page/quick_tech_rl_account_ledger_page.dart';
+import '../../../rl_account_section/profile_page/page/quick_tech_rl_account_profile_page.dart';
 import '../widget/role_tab_views.dart';
 import 'nav_tab_item.dart';
 
@@ -137,35 +140,22 @@ class RoleTabsConfig {
             icon: LucideIcons.layoutGrid,
             sfSymbol: 'square.grid.2x2',
             selectedSfSymbol: 'square.grid.2x2.fill',
-            page:ComingSoonView(title: 'Dashboard', icon: LucideIcons.layoutGrid)
+            page: QuickTechRlAccountDashboardPage(),
           ),
           NavTabItem(
             label: 'Ledger',
             icon: LucideIcons.bookOpen,
             sfSymbol: 'book',
             selectedSfSymbol: 'book.fill',
-            page: ComingSoonView(title: 'Ledger', icon: LucideIcons.bookOpen),
+            page: QuickTechRlAccountLedgerPage(),
           ),
-          NavTabItem(
-            label: 'Financials',
-            icon: LucideIcons.landmark,
-            sfSymbol: 'banknote',
-            selectedSfSymbol: 'banknote.fill',
-            page: ComingSoonView(title: 'Financials', icon: LucideIcons.landmark),
-          ),
-          NavTabItem(
-            label: 'Notification',
-            icon: LucideIcons.bell,
-            sfSymbol: 'bell',
-            selectedSfSymbol: 'bell.fill',
-            page: ComingSoonView(title: 'Notification', icon: LucideIcons.bell),
-          ),
+
           NavTabItem(
             label: 'Profile',
             icon: LucideIcons.user,
             sfSymbol: 'person.crop.circle',
             selectedSfSymbol: 'person.crop.circle.fill',
-            page: ComingSoonView(title: 'Profile', icon: LucideIcons.user),
+            page: QuickTechRlAccountProfilePage(),
           ),
         ];
     }
