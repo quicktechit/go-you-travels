@@ -1,4 +1,4 @@
-import '../../../core/constant/const.dart';
+import '../../../../core/constant/const.dart';
 import '../model/user_role.dart';
 import '../provider/login_provider.dart';
 
@@ -32,18 +32,16 @@ class _LoginCardState extends ConsumerState<LoginCard> {
   Widget build(BuildContext context) {
     final state = ref.watch(loginProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textTheme = Theme.of(context).textTheme;
+    final theme=Theme.of(context);
+    final borderColor = AppColors.darkTextSecondary.withAlpha(70);
 
-    final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
-    final textDarkColor = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final textMutedColor = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
-    final dropdownBg = isDark ? AppColors.darkSurfaceHigh : AppColors.background;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
       decoration: BoxDecoration(
-        color: cardBg,
+        color: theme.cardColor,
         borderRadius: BorderRadius.circular(20.r),
         border: Border.all(color: borderColor, width: 1.w),
         boxShadow: [
@@ -60,10 +58,8 @@ class _LoginCardState extends ConsumerState<LoginCard> {
           // Card Title
           Text(
             'Sign In',
-            style: GoogleFonts.figtree(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: textDarkColor,
+            style: textTheme.headlineMedium?.copyWith(
+
             ),
           ),
           SizedBox(height: 4.h),
@@ -71,9 +67,8 @@ class _LoginCardState extends ConsumerState<LoginCard> {
           // Card Subtitle
           Text(
             'Select your role and dashboard to visit below',
-            style: GoogleFonts.figtree(
-              fontSize: 13.sp,
-              color: textMutedColor,
+            style: textTheme.bodyMedium?.copyWith(
+
             ),
           ),
           SizedBox(height: 20.h),
@@ -82,8 +77,7 @@ class _LoginCardState extends ConsumerState<LoginCard> {
           AppDropdown<UserRole>(
             labelWidget: Text(
               'ROLE & TARGET DASHBOARD *',
-              style: GoogleFonts.figtree(
-                fontSize: 12.sp,
+              style: textTheme.bodySmall?.copyWith(
                 fontWeight: FontWeight.w800,
                 color: AppColors.primaryDark,
                 letterSpacing: 0.4,
@@ -91,9 +85,7 @@ class _LoginCardState extends ConsumerState<LoginCard> {
             ),
             value: state.selectedRole,
             prefixIcon: state.selectedRole.icon,
-            prefixIconColor: state.selectedRole.iconColor,
-            borderColor: AppColors.primaryDark,
-            dropdownColor: dropdownBg,
+
             itemHeight: 62.h,
             selectedItemBuilder: (context) {
               return UserRole.values.map((role) {
@@ -101,10 +93,9 @@ class _LoginCardState extends ConsumerState<LoginCard> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     role.title,
-                    style: GoogleFonts.figtree(
-                      fontSize: 15.sp,
+                    style: textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: textDarkColor,
+
                     ),
                   ),
                 );
@@ -139,10 +130,9 @@ class _LoginCardState extends ConsumerState<LoginCard> {
                                 Expanded(
                                   child: Text(
                                     role.title,
-                                    style: GoogleFonts.figtree(
-                                      fontSize: 14.sp,
+                                    style: textTheme.titleSmall?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: textDarkColor,
+
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -162,8 +152,7 @@ class _LoginCardState extends ConsumerState<LoginCard> {
                                     ),
                                     child: Text(
                                       'Selected',
-                                      style: GoogleFonts.figtree(
-                                        fontSize: 11.sp,
+                                      style: textTheme.bodySmall?.copyWith(
                                         fontWeight: FontWeight.w700,
                                         color: isDark ? AppColors.darkTextPrimary : AppColors.primaryDark,
                                       ),
@@ -175,9 +164,8 @@ class _LoginCardState extends ConsumerState<LoginCard> {
                             SizedBox(height: 2.h),
                             Text(
                               role.subtitle,
-                              style: GoogleFonts.figtree(
-                                fontSize: 11.5.sp,
-                                color: textMutedColor,
+                              style: textTheme.bodySmall?.copyWith(
+
                                 fontWeight: FontWeight.w400,
                               ),
                               maxLines: 1,
@@ -216,7 +204,6 @@ class _LoginCardState extends ConsumerState<LoginCard> {
             controller: _passwordController,
             isPassword: true,
             prefixIcon: Icons.lock_rounded,
-            borderColor: borderColor,
             onChanged: (val) {
               ref.read(loginProvider.notifier).updatePassword(val);
             },
@@ -235,8 +222,7 @@ class _LoginCardState extends ConsumerState<LoginCard> {
               },
               child: Text(
                 'Forgot Password?',
-                style: GoogleFonts.figtree(
-                  fontSize: 13.sp,
+                style: textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: isDark ? AppColors.primaryLight : AppColors.primaryDark,
                 ),
@@ -268,8 +254,7 @@ class _LoginCardState extends ConsumerState<LoginCard> {
                   Expanded(
                     child: Text(
                       state.errorMessage!,
-                      style: GoogleFonts.figtree(
-                        fontSize: 13.sp,
+                      style: textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.error,
                         fontWeight: FontWeight.w500,
                       ),
@@ -299,6 +284,32 @@ class _LoginCardState extends ConsumerState<LoginCard> {
                 context.go(AppRoutes.home);
               }
             },
+          ),
+          SizedBox(height: 18.h),
+
+          // Register Link Row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Don't have an account? ",
+                style: textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  context.go(AppRoutes.register);
+                },
+                child: Text(
+                  'Register Now',
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isDark ? AppColors.primaryLight : AppColors.primaryDark,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

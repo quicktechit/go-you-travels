@@ -1,9 +1,9 @@
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import '../../../auth_section/login_page/model/user_role.dart';
 import '../../../local_agent_section/commission_page/page/quick_tech_local_agent_commission_page.dart';
 import '../../../local_agent_section/dashboard_page/page/quick_tech_local_agent_dashboard_page.dart';
 import '../../../local_agent_section/my_client_page/page/quick_tech_local_agent_my_client_page.dart';
 import '../../../local_agent_section/profile_page/page/quick_tech_local_agent_profile_page.dart';
-import '../../../login_page/model/user_role.dart';
 import '../../../office_agent_section/dashboard_page/page/quick_tech_office_agent_dashboard_page.dart';
 import '../../../office_agent_section/lead_page/page/quick_tech_office_agent_lead_page.dart';
 import '../../../office_agent_section/profile_page/page/quick_tech_office_agent_profile_page.dart';

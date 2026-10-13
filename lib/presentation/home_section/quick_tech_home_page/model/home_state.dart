@@ -1,4 +1,5 @@
-import '../../../login_page/model/user_role.dart';
+
+import '../../../auth_section/login_page/model/user_role.dart';
 
 class HomeState {
   final int selectedNavIndex;

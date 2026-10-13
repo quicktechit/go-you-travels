@@ -94,7 +94,31 @@ class ProfileHeaderCard extends ConsumerWidget {
                       ),
                 ),
               ),
-
+              SizedBox(width: 8.w),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.darkSurfaceHigh : AppColors.amber.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '⭐',
+                      style: TextStyle(fontSize: 12.sp),
+                    ),
+                    SizedBox(width: 4.w),
+                    Text(
+                      '${profile.rating} Rating',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? AppColors.amber : AppColors.orange,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           SizedBox(height: 16.h),

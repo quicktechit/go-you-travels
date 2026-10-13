@@ -1,4 +1,4 @@
-import '../../../core/constant/const.dart';
+import '../../../../core/constant/const.dart';
 import '../widget/login_card.dart';
 import '../widget/login_header.dart';
 import '../widget/login_top_bar.dart';
@@ -9,7 +9,7 @@ class QuickTechLoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),

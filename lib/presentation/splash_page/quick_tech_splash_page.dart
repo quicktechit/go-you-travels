@@ -130,7 +130,7 @@ class _QuickTechSplashPageState extends State<QuickTechSplashPage>
                           ),
                         ],
                       ),
-                      child: Image.asset('assets/logo/earth.png'),
+                      child: Image.asset('assets/logo/appicon.png'),
                     ),
                   ),
                   const SizedBox(height: 40),

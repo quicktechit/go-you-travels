@@ -13,7 +13,7 @@ class LocalAgentPreferenceSettings extends ConsumerWidget {
     final isDark = themeMode == ThemeMode.dark;
 
     final cardBg = isDark ? AppColors.darkSurface : AppColors.surface;
-    final borderColor = isDark ? AppColors.darkLine : AppColors.line;
+    final borderColor =AppColors.darkTextSecondary.withAlpha(70);
     final primaryText = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
     final secondaryText = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
 

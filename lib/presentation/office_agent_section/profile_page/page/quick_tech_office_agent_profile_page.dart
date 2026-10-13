@@ -1,6 +1,6 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
+import '../widget/my_team_card_banner.dart';
 import '../widget/operational_performance_section.dart';
 import '../widget/preference_settings_card.dart';
 import '../widget/profile_header_card.dart';
@@ -34,6 +34,10 @@ class QuickTechOfficeAgentProfilePage extends ConsumerWidget {
 
               // 3. Language & Display Preference Settings Card
               const PreferenceSettingsCard(),
+              SizedBox(height: 20.h),
+
+              // 4. My Team Banner Card (Routes to My Team Page)
+              const MyTeamCardBanner(),
               SizedBox(height: 16.h),
 
               // 4. Agency Helplines & Embassy Contacts Banner

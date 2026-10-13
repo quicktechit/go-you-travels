@@ -1,6 +1,4 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
-
-import '../../../core/constant/const.dart';
+import '../../../../core/constant/const.dart';
 import '../provider/login_provider.dart';
 
 class LoginTopBar extends ConsumerWidget {
@@ -11,9 +9,8 @@ class LoginTopBar extends ConsumerWidget {
     final state = ref.watch(loginProvider);
     final themeMode = ref.watch(themeProvider);
     final isDark = themeMode == ThemeMode.dark;
-
-    final pillBg = isDark ? AppColors.darkSurfaceHigh : AppColors.primaryLight.withValues(alpha: 0.12);
-    final pillTextColor = isDark ? AppColors.darkTextPrimary : AppColors.primaryDark;
+    
+    final textTheme = Theme.of(context).textTheme;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,7 +19,7 @@ class LoginTopBar extends ConsumerWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
           decoration: BoxDecoration(
-            color: pillBg,
+            color: Theme.of(context).primaryColor.withGreen(180).withAlpha(40),
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Row(
@@ -39,10 +36,9 @@ class LoginTopBar extends ConsumerWidget {
               SizedBox(width: 8.w),
               Text(
                 'System Online',
-                style: GoogleFonts.figtree(
-                  fontSize: 13.sp,
+                style: textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: pillTextColor,
+           
                 ),
               ),
             ],
@@ -59,7 +55,7 @@ class LoginTopBar extends ConsumerWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: pillBg,
+                  color: Theme.of(context).primaryColor.withGreen(180).withAlpha(40),
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Row(
@@ -68,15 +64,14 @@ class LoginTopBar extends ConsumerWidget {
                     Icon(
                       Icons.translate_rounded,
                       size: 16.sp,
-                      color: pillTextColor,
+             
                     ),
                     SizedBox(width: 6.w),
                     Text(
                       state.selectedLanguage,
-                      style: GoogleFonts.figtree(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w700,
-                        color: pillTextColor,
+                      style: textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                     
                       ),
                     ),
                   ],

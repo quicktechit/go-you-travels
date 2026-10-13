@@ -1,5 +1,5 @@
+import '../../presentation/auth_section/login_page/provider/login_provider.dart';
 import '../constant/const.dart';
-import '../../presentation/login_page/provider/login_provider.dart';
 
 /// A customizable top app bar that implements [PreferredSizeWidget],
 /// allowing it to be used either as a [Scaffold.appBar] or as a standalone widget anywhere in the app.
@@ -82,20 +82,33 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
                     leading!,
                     SizedBox(width: 8.w),
                   ] else if (showBackButton) ...[
-                    IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        size: 18.sp,
-                        color: isDark
-                            ? AppColors.darkTextPrimary
-                            : AppColors.textPrimary,
+
+                    InkWell(
+                      onTap: onBackTap ?? () => context.pop(),
+                      borderRadius: BorderRadius.circular(7),
+                      child: Container(
+                        padding: EdgeInsets.all(5.r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          border: .all(color: AppColors.darkTextSecondary.withAlpha(70))
+                        ),
+                        child: Icon(Icons.arrow_back_ios_new_rounded,size: 20.sp,),
                       ),
-                      onPressed:
-                          onBackTap ?? () =>   context.pop(),
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
                     ),
-                    SizedBox(width: 8.w),
+                    // IconButton(
+                    //   icon: Icon(
+                    //     Icons.arrow_back_ios_new_rounded,
+                    //     size: 18.sp,
+                    //     color: isDark
+                    //         ? AppColors.darkTextPrimary
+                    //         : AppColors.textPrimary,
+                    //   ),
+                    //   onPressed:
+                    //       onBackTap ?? () =>   context.pop(),
+                    //   padding: EdgeInsets.zero,
+                    //   constraints: const BoxConstraints(),
+                    // ),
+                   10.horizontalSpace
                   ],
                   Expanded(
                     child: Column(

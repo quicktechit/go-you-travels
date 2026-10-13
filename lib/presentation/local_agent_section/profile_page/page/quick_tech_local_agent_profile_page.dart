@@ -1,5 +1,6 @@
 import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
+import '../widget/local_agent_my_team_card_banner.dart';
 import '../widget/local_agent_operational_performance.dart';
 import '../widget/local_agent_preference_settings.dart';
 import '../widget/local_agent_profile_header_card.dart';
@@ -34,7 +35,11 @@ class QuickTechLocalAgentProfilePage extends ConsumerWidget {
 
               // 3. Language & Display Preference Settings Card
               const LocalAgentPreferenceSettings(),
-              SizedBox(height: 24.h),
+              SizedBox(height: 20.h),
+
+              // 4. My Team Banner Card (Routes to My Team Page)
+              const LocalAgentMyTeamCardBanner(),
+              SizedBox(height: 20.h),
 
               // 4. Logout Session Button
               AppButton(

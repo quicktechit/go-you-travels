@@ -1,6 +1,6 @@
 import '../../../../core/constant/const.dart';
-import '../../../login_page/model/user_role.dart';
-import '../../../login_page/provider/login_provider.dart';
+import '../../../auth_section/login_page/model/user_role.dart';
+import '../../../auth_section/login_page/provider/login_provider.dart';
 import '../model/home_state.dart';
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {

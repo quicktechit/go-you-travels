@@ -41,23 +41,13 @@ class NotificationAppbar extends ConsumerWidget implements PreferredSizeWidget {
                 onTap: onBackTap ?? () => context.pop(),
                 borderRadius: BorderRadius.circular(12.r),
                 child: Container(
-                  width: 40.r,
-                  height: 40.r,
+                  padding: EdgeInsets.all(5.r),
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.darkSurfaceHigh : AppColors.background,
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(
-                      color: isDark ? AppColors.darkLine : AppColors.line,
-                      width: 1,
-                    ),
+
+                    borderRadius: BorderRadius.circular(7),
+                      border: .all(color: AppColors.darkTextSecondary.withAlpha(70))
                   ),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 18.sp,
-                      color: isDark ? AppColors.darkTextPrimary : AppColors.textPrimary,
-                    ),
-                  ),
+                  child: Icon(Icons.arrow_back_ios_new_rounded,size: 20.sp,),
                 ),
               ),
               SizedBox(width: 12.w),

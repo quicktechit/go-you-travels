@@ -1,10 +1,7 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
-import '../../../home_section/quick_tech_home_page/model/role_tabs_config.dart';
 import '../../../home_section/quick_tech_home_page/provider/home_provider.dart';
-import '../../../home_section/quick_tech_home_page/widget/home_bottom_nav.dart';
-import '../../../login_page/model/user_role.dart';
+
 import '../provider/quick_tech_followup_provider.dart';
 import '../widget/followup_card_item.dart';
 import '../widget/followup_filter_chips.dart';
@@ -15,7 +12,6 @@ class QuickTechOfficeAgentFollowupPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(quickTechFollowupProvider);
-    final homeState = ref.watch(homeProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
 
