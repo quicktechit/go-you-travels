@@ -1,4 +1,18 @@
-class PaidAgentTeamMember {
+import 'package:flutter/foundation.dart';
+
+enum TeamAgentType {
+  office('Office Consultants'),
+  paid('Paid Campaign Team'),
+  local('Regional Partners');
+
+  final String label;
+  const TeamAgentType(this.label);
+}
+
+enum UserReaction { none, like, dislike }
+
+@immutable
+class TeamMember {
   final String id;
   final String name;
   final String designation;
@@ -7,11 +21,13 @@ class PaidAgentTeamMember {
   final double rating;
   final int totalRatings;
   final double? myRating;
-  final String? myReviewNote;
-  final List<String> selectedTags;
+  final int likes;
+  final int dislikes;
+  final UserReaction myReaction;
   final bool isOnDuty;
+  final TeamAgentType agentType;
 
-  const PaidAgentTeamMember({
+  const TeamMember({
     required this.id,
     required this.name,
     required this.designation,
@@ -20,12 +36,14 @@ class PaidAgentTeamMember {
     required this.rating,
     required this.totalRatings,
     this.myRating,
-    this.myReviewNote,
-    this.selectedTags = const [],
+    required this.likes,
+    required this.dislikes,
+    this.myReaction = UserReaction.none,
     this.isOnDuty = true,
+    required this.agentType,
   });
 
-  PaidAgentTeamMember copyWith({
+  TeamMember copyWith({
     String? id,
     String? name,
     String? designation,
@@ -34,11 +52,13 @@ class PaidAgentTeamMember {
     double? rating,
     int? totalRatings,
     double? myRating,
-    String? myReviewNote,
-    List<String>? selectedTags,
+    int? likes,
+    int? dislikes,
+    UserReaction? myReaction,
     bool? isOnDuty,
+    TeamAgentType? agentType,
   }) {
-    return PaidAgentTeamMember(
+    return TeamMember(
       id: id ?? this.id,
       name: name ?? this.name,
       designation: designation ?? this.designation,
@@ -47,9 +67,11 @@ class PaidAgentTeamMember {
       rating: rating ?? this.rating,
       totalRatings: totalRatings ?? this.totalRatings,
       myRating: myRating ?? this.myRating,
-      myReviewNote: myReviewNote ?? this.myReviewNote,
-      selectedTags: selectedTags ?? this.selectedTags,
+      likes: likes ?? this.likes,
+      dislikes: dislikes ?? this.dislikes,
+      myReaction: myReaction ?? this.myReaction,
       isOnDuty: isOnDuty ?? this.isOnDuty,
+      agentType: agentType ?? this.agentType,
     );
   }
 }

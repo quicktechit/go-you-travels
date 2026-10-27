@@ -1,28 +1,66 @@
 import '../../../../core/constant/const.dart';
+import '../model/team_member_model.dart';
 import '../provider/team_provider.dart';
 
 class MyTeamCardBanner extends ConsumerWidget {
-  const MyTeamCardBanner({super.key});
+  final TeamAgentType agentType;
+
+  const MyTeamCardBanner({
+    super.key,
+    this.agentType = TeamAgentType.office,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final teamList = ref.watch(paidAgentTeamProvider);
+    final allTeam = ref.watch(teamProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final teamList = allTeam.where((m) => m.agentType == agentType).toList();
+
+    Color accentColor;
+    Color bgColor;
+    String route;
+    String subtitleText;
+
+    switch (agentType) {
+      case TeamAgentType.office:
+        accentColor = AppColors.primaryDark;
+        bgColor = isDark
+            ? AppColors.primaryDark.withValues(alpha: 0.3)
+            : AppColors.primaryLight.withValues(alpha: 0.15);
+        route = AppRoutes.officeAgentMyTeam;
+        subtitleText = 'View office consultants & give ratings';
+        break;
+      case TeamAgentType.paid:
+        accentColor = AppColors.yellow;
+        bgColor = isDark
+            ? AppColors.darkBrown.withValues(alpha: 0.3)
+            : AppColors.softOrange;
+        route = AppRoutes.paidAgentMyTeam;
+        subtitleText = 'View campaign team & give performance ratings';
+        break;
+      case TeamAgentType.local:
+        accentColor = AppColors.secondary;
+        bgColor = isDark
+            ? AppColors.secondaryDark.withValues(alpha: 0.3)
+            : AppColors.secondaryLight;
+        route = AppRoutes.localAgentMyTeam;
+        subtitleText = 'View regional hub partners & give ratings';
+        break;
+    }
 
     return InkWell(
       onTap: () {
-        context.push(AppRoutes.paidAgentMyTeam);
+        context.push(route);
       },
       borderRadius: BorderRadius.circular(16.r),
       child: Container(
         padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
-          color: isDark
-              ? AppColors.darkBrown.withValues(alpha: 0.3)
-              : AppColors.softOrange,
+          color: bgColor,
           borderRadius: BorderRadius.circular(16.r),
           border: Border.all(
-            color: isDark ? AppColors.yellow : AppColors.line,
+            color: isDark ? accentColor : AppColors.line,
             width: 1.w,
           ),
           boxShadow: [
@@ -40,7 +78,7 @@ class MyTeamCardBanner extends ConsumerWidget {
             Container(
               padding: EdgeInsets.all(10.r),
               decoration: BoxDecoration(
-                color: AppColors.yellow,
+                color: accentColor,
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Icon(
@@ -71,7 +109,7 @@ class MyTeamCardBanner extends ConsumerWidget {
                           vertical: 2.h,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.yellow.withValues(alpha: 0.2),
+                          color: accentColor.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Text(
@@ -79,7 +117,7 @@ class MyTeamCardBanner extends ConsumerWidget {
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 fontSize: 10.5.sp,
                                 fontWeight: FontWeight.bold,
-                                color: isDark ? AppColors.amber : AppColors.orange,
+                                color: isDark ? accentColor : accentColor,
                               ),
                         ),
                       ),
@@ -87,7 +125,7 @@ class MyTeamCardBanner extends ConsumerWidget {
                   ),
                   SizedBox(height: 3.h),
                   Text(
-                    'View campaign team & give performance ratings',
+                    subtitleText,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: isDark
                               ? AppColors.darkTextSecondary
@@ -103,7 +141,7 @@ class MyTeamCardBanner extends ConsumerWidget {
             Icon(
               LucideIcons.chevronRight,
               size: 20.sp,
-              color: AppColors.yellow,
+              color: accentColor,
             ),
           ],
         ),

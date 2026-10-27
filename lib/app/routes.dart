@@ -2,15 +2,14 @@ import '../core/constant/const.dart';
 import '../presentation/auth_section/login_page/page/quick_tech_login_page.dart';
 import '../presentation/auth_section/register_page/page/quick_tech_register_page.dart';
 import '../presentation/home_section/quick_tech_home_page/page/quick_tech_home_page.dart';
-import '../presentation/local_agent_section/profile_page/page/quick_tech_local_agent_my_team_page.dart';
+import '../presentation/my_team_section/model/team_member_model.dart';
+import '../presentation/my_team_section/page/quick_tech_my_team_page.dart';
 import '../presentation/notification_page/page/quick_tech_notification_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_dashboard_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_followup_page.dart';
 import '../presentation/office_agent_section/dashboard_page/page/quick_tech_office_agent_report_page.dart';
-import '../presentation/office_agent_section/profile_page/page/quick_tech_office_agent_my_team_page.dart';
 import '../presentation/paid_agent_section/dashboard_page/page/quick_tech_paid_agent_dashboard_page.dart';
 import '../presentation/paid_agent_section/follow_up_page/page/quick_tech_paid_agent_followup_page.dart';
-import '../presentation/paid_agent_section/profile_page/page/quick_tech_paid_agent_my_team_page.dart';
 import '../presentation/paid_agent_section/report_page/page/quick_tech_paid_agent_report_page.dart';
 import '../presentation/splash_page/quick_tech_splash_page.dart';
 
@@ -31,6 +30,7 @@ class AppRoutes {
   static const String officeAgentMyTeam = '/office-agent-my-team';
   static const String paidAgentMyTeam = '/paid-agent-my-team';
   static const String localAgentMyTeam = '/local-agent-my-team';
+  static const String myTeam = '/my-team';
   static const String notification = '/notification';
 
   static final GoRouter router = GoRouter(
@@ -85,17 +85,22 @@ class AppRoutes {
       GoRoute(
         path: officeAgentMyTeam,
         builder: (context, state) =>
-        const QuickTechOfficeAgentMyTeamPage(),
+        const QuickTechMyTeamPage(agentType: TeamAgentType.office),
       ),
       GoRoute(
         path: paidAgentMyTeam,
         builder: (context, state) =>
-        const QuickTechPaidAgentMyTeamPage(),
+        const QuickTechMyTeamPage(agentType: TeamAgentType.paid),
       ),
       GoRoute(
         path: localAgentMyTeam,
         builder: (context, state) =>
-        const QuickTechLocalAgentMyTeamPage(),
+        const QuickTechMyTeamPage(agentType: TeamAgentType.local),
+      ),
+      GoRoute(
+        path: myTeam,
+        builder: (context, state) =>
+        const QuickTechMyTeamPage(),
       ),
       GoRoute(
         path: notification,
