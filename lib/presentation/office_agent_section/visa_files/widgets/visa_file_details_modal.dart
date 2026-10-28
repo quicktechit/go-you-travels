@@ -1,6 +1,4 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
-import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/upload_doc_modal.dart';
 import '../model/visa_file_model.dart';
 import '../provider/visa_file_provider.dart';
@@ -169,6 +167,16 @@ class VisaFileDetailsModal extends ConsumerWidget {
                     AppColors.secondaryDark,
                     secondaryText,
                   ),
+                  if (currentFile.referralCode != null && currentFile.referralCode!.isNotEmpty) ...[
+                    SizedBox(height: 10.h),
+                    _buildDetailRow(
+                      context,
+                      'Referred By Agent',
+                      '${currentFile.referralAgentType ?? 'Agent'} · ${currentFile.referralCode}${currentFile.referralAgentName != null && currentFile.referralAgentName!.isNotEmpty ? ' (${currentFile.referralAgentName})' : ''}',
+                      AppColors.primaryDark,
+                      secondaryText,
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -339,6 +347,8 @@ class VisaFileDetailsModal extends ConsumerWidget {
     required List<String> stepLabels,
     required bool isDark,
   }) {
+    final nextStepIndex = currentStepIndex < stepLabels.length - 1 ? currentStepIndex + 1 : -1;
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
@@ -346,20 +356,27 @@ class VisaFileDetailsModal extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(stepLabels.length, (index) {
           final isDone = index <= currentStepIndex;
-          final isCurrent = index == currentStepIndex;
+          final isLoading = index == nextStepIndex;
 
           return Row(
             children: [
               Column(
                 children: [
                   Container(
-                    width: 26.r,
-                    height: 26.r,
+                    width: 28.r,
+                    height: 28.r,
                     decoration: BoxDecoration(
                       color: isDone
                           ? AppColors.secondary
-                          : (isDark ? AppColors.darkSurfaceHigh : AppColors.line),
+                          : isLoading
+                              ? (isDark
+                                  ? AppColors.primaryDark.withValues(alpha: 0.25)
+                                  : AppColors.primaryLight.withValues(alpha: 0.2))
+                              : (isDark ? AppColors.darkSurfaceHigh : AppColors.line),
                       shape: BoxShape.circle,
+                      border: isLoading
+                          ? Border.all(color: AppColors.primaryDark, width: 1.5.w)
+                          : null,
                     ),
                     alignment: Alignment.center,
                     child: isDone
@@ -368,23 +385,31 @@ class VisaFileDetailsModal extends ConsumerWidget {
                             size: 15.sp,
                             color: AppColors.surface,
                           )
-                        : Text(
-                            '${index + 1}',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
-                                ),
-                          ),
+                        : isLoading
+                            ? Icon(
+                                LucideIcons.clock,
+                                size: 15.sp,
+                                color: AppColors.primaryDark,
+                              )
+                            : Text(
+                                '${index + 1}',
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+                                    ),
+                              ),
                   ),
                   SizedBox(height: 6.h),
                   Text(
                     stepLabels[index],
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 11.sp,
-                          fontWeight: isCurrent || isDone ? FontWeight.bold : FontWeight.w500,
+                          fontWeight: isDone || isLoading ? FontWeight.bold : FontWeight.w500,
                           color: isDone
                               ? AppColors.secondaryDark
-                              : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary),
+                              : isLoading
+                                  ? AppColors.primaryDark
+                                  : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary),
                         ),
                   ),
                 ],
@@ -396,7 +421,9 @@ class VisaFileDetailsModal extends ConsumerWidget {
                   margin: EdgeInsets.only(bottom: 18.h, left: 4.w, right: 4.w),
                   color: (index < currentStepIndex)
                       ? AppColors.secondary
-                      : (isDark ? AppColors.darkLine : AppColors.line),
+                      : (index == currentStepIndex)
+                          ? AppColors.primary
+                          : (isDark ? AppColors.darkLine : AppColors.line),
                 ),
               ],
             ],

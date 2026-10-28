@@ -47,6 +47,9 @@ class VisaFileItem {
   final double packagePrice;
   final double paidAmount;
   final double dueAmount;
+  final String? referralAgentType; // e.g. Local Agent, Paid Agent
+  final String? referralCode; // e.g. GYT-PRT-2811, GYT-PA-5015
+  final String? referralAgentName; // e.g. Rafiqul Islam
   final List<VisaDocumentItem> documents;
 
   const VisaFileItem({
@@ -63,6 +66,9 @@ class VisaFileItem {
     required this.packagePrice,
     required this.paidAmount,
     required this.dueAmount,
+    this.referralAgentType,
+    this.referralCode,
+    this.referralAgentName,
     this.documents = const [],
   });
 
@@ -80,6 +86,9 @@ class VisaFileItem {
     double? packagePrice,
     double? paidAmount,
     double? dueAmount,
+    String? referralAgentType,
+    String? referralCode,
+    String? referralAgentName,
     List<VisaDocumentItem>? documents,
   }) {
     return VisaFileItem(
@@ -96,6 +105,9 @@ class VisaFileItem {
       packagePrice: packagePrice ?? this.packagePrice,
       paidAmount: paidAmount ?? this.paidAmount,
       dueAmount: dueAmount ?? this.dueAmount,
+      referralAgentType: referralAgentType ?? this.referralAgentType,
+      referralCode: referralCode ?? this.referralCode,
+      referralAgentName: referralAgentName ?? this.referralAgentName,
       documents: documents ?? this.documents,
     );
   }

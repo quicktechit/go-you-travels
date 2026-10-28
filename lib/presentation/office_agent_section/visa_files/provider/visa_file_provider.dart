@@ -173,4 +173,43 @@ class QuickTechVisaFilesNotifier extends StateNotifier<VisaFileState> {
 
     state = state.copyWith(files: updatedList);
   }
+
+  void addVisaFile({
+    required String clientName,
+    required String visaCategory,
+    required String country,
+    required String applicationType,
+    required String targetTravelDate,
+    required double packagePrice,
+    required double paidAmount,
+    String? referralAgentType,
+    String? referralCode,
+    String? referralAgentName,
+  }) {
+    final nextNumber = state.files.length + 1;
+    final fileId = 'VF-2024-${nextNumber.toString().padLeft(3, '0')}';
+    final dueAmount = packagePrice > paidAmount ? packagePrice - paidAmount : 0.0;
+
+    final newFile = VisaFileItem(
+      fileId: fileId,
+      clientName: clientName,
+      visaCategory: visaCategory,
+      country: country,
+      applicationType: applicationType,
+      status: VisaFileStatus.newFile,
+      currentStepIndex: 0,
+      collectedDocsCount: 0,
+      totalDocsCount: 8,
+      targetTravelDate: targetTravelDate,
+      packagePrice: packagePrice,
+      paidAmount: paidAmount,
+      dueAmount: dueAmount,
+      referralAgentType: referralAgentType,
+      referralCode: referralCode,
+      referralAgentName: referralAgentName,
+    );
+
+    state = state.copyWith(files: [newFile, ...state.files]);
+    Fluttertoast.showToast(msg: "Visa file created successfully");
+  }
 }

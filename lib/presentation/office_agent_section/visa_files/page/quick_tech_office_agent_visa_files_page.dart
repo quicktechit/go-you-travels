@@ -1,7 +1,7 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../provider/visa_file_provider.dart';
+import '../widgets/create_visa_file_modal.dart';
 import '../widgets/visa_file_card_item.dart';
 import '../widgets/visa_file_filter_chips.dart';
 
@@ -16,13 +16,26 @@ class QuickTechOfficeAgentVisaFilesPage extends HookConsumerWidget {
 
     final searchController = useTextEditingController(text: state.searchQuery);
 
-
-
-
     return Scaffold(
       appBar: const CustomAppbar(
         title: 'Visa Files',
         subtitle: 'Go You Travels',
+      ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: 50.h),
+        child: FloatingActionButton(
+          heroTag: null,
+          onPressed: () => CreateVisaFileModal.show(context),
+          backgroundColor: const Color(0xFF1D4ED8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          child: Icon(
+            LucideIcons.plus,
+            color: Colors.white,
+            size: 24.sp,
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

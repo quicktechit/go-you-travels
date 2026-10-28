@@ -1,4 +1,3 @@
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/constant/const.dart';
 import '../model/visa_file_model.dart';
 import 'visa_file_details_modal.dart';
@@ -103,6 +102,27 @@ class VisaFileCardItem extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
+              if (visaFile.referralCode != null && visaFile.referralCode!.isNotEmpty) ...[
+                SizedBox(height: 4.h),
+                Row(
+                  children: [
+                    Icon(
+                      LucideIcons.userCheck,
+                      size: 13.sp,
+                      color: AppColors.primaryDark,
+                    ),
+                    SizedBox(width: 4.w),
+                    Text(
+                      'Ref Agent: ${visaFile.referralCode} (${visaFile.referralAgentType ?? 'Agent'})',
+                      style: GoogleFonts.figtree(
+                        fontSize: 11.5.sp,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primaryDark,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
               SizedBox(height: 16.h),
 
               // Workflow Stepper
@@ -164,11 +184,13 @@ class VisaFileCardItem extends StatelessWidget {
     required List<String> stepLabels,
     required bool isDark,
   }) {
+    final nextStepIndex = currentStepIndex < stepLabels.length - 1 ? currentStepIndex + 1 : -1;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(stepLabels.length, (index) {
         final isDone = index <= currentStepIndex;
-        final isCurrent = index == currentStepIndex;
+        final isLoading = index == nextStepIndex;
 
         return Expanded(
           child: Row(
@@ -181,39 +203,50 @@ class VisaFileCardItem extends StatelessWidget {
                       height: 24.r,
                       decoration: BoxDecoration(
                         color: isDone
-                            ? (isCurrent
-                                ? AppColors.primaryDark
-                                : AppColors.secondary)
-                            : (isDark ? AppColors.darkSurfaceHigh : AppColors.line),
+                            ? AppColors.secondary
+                            : isLoading
+                                ? (isDark
+                                    ? AppColors.primaryDark.withValues(alpha: 0.25)
+                                    : AppColors.primaryLight.withValues(alpha: 0.2))
+                                : (isDark ? AppColors.darkSurfaceHigh : AppColors.line),
                         shape: BoxShape.circle,
+                        border: isLoading
+                            ? Border.all(color: AppColors.primaryDark, width: 1.5.w)
+                            : null,
                       ),
                       alignment: Alignment.center,
-                      child: isDone && !isCurrent
+                      child: isDone
                           ? Icon(
                               LucideIcons.check,
                               size: 14.sp,
                               color: AppColors.surface,
                             )
-                          : Text(
-                              '${index + 1}',
-                              style: GoogleFonts.figtree(
-                                fontSize: 11.5.sp,
-                                fontWeight: FontWeight.bold,
-                                color: isDone
-                                    ? AppColors.surface
-                                    : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary),
-                              ),
-                            ),
+                          : isLoading
+                              ? Icon(
+                                  LucideIcons.clock,
+                                  size: 14.sp,
+                                  color: AppColors.primaryDark,
+                                )
+                              : Text(
+                                  '${index + 1}',
+                                  style: GoogleFonts.figtree(
+                                    fontSize: 11.5.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+                                  ),
+                                ),
                     ),
                     SizedBox(height: 5.h),
                     Text(
                       stepLabels[index],
                       style: GoogleFonts.figtree(
                         fontSize: 10.5.sp,
-                        fontWeight: isCurrent || isDone ? FontWeight.bold : FontWeight.w500,
+                        fontWeight: isDone || isLoading ? FontWeight.bold : FontWeight.w500,
                         color: isDone
-                            ? (isCurrent ? AppColors.primaryDark : AppColors.secondaryDark)
-                            : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary),
+                            ? AppColors.secondaryDark
+                            : isLoading
+                                ? AppColors.primaryDark
+                                : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -229,7 +262,9 @@ class VisaFileCardItem extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 16.h),
                   color: (index < currentStepIndex)
                       ? AppColors.secondary
-                      : (isDark ? AppColors.darkLine : AppColors.line),
+                      : (index == currentStepIndex)
+                          ? AppColors.primary
+                          : (isDark ? AppColors.darkLine : AppColors.line),
                 ),
             ],
           ),
